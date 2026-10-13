@@ -79,6 +79,8 @@ Checkliste – nur zutreffende Punkte aufnehmen:
 
 Die KI erstellt **Entwürfe** bzw. Gliederungen für Datenschutzerklärung und Impressum mit `[PRÜFEN]`-Markierungen. Für fertige Texte: Hinweis auf seriöse Generatoren oder Fachberatung.
 
+Rechtliche Aussagen (Paragraphen, Fristen, Pflichten) kommen mit Quelle in `QUELLEN.md` (Art: Primärquelle = Gesetzestext bzw. Behördenseite) oder ausdrücklich als „[PRÜFEN] – nicht verifiziert“.
+
 ## Missbrauchs- und Sicherheitscheck
 
 - Datenschutzerklärung muss zur **tatsächlichen** Technik passen – nach Änderungen in Phase 13/15 erneut prüfen.

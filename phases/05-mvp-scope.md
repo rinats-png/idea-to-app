@@ -43,6 +43,8 @@
 - **Priorisierung** nach Nutzen und Aufwand; begründe jede „Muss“-Funktion in einem Halbsatz.
 - Benenne offen, wenn der „Muss“-Bereich zu groß ist („Das sind 14 Muss-Funktionen – realistisch für einen ersten Wurf sind 4–7.“).
 - Formuliere für jede Muss-Funktion eine **User Story**: „Als <Persona> möchte ich <Aktion>, damit <Nutzen>.“
+- Vergib jeder Funktion eine feste ID `F-01`, `F-02` … (`AGENTS.md` Abschnitt 11). IDs werden nie neu vergeben; gestrichene Funktionen bleiben mit Priorität `gestrichen` stehen.
+- Behauptungen über Wettbewerber oder Nutzerverhalten mit Beleg `[Q-…]` oder als Annahme.
 
 ## Missbrauchs- und Sicherheitscheck
 
@@ -59,9 +61,9 @@
 …
 
 ## Funktionen
-| # | Funktion | Priorität | User Story | Aufwand (S/M/L) | 🔒 Risiko-Markierung |
+| ID | Funktion | Priorität | User Story | Aufwand (S/M/L) | 🔒 Risiko-Markierung |
 |---|---|---|---|---|---|
-| F1 | … | Muss | Als … möchte ich …, damit … | M | teilt Daten |
+| F-01 | … | Muss | Als … möchte ich …, damit … | M | teilt Daten |
 
 ## Bewusst NICHT in Version 1
 - …
@@ -93,7 +95,7 @@ quadrantChart
 
 ## Definition of Done
 - [ ] Kernfunktion in einem Satz
-- [ ] Jede Funktion priorisiert (Muss / Sollte / Später / Nie)
+- [ ] Jede Funktion hat eine ID `F-…` und ist priorisiert (Muss / Sollte / Später / Nie)
 - [ ] Muss-Liste realistisch zum Zeitbudget
 - [ ] Konto-Löschung und Datenexport berücksichtigt (falls Konten)
 - [ ] Riskante Funktionen markiert

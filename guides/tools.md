@@ -72,6 +72,33 @@ Wie ChatGPT: Dateien hochladen bzw. als „Gem“-Wissen hinterlegen, Text aus `
 
 ---
 
+## Bestehende App einbinden
+
+Für den Modus „Bestehende App“ muss die KI den Code **lesen** können (verändert wird in der Bestandsaufnahme nichts):
+
+| Tool | So geht's |
+|---|---|
+| **Claude Code** | Im `idea-to-app`-Ordner starten und den App-Ordner zusätzlich freigeben (z. B. `/add-dir ../meine-app`). Alternativ beide Ordner nebeneinander und Claude Code im übergeordneten Ordner starten. |
+| **Cursor / VS Code** | Beide Ordner in einem Arbeitsbereich öffnen („Ordner zum Arbeitsbereich hinzufügen“). |
+| **Claude.ai / ChatGPT** | App-Repository per GitHub-Verbindung als Projektwissen hinzufügen oder als ZIP hochladen. Große Repositories nur teilweise – die KI sagt dann, was sie nicht prüfen konnte. |
+| **Nur Screenshots / einzelne Dateien** | Möglich, aber die Ist-Analyse bleibt lückenhaft; Sicherheitsaussagen sind dann nur eingeschränkt belastbar. |
+
+Das Übergabepaket landet bei bestehenden Apps später unter `docs/idea-to-app/` in deinem App-Repository; vorhandene `AGENTS.md`/`CLAUDE.md` werden ergänzt, nicht ersetzt.
+
+## Prüfskript ausführen
+
+Wer ein Terminal nutzt (oder ein Tool, das Befehle ausführen kann), lässt die Projektprüfung laufen – Node.js ≥ 18, nichts zu installieren:
+
+```bash
+node scripts/pruefe-projekt.mjs projekte/<slug>            # jederzeit
+node scripts/pruefe-projekt.mjs projekte/<slug> --handoff  # vor der Übergabe
+node scripts/pruefe-projekt.mjs projekte/<slug> --launch   # vor dem Launch
+```
+
+In Chat-Tools geht die KI dieselben Punkte manuell durch.
+
+---
+
 ## Browser-Baukästen (Lovable, Bolt, v0 …)
 
 Diese Tools sind stark darin, **schnell Code zu erzeugen**, aber nicht für den Planungsprozess gedacht. Sinnvolle Kombination:

@@ -41,7 +41,7 @@ Die wenigsten Apps machen alles selbst. Login, Bezahlung, E-Mail-Versand, Karten
 
 ## Was die KI selbst ergänzen soll
 
-- Für jeden Dienst: Anbieter-Vorschlag, Zweck, **welche Daten** übertragen werden, **Ort** (EU/USA), grobe Kosten, **Gratis-Grenze**, Ausfallfolgen. Hinweis, dass Preise und Bedingungen vor Entscheidung aktuell geprüft werden müssen.
+- Für jeden Dienst: Anbieter-Vorschlag, Zweck, **welche Daten** übertragen werden, **Ort** (EU/USA), grobe Kosten, **Gratis-Grenze**, Ausfallfolgen. Preise, Gratis-Grenzen, Regionen und Store-Regeln mit Beleg in `QUELLEN.md` (`[Q-…]`) oder als Annahme markieren.
 - Datenschutzfreundliche Alternativen nennen (z. B. EU-Anbieter, selbst gehostetes Analytics ohne Cookies).
 - **Sequenzdiagramm** für den Login-Ablauf und – falls vorhanden – den Zahlungsablauf inkl. Webhook.
 - Abbildung der Sicherheitsregeln aus Phase 14 Abschnitt I auf die gewählten Dienste.

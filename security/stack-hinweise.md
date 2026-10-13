@@ -131,9 +131,9 @@ const app = express();
 app.use(helmet());                       // setzt viele Security-Header
 app.use(express.json({ limit: "100kb" })); // Größenlimit
 
-const loginLimiter = rateLimit({
+const loginLimiter = rateLimit({   // Werte aus docs/sicherheit.md übernehmen
   windowMs: 15 * 60 * 1000,
-  limit: 10,
+  limit: 20,                         // pro IP; Limit pro Konto zusätzlich im Login-Handler
   standardHeaders: "draft-7",
   legacyHeaders: false,
 });
@@ -148,7 +148,7 @@ app.get("/api/entries/:id", requireAuth, async (req, res) => {
   const entry = await db.entry.findFirst({
     where: { id: req.params.id, ownerId: req.user.id }, // Besitzprüfung in der Abfrage
   });
-  if (!entry) return res.status(404).end();
+  if (!entry) return res.status(404).end(); // Zugriffs-Antwortstrategie aus docs/sicherheit.md
   res.json(entry);
 });
 

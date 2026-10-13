@@ -1,0 +1,15 @@
+{
+  "name": "idea-to-app",
+  "version": "1.1.0",
+  "private": true,
+  "description": "KI-geführter Prozess von der App-Idee (oder bestehenden App) zum sicheren Bauplan",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test scripts/pruefe-projekt.test.mjs scripts/repo.test.mjs",
+    "pruefe": "node scripts/pruefe-projekt.mjs"
+  }
+}

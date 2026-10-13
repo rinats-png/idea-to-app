@@ -9,7 +9,8 @@ Du arbeitest in einem neuen Repository für meine App „<App-Name>“.
 2. Lies danach docs/produkt.md, docs/architektur.md, docs/sicherheit.md und docs/roadmap.md.
 3. Fasse mir in maximal 10 Zeilen zusammen, was du verstanden hast, und nenne Unklarheiten oder Widersprüche, die du in den Unterlagen findest.
 4. Kläre mit mir die offenen Annahmen aus AGENTS.md Abschnitt 6 – eine Frage nach der anderen.
-5. Beginne dann mit der ersten offenen Aufgabe aus docs/roadmap.md (Meilenstein M0). Arbeite eine Aufgabe nach der anderen ab.
+5. Beginne dann mit der ersten offenen Aufgabe aus docs/roadmap.md. Arbeite eine Aufgabe nach der anderen ab.
+6. Wenn du vom Plan abweichen musst, halte dich an AGENTS.md Abschnitt 7: kleine Abweichungen dokumentieren, wesentliche vorher mit mir abstimmen.
 
 Ich bin <Einsteiger / Entwickler>. Erkläre mir nach jeder Aufgabe in einfacher Sprache, was du gemacht hast und was ich ausprobieren kann. Wenn ich etwas tun muss (z. B. ein Konto bei einem Dienst anlegen oder einen Schlüssel eintragen), erkläre mir die Schritte genau – und sag mir, wo der Schlüssel hingehört, ohne dass ich ihn dir in den Chat schreiben muss.
 ```

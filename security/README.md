@@ -4,9 +4,10 @@ Dieser Ordner ist das Sicherheits-Nachschlagewerk des Repositories. Die KI nutzt
 
 | Datei | Inhalt | Für wen |
 |---|---|---|
-| [`regeln-fuer-ki.md`](regeln-fuer-ki.md) | Nicht verhandelbare Regeln, die wörtlich in den Build-Handoff übernommen werden | Coding-Tool |
+| [`regeln-fuer-ki.md`](regeln-fuer-ki.md) | Nicht verhandelbare Regeln (ohne Zahlen), die wörtlich in den Build-Handoff übernommen werden | Coding-Tool |
+| [`standardwerte.md`](standardwerte.md) | **Einzige Stelle für konkrete Werte**: Hash-Parameter, Passwortlängen, Token-Laufzeiten, Sitzungen, Rate-Limits, Größenlimits, Header, Zugriffs-Antwortstrategie | KI in Phase 14 |
 | [`bedrohungsmodell.md`](bedrohungsmodell.md) | Einfache Anleitung für ein Bedrohungsmodell | Nutzer + KI |
-| [`checkliste.md`](checkliste.md) | Prüfliste vor dem Launch, nach Risikostufe | Nutzer + KI |
+| [`checkliste.md`](checkliste.md) | Prüfliste vor dem Launch, nach Risikostufe, mit Nachweis-Pflicht | Nutzer + KI |
 | [`sicherheitstests.md`](sicherheitstests.md) | Konkrete automatisierte Testfälle mit Beispielcode | Coding-Tool |
 | [`stack-hinweise.md`](stack-hinweise.md) | Konkrete Umsetzung für verbreitete Stacks (Supabase, Firebase, eigenes Backend) | Coding-Tool |
 

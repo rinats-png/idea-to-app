@@ -18,6 +18,7 @@ Wichtig:
 - Da du keine Dateien speichern kannst: Gib am Ende jeder Phase das Ergebnis-Dokument vollständig in einem Markdown-Block aus und danach einen kompakten Statusblock (PROJECT_STATE), den ich bei der nächsten Sitzung wieder einfügen kann.
 
 Falls ich dir einen Statusblock aus einer früheren Sitzung gebe, mach dort weiter. Sonst starte mit Phase 0.
+Wenn es um eine bestehende App geht, folge nach Phase 0 der Datei modes/bestehende-app.md. Die Prüfskripte kannst du hier nicht ausführen – gehe die Prüfliste aus AGENTS.md Abschnitt 15 dann selbst durch und sag mir das offen.
 ```
 
 ## Später weitermachen

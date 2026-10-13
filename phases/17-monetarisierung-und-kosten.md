@@ -34,7 +34,7 @@ Auch eine kostenlose App kostet Geld: Server, Datenbank, E-Mail-Versand, Domain,
 
 ## Was die KI selbst ergänzen soll
 
-- **Kostentabelle** pro Dienst aus Phase 13/15 mit drei Szenarien. Werte als **grobe Schätzung** kennzeichnen und dem Nutzer sagen, dass aktuelle Preise auf den Anbieterseiten zu prüfen sind. Keine erfundenen Preise – wenn unbekannt: „prüfen“.
+- **Kostentabelle** pro Dienst aus Phase 13/15 mit drei Szenarien. Jeder Preis mit `[Q-…]` (Anbieterseite, Prüfdatum) oder als Schätzung/Annahme gekennzeichnet. Keine erfundenen Preise – wenn unbekannt: „prüfen“.
 - Feste Kosten nicht vergessen: Domain, Apple Developer Program (jährlich), Google Play (einmalig), ggf. Steuerberatung, Rechtstexte.
 - **Schwellen** markieren, an denen ein Gratis-Kontingent endet.
 - **Kostenlimits** festlegen:

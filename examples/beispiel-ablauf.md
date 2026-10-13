@@ -4,15 +4,22 @@
 
 ---
 
-**KI:** Hallo! Ich begleite dich Schritt für Schritt von deiner Idee bis zu einem fertigen Bauplan. Wir gehen in kurzen Phasen vor, am Ende jeder Phase entscheidest du, ob wir weitermachen. Alles wird gespeichert.
+**KI:** Hallo! Ich begleite dich Schritt für Schritt von deiner Idee bis zu einem fertigen Bauplan. Alles wird gespeichert, du kannst jederzeit pausieren.
 
-Vier kurze Fragen zum Start:
+Womit starten wir?
+a) **Neue Idee** – es gibt noch keine App
+b) **Bestehende App** – es gibt schon Code
+
+**Nutzer:** a
+
+**KI:** Fünf kurze Fragen:
 1. Wie viel Erfahrung hast du? a) keine b) ein bisschen c) Entwickler
-2. Wie gründlich? a) Voll-Modus – für eine App, die andere nutzen **(Empfehlung, wenn du veröffentlichen willst)** b) Lite-Modus – schneller Prototyp
-3. Wo soll die App laufen? a) im Browser/als Web-App **(Empfehlung für den Einstieg)** b) App Store / Google Play c) beides d) erklär mir den Unterschied
-4. Welche Daten? a) keine b) Konten mit E-Mail c) eigene Inhalte d) Gesundheit/Finanzen/Standort e) Kinder/Dritte f) Zahlungen g) weiß nicht
+2. Wie sollen wir arbeiten? a) **Geführt** – eine Frage nach der anderen **(Empfehlung für Einsteiger)** b) **Adaptiv** – ich fülle Bekanntes selbst aus und frage nur bei wichtigen Entscheidungen
+3. Wie gründlich? a) Voll – für eine App, die andere nutzen **(Empfehlung, wenn du veröffentlichen willst)** b) Lite – schneller Prototyp
+4. Wo soll die App laufen? a) im Browser/als Web-App **(Empfehlung für den Einstieg)** b) App Store / Google Play c) beides d) erklär mir den Unterschied
+5. Welche Daten? a) keine b) Konten mit E-Mail c) eigene Inhalte d) Bezahlung über einen Anbieter e) Standort grob f) Gesundheit/Finanzen/genauer Standort g) Kinder/Dritte h) weiß nicht
 
-**Nutzer:** 1a, 2a, 3a, 4 b und c
+**Nutzer:** 1a, 2a, 3a, 4a, 5 b und c
 
 **KI:** Danke! Weil deine App Nutzerkonten mit eigenen Inhalten hat, ordne ich sie in **Sicherheitsstufe 2** ein. Das heißt: Wir planen Login, Zugriffsschutz und Schutz gegen Passwort-Durchprobieren von Anfang an ein. Passt das?
 
@@ -26,11 +33,12 @@ Vier kurze Fragen zum Start:
 
 ```
 ──────────────────────────────
-✅ Phase 0 – Start & Modus: Entwurf fertig
+✅ Phase 0 – Start & Einstellungen: Entwurf fertig
 📄 Ergebnis: projekte/schichtfit/00-start.md
 🖼️ Visual: keins
 💡 Meine Annahmen: keine
 ❓ Noch offen: nichts
+📊 Fortschritt: ░░░░░░░░░░ 1 von 25 Phasen
 
 Wie möchtest du weitermachen?
 1️⃣ Weiter zu Phase 1 – Idee & Problem
@@ -66,7 +74,9 @@ Erzähl mir deine Idee so, wie du sie einem Freund erzählen würdest.
 
 ## Typischer Ablauf später
 
-- **Phase 8:** Die KI legt `mockups/S01-uebersicht.html` an und fragt: „Variante A (Wochenansicht) oder B (nur ‚heute‘)?“
+- **Phase 8:** Die KI legt drei Richtungen an (`mockups/S01-uebersicht-a.html` kompakt, `-b` minimal, `-c` Karten) und fragt, welche es werden soll.
 - **Phase 12:** Die KI zeigt eine Matrix und fragt: „Dürfen Trainer die Pläne ihrer Sportler sehen?“
 - **Phase 14:** Die KI erklärt: „Ich schlage vor, dass nach 5 falschen Passwörtern eine Wartezeit greift, statt das Konto zu sperren – sonst könnte jemand absichtlich fremde Konten blockieren.“
-- **Phase 22:** Die KI erzeugt `handoff/` mit `AGENTS.md`, den Unterlagen und dem Start-Prompt für das Coding-Tool.
+- **Phase 19:** Jede Muss-Funktion bekommt Kriterien und Tests (`F-01` → `AK-F01-1` → `TEST-F01-1`).
+- **Phase 22:** Die KI erzeugt `handoff/`, lässt das Prüfskript laufen und meldet z. B.: „1 FEHLER: Muss-Funktion F-04 ist keiner Aufgabe zugeordnet – soll ich das in der Roadmap ergänzen?“
+- **Phase 23:** Ein Haken ohne Nachweis zählt nicht: „Backup-Wiederherstellung ist abgehakt, aber ohne Datum – damit ist die App noch nicht freigabefähig.“

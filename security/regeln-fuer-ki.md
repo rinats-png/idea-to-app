@@ -1,6 +1,8 @@
 # Nicht verhandelbare Sicherheitsregeln
 
 > Diese Regeln werden in Phase 22 **wörtlich** in die `AGENTS.md` des App-Repositories übernommen. Sie gelten für jede Aufgabe. „MUSS“ heißt: keine Ausnahme ohne ausdrückliche, dokumentierte Entscheidung des Projektinhabers in `docs/sicherheit.md` → „Bewusst akzeptierte Risiken“.
+>
+> Konkrete Werte (Parameter, Längen, Laufzeiten, Limits) stehen **nicht** hier, sondern projektspezifisch in `docs/sicherheit.md` (Ausgangswerte: `security/standardwerte.md` im idea-to-app-Repository). Die Regel-Nummern sind fest und werden vom Prüfskript kontrolliert – nicht umnummerieren.
 
 ## Grundsatz
 
@@ -18,7 +20,7 @@ Der Client (Browser, App) ist **nicht vertrauenswürdig**. Alles, was von dort k
 - 2.1 Jeder Endpunkt bzw. jede Datenbankabfrage, die nutzerbezogene Daten liest, ändert oder löscht, MUSS serverseitig prüfen, ob der angemeldete Nutzer dazu berechtigt ist (Besitz, Gruppenmitgliedschaft, Rolle) – gemäß `docs/daten-und-rechte.md`.
 - 2.2 Standard ist **verweigern** (deny by default). Neue Tabellen MÜSSEN mit aktivierter Row Level Security bzw. gesperrten Security Rules angelegt werden.
 - 2.3 Eine ID aus URL, Query, Body oder Header ist KEIN Berechtigungsnachweis.
-- 2.4 Fehlt die Berechtigung, MUSS die Antwort 404 sein (nicht 403), damit die Existenz nicht verraten wird – außer die Spezifikation sagt etwas anderes.
+- 2.4 Fehlt die Berechtigung, MUSS die Antwort der in `docs/sicherheit.md` festgelegten Zugriffs-Antwortstrategie folgen (Standard: 404 wie bei „nicht vorhanden“). In keinem Fall dürfen Inhalte, Metadaten oder Hinweise auf den fremden Datensatz zurückgegeben werden.
 - 2.5 Listen- und Suchendpunkte MÜSSEN serverseitig auf erlaubte Datensätze filtern.
 - 2.6 Felder wie `id`, `owner_id`, `user_id`, `role`, `is_admin`, `plan`, `status`, `price`, `created_at` DÜRFEN NICHT aus Client-Eingaben übernommen werden. Eingaben werden über eine Allowlist erlaubter Felder verarbeitet (kein Mass Assignment).
 - 2.7 Rollen und Berechtigungen MÜSSEN aus der serverseitigen Sitzung bzw. Datenbank kommen, nie aus dem Client.
@@ -29,19 +31,19 @@ Der Client (Browser, App) ist **nicht vertrauenswürdig**. Alles, was von dort k
 ## 3. Authentisierung & Sitzungen
 
 - 3.1 Es MUSS der in `docs/sicherheit.md` festgelegte Login-Anbieter bzw. die festgelegte Bibliothek verwendet werden. Keine selbst geschriebene Krypto.
-- 3.2 Falls Passwörter selbst gespeichert werden: Argon2id (mind. 19 MiB, 2 Iterationen, Parallelität 1) oder bcrypt (Kostenfaktor ≥ 10). Niemals Klartext, MD5, SHA-1/SHA-256 ohne passendes Passwort-Hashing-Verfahren.
-- 3.3 Passwortregeln: Mindestlänge gemäß `docs/sicherheit.md` (Standard 12), Maximallänge ≥ 64, Einfügen erlaubt, Prüfung gegen bekannte geleakte Passwörter, keine Pflicht-Sonderzeichen.
+- 3.2 Falls Passwörter selbst gespeichert werden: nur mit einem Passwort-Hashing-Verfahren (Argon2id bevorzugt; sonst scrypt oder bcrypt) mit den Parametern aus `docs/sicherheit.md`. Niemals Klartext, Verschlüsselung statt Hashing, MD5 oder einfache SHA-Hashes.
+- 3.3 Passwortregeln gemäß `docs/sicherheit.md`: Mindest- und Maximallänge, alle Zeichen erlaubt, Einfügen erlaubt (Passwort-Manager), Prüfung gegen bekannte geleakte Passwörter, keine Pflicht-Sonderzeichen.
 - 3.4 Login, Registrierung und Passwort-Reset MÜSSEN identisch antworten, unabhängig davon, ob ein Konto existiert (keine Nutzer-Enumeration).
-- 3.5 Reset- und Einladungs-Tokens: zufällig (≥ 128 Bit), gehasht gespeichert, einmalig, mit Ablaufzeit (≤ 60 Min. für Reset). Nach Passwortänderung alle Sitzungen beenden.
-- 3.6 Sitzungs-Cookies: `HttpOnly`, `Secure`, `SameSite=Lax` oder strenger. Neue Sitzungs-ID nach Login. Logout beendet die Sitzung serverseitig.
-- 3.7 Admins MÜSSEN Zwei-Faktor-Authentisierung nutzen.
+- 3.5 Reset-, Bestätigungs- und Einladungs-Tokens: kryptografisch zufällig, gehasht gespeichert, einmalig, mit Ablaufzeit gemäß `docs/sicherheit.md`. Nach Passwortänderung alle Sitzungen beenden.
+- 3.6 Sitzungs-Cookies: `HttpOnly`, `Secure`, `SameSite=Lax` oder strenger. Neue Sitzungs-ID nach Login. Logout beendet die Sitzung serverseitig. Laufzeiten und erneute Anmeldung für sensible Aktionen gemäß `docs/sicherheit.md`.
+- 3.7 Admins MÜSSEN Zwei-Faktor-Authentisierung nutzen; für normale Nutzer gilt die Festlegung in `docs/sicherheit.md`.
 
 ## 4. Missbrauchsschutz
 
 - 4.1 Login, Registrierung, Passwort-Reset, E-Mail-/SMS-Versand und alle kostenverursachenden Endpunkte MÜSSEN serverseitig rate-limitiert sein – pro Konto **und** pro IP – gemäß der Tabelle in `docs/sicherheit.md`.
 - 4.2 Bei wiederholten Fehlanmeldungen: steigende Wartezeit und vorübergehende Sperre, ggf. CAPTCHA. KEINE dauerhafte automatische Kontosperre.
 - 4.3 Überschreitung → HTTP 429 mit `Retry-After`.
-- 4.4 Anfragegröße, Upload-Größe und Seitengröße von Listen MÜSSEN begrenzt sein.
+- 4.4 Anfragegröße, Upload-Größe und Seitengröße von Listen MÜSSEN gemäß `docs/sicherheit.md` begrenzt sein.
 - 4.5 Nutzungsabhängige Dienste (KI, SMS, Karten) MÜSSEN ein Limit pro Nutzer und eine Budget-Grenze haben.
 
 ## 5. Eingaben & Ausgaben
@@ -57,7 +59,7 @@ Der Client (Browser, App) ist **nicht vertrauenswürdig**. Alles, was von dort k
 ## 6. Transport & Browser
 
 - 6.1 Nur HTTPS; HSTS aktiv.
-- 6.2 Header: `Content-Security-Policy` (ohne `unsafe-inline`/`unsafe-eval`, wo machbar), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `frame-ancestors 'none'`, `Permissions-Policy` für ungenutzte Funktionen.
+- 6.2 Security-Header gemäß `docs/sicherheit.md` MÜSSEN gesetzt sein: mindestens `Content-Security-Policy` (inkl. `frame-ancestors`), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`.
 - 6.3 CORS NUR für eigene Domains. Kein `*` bei Endpunkten mit Anmeldung.
 
 ## 7. Daten & Datenschutz
@@ -88,3 +90,4 @@ Der Client (Browser, App) ist **nicht vertrauenswürdig**. Alles, was von dort k
 - 10.2 Sicherheitstests aus `docs/tests.md` MÜSSEN in der CI laufen und grün sein, bevor eine Aufgabe als erledigt gilt.
 - 10.3 Wenn eine Anforderung mit diesen Regeln kollidiert: NICHT eigenmächtig abweichen, sondern den Projektinhaber fragen und die Entscheidung dokumentieren.
 - 10.4 Keine Sicherheitsregel „vorübergehend“ abschalten, um etwas zum Laufen zu bringen (z. B. RLS deaktivieren, CORS auf `*`, Validierung auskommentieren).
+- 10.5 Behaupte nie, eine Sicherheitsanforderung sei erfüllt, ohne Nachweis (Testergebnis, Konfiguration, Fundstelle).

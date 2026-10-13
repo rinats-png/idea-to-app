@@ -34,11 +34,30 @@ Der **Tech-Stack** sind die Werkzeuge, aus denen die App gebaut wird: Frontend (
 - a) Möglichst in der EU **(Empfehlung bei personenbezogenen Daten)**
 - b) Egal
 
-**Q5 – Die KI stellt 2 Stack-Optionen mit Vor- und Nachteilen vor. Welche nimmst du?**
+**Q5 – Die KI stellt 2–3 Stack-Optionen in einer Bewertungsmatrix vor. Welche nimmst du?**
 
 ## Was die KI selbst ergänzen soll
 
-Wähle **2 passende Optionen** anhand von Plattform (Phase 0), Offline-Bedarf (Phase 11), Risikostufe, Kosten und Erfahrung. Typische Einsteiger-Kombinationen (nur Beispiele – aktuelle Konditionen, Preise und Regionen vor der Entscheidung prüfen):
+Wähle **2–3 passende Optionen** anhand von Plattform (Phase 0), Offline-Bedarf (Phase 11), Risikostufe, Kosten und Erfahrung und bewerte **alle mit denselben Kriterien** in einer Matrix (1 = schlecht, 5 = sehr gut, jede Zahl mit Halbsatz Begründung):
+
+| Kriterium | Gewicht | Option A | Option B | Option C |
+|---|---|---|---|---|
+| Monatliche Kosten (Start / bei Wachstum) | | | | |
+| Betriebsaufwand (Updates, Server, Backups) | | | | |
+| Datenschutz (EU-Speicherort, AVV) | | | | |
+| Sicherheit „ab Werk“ (Auth, Zugriffsregeln, Header) | | | | |
+| Eignung für KI-Coding-Tools / Lernkurve | | | | |
+| Entwicklungszeit bis MVP | | | | |
+| Skalierung | | | | |
+| Lock-in / Ausstiegsaufwand | | | | |
+| **Gewichtete Summe** | | | | |
+
+- Gewichte mit dem Nutzer abstimmen (Einsteiger: Vorschlag machen, z. B. Sicherheit ab Werk und Betriebsaufwand hoch gewichten).
+- Preise, Gratis-Grenzen und Regionen mit Beleg in `QUELLEN.md` (`[Q-…]`) oder als Annahme markieren.
+- Die Entscheidung kommt als `E-…` mit verworfenen Optionen in `ENTSCHEIDUNGEN.md` (Architekturentscheidung).
+- Die Matrix ist eine Entscheidungshilfe, kein Automat: Wenn die Summe knapp ist, sag das und nenne das ausschlaggebende Kriterium.
+
+Typische Einsteiger-Kombinationen (nur Beispiele – aktuelle Konditionen, Preise und Regionen vor der Entscheidung prüfen):
 
 | Szenario | Frontend | Backend / Daten | Hosting | Hinweis |
 |---|---|---|---|---|
@@ -96,7 +115,10 @@ flowchart LR
 | Umgebung | Zweck | Datenbank | Schlüssel |
 |---|---|---|---|
 
-## Kosten-Schätzung (grob, prüfen)
+## Bewertungsmatrix
+(Tabelle mit allen Optionen, Gewichten und Begründungen)
+
+## Kosten-Schätzung (grob, mit [Q-…] belegt oder als Annahme)
 …
 
 ## Risiken & Lock-in
@@ -104,7 +126,7 @@ flowchart LR
 ````
 
 ## Definition of Done
-- [ ] Stack gewählt und begründet
+- [ ] 2–3 Optionen in der Bewertungsmatrix verglichen; Stack gewählt und als `E-…` dokumentiert
 - [ ] Architektur-Diagramm mit Vertrauensgrenze
 - [ ] Umgebungen und Schlüsseltrennung festgelegt
 - [ ] Ort der Datenspeicherung geklärt

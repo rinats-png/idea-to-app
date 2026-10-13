@@ -1,6 +1,6 @@
 # Einstieg ohne Vorwissen
 
-Du hast eine App-Idee, aber noch nie programmiert? Genau dafür ist idea-to-app gemacht. Diese Seite erklärt dir in fünf Minuten, was auf dich zukommt.
+Du hast eine App-Idee, aber noch nie programmiert? Oder du hast schon eine App (vielleicht mit KI gebaut) und weißt nicht, ob sie sicher ist? Genau dafür ist idea-to-app gemacht. Diese Seite erklärt dir in fünf Minuten, was auf dich zukommt.
 
 ## Was passiert hier eigentlich?
 
@@ -12,7 +12,9 @@ idea-to-app macht die KI zu diesem Architekten für deine App:
 2. Wenn du etwas nicht weißt, **schlägt sie etwas vor** und erklärt warum.
 3. Sie **schreibt alles auf** und **zeichnet Skizzen** deiner App.
 4. Nach jedem Schritt fragt sie: **Weiter oder noch etwas ändern?**
-5. Am Ende hast du einen **kompletten Bauplan**, den eine Coding-KI umsetzen kann.
+5. Am Ende hast du einen **kompletten Bauplan**, den eine Coding-KI umsetzen kann – vorher wird automatisch geprüft, dass nichts fehlt.
+
+Hast du schon eine App, liest die KI zuerst deinen Code (ohne etwas zu verändern), sagt dir ehrlich, was gut ist und wo es Probleme gibt, und plant dann mit dir die nächsten Schritte.
 
 ## Was brauche ich?
 
@@ -32,6 +34,8 @@ Du brauchst **kein** Programmierwissen, **kein** Git und **keine** Fachbegriffe.
 | `parkplatz: …` | merkt sich eine Idee für später |
 | `status` | zeigt, wo du gerade stehst |
 | `zurück zu Phase 5` | springt zu einem früheren Schritt |
+| `prüfen` | prüft, ob im Projekt etwas fehlt oder nicht zusammenpasst |
+| `adaptiv` / `geführt` | schneller (weniger Fragen) bzw. wieder Schritt für Schritt |
 | `pause` | speichert und hört auf |
 
 ## Was ist mit Sicherheit?

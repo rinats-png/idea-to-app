@@ -1,4 +1,4 @@
-# Projektstatus: <Arbeitstitel>
+# Projektstatus: <Name>
 
 > Gedächtnis des Projekts. Die KI aktualisiert diese Datei nach jeder Frage-Runde.
 > In reinen Chat-Tools: Diesen Inhalt bei einer neuen Sitzung wieder einfügen.
@@ -8,23 +8,31 @@
 | Slug | `<projekt-slug>` |
 | Erstellt | JJJJ-MM-TT |
 | Zuletzt aktualisiert | JJJJ-MM-TT |
+| Einstieg | Neue Idee / Bestehende App |
 | Erfahrung | Einsteiger / Entwickler |
-| Modus | Voll / Lite |
+| Arbeitsweise | Geführt / Adaptiv |
+| Umfang | Voll / Lite |
 | Plattform | … |
 | Risikostufe | 1 / 2 / 3 – Grund: … |
 | Sprache | Deutsch |
 
 ## Aktueller Stand
-- **Aktuelle Phase:** 0 – Start & Modus
+- **Aktuelle Phase:** 0 – Start & Einstellungen
 - **Nächster Schritt:** …
+- **Fortschritt:** ░░░░░░░░░░ 0 von 25 Phasen
 
 ## Fortschritt
 
-Status: `offen` · `in Arbeit` · `fertig` · `übersprungen (Grund)` · `⚠️ prüfen`
+Status: `offen` · `in Arbeit` · `fertig` · `übersprungen (<Grund>)` · `⚠️ prüfen`
+
+<!-- Bei neuer Idee: die drei B-Zeilen löschen. Bei bestehender App: Phasen, die laut B2 nicht laufen, als „übersprungen (B2)“ markieren. -->
 
 | Nr | Phase | Status | Datei |
 |---|---|---|---|
-| 0 | Start & Modus | in Arbeit | 00-start.md |
+| B0 | Ziel & Zugang | offen | B0-ziel.md |
+| B1 | Ist-Analyse | offen | B1-ist-analyse.md |
+| B2 | Soll & Lücken | offen | B2-soll-und-luecken.md |
+| 0 | Start & Einstellungen | in Arbeit | 00-start.md |
 | 1 | Idee & Problem | offen | 01-idee.md |
 | 2 | Idee validieren | offen | 02-validierung.md |
 | 3 | Zielgruppe | offen | 03-zielgruppe.md |
@@ -46,15 +54,18 @@ Status: `offen` · `in Arbeit` · `fertig` · `übersprungen (Grund)` · `⚠️
 | 19 | Qualität & Tests | offen | 19-tests.md |
 | 20 | Betrieb | offen | 20-betrieb.md |
 | 21 | Roadmap & Aufgaben | offen | 21-roadmap.md |
-| 22 | Build-Handoff | offen | handoff/ |
-| 23 | Launch | offen | 23-launch.md |
+| 22 | Build-Handoff | offen | handoff/AGENTS.md |
+| 23 | Launch & Freigabe | offen | 23-launch.md |
 | 24 | Iteration & Wartung | offen | 24-iteration.md |
 
 ## Kernentscheidungen (Kurzfassung – Details in ENTSCHEIDUNGEN.md)
 - …
 
-## Annahmen (von der KI gesetzt, noch nicht bestätigt)
-| # | Annahme | Phase | Bestätigt? |
+## Annahmen
+
+> Jede `[ANNAHME A-…]` aus den Dokumenten steht hier. Bestätigt: `nein` / `ja` / `verworfen`.
+
+| ID | Annahme | Phase | Bestätigt |
 |---|---|---|---|
 
 ## Offene Fragen

@@ -43,6 +43,7 @@ Typische Annahmen:
 ## Was die KI selbst ergänzen soll
 
 - **Annahmen-Tabelle** mit Einschätzung: Wie schlimm, wenn falsch? Wie unsicher?
+- Gibt es externe Zahlen oder Studien zum Problem (falls Websuche verfügbar): mit Beleg in `QUELLEN.md` und Verweis `[Q-…]`. Ohne Beleg bleibt es eine Annahme.
 - Für den gewählten Test: konkreter Plan (bei Gesprächen: 5–7 Interviewfragen, die nach **echtem Verhalten in der Vergangenheit** fragen, nicht „Würdest du …?“).
 - Ehrlicher Hinweis, wenn Q3 = e: „Das ist möglich, aber du baust auf einer ungeprüften Annahme. Ich notiere das als Risiko.“
 

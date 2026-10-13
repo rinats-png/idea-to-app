@@ -48,7 +48,7 @@ Jede App speichert Daten: Nutzer, Einträge, Fotos, Einstellungen. Das **Datenmo
 | **Besonders schützenswert** | Art. 9 DSGVO oder großer Schaden bei Leak | Gesundheit, Religion, Biometrie, sexuelle Orientierung, Standortverläufe, Finanzdaten, Ausweisnummern, Kinderdaten |
 | **Geheim (technisch)** | Darf niemals ausgegeben werden | Passwort-Hashes, Tokens, API-Schlüssel |
 
-- **Risikostufe überprüfen**: Wenn „besonders schützenswert“ vorkommt → Stufe 3. Änderung in `PROJECT_STATE.md` und `ENTSCHEIDUNGEN.md` dokumentieren und dem Nutzer erklären.
+- **Risikostufe überprüfen** anhand der Tabelle in `AGENTS.md` Abschnitt 5: Kommt „besonders schützenswert“ vor (z. B. Gesundheit, genauer oder dauerhafter Standort, Finanzdaten über reine Bezahlung hinaus) → Stufe 3. Reine Bezahlung über einen Anbieter oder grober, nicht gespeicherter Standort heben die Stufe **nicht** automatisch auf 3. Änderung in `PROJECT_STATE.md` und `ENTSCHEIDUNGEN.md` dokumentieren und dem Nutzer erklären.
 - Jedes Objekt bekommt ein **Besitzerfeld** (z. B. `owner_id`), falls es einem Nutzer gehört. Das ist die Grundlage gegen den „ID in der URL ändern“-Angriff (Phase 12/14).
 - IDs als **UUID** statt fortlaufender Zahl vorschlagen (erschwert Raten – ist aber **kein** Ersatz für Berechtigungsprüfung).
 - Zeitstempel (`created_at`, `updated_at`) und ggf. Soft-Delete vs. echtes Löschen begründen. Hinweis: DSGVO-Löschung heißt **wirklich löschen** (inkl. Dateien), nicht nur verstecken.

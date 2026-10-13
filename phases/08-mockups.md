@@ -18,7 +18,11 @@ Ein **Wireframe** ist eine einfache, graue Skizze eines Bildschirms – ohne Far
 
 1. Wähle die **3–6 wichtigsten Screens** (Start/Übersicht, Kernfunktion, Detail, Formular, Einstellungen).
 2. Kopiere `templates/wireframe.html` und baue pro Screen eine Datei `mockups/<SID>-<name>.html`. Lies vorher die Kommentare im Template.
-3. Zeige den **ersten** Screen (oder 2–3 Varianten davon, wenn der Nutzer unsicher ist) und frage nach Feedback.
+3. Zeige den **ersten** Screen und frage nach Feedback. Ist der Nutzer unsicher, baue **2–3 echte Gestaltungsrichtungen** desselben Screens (`mockups/S01-uebersicht-a.html`, `-b`, `-c`). Die Varianten müssen sich im **Aufbau** unterscheiden, nicht nur in Details – z. B.:
+   - **A – Kompakt / informationsdicht:** viel auf einen Blick, Listen und Kennzahlen
+   - **B – Minimal / fokussiert:** eine Hauptaktion, viel Weißraum, Details auf Unterseiten
+   - **C – Karten / mobil zuerst:** große Karten, Daumenbedienung, Wischen
+   Jede Variante zeigt echte Inhalte und mindestens einen Leer- oder Fehlerzustand. Die Wahl kommt als `E-…` ins Entscheidungs-Log.
 4. Übertrage das Feedback auf die übrigen Screens, zeige sie gesammelt.
 5. Optional: Verlinke die Screens untereinander (klickbarer Prototyp) – die Template-Links machen das einfach.
 
@@ -35,7 +39,7 @@ Wenn dein Tool HTML direkt anzeigen kann (Artifact, Canvas, Vorschau), zeige die
 
 **Q2 – Gibt es Apps, deren Aufbau dir gefällt?** (Nur als Inspiration für Struktur, nicht zum Kopieren.)
 
-**Q3 – Feedback zum ersten Wireframe:** Was gefällt dir, was nicht, was fehlt? (Bei Varianten: Welche nehmen wir – oder eine Mischung?)
+**Q3 – Feedback zum ersten Wireframe:** Was gefällt dir, was nicht, was fehlt? (Bei Varianten: Welche Richtung nehmen wir – oder eine Mischung? Was genau soll aus der anderen übernommen werden?)
 
 **Q4 – Feedback zu den übrigen Screens.**
 
@@ -63,8 +67,11 @@ Wenn dein Tool HTML direkt anzeigen kann (Artifact, Canvas, Vorschau), zeige die
 |---|---|---|---|
 | S01 Übersicht | mockups/S01-uebersicht.html | ✅ freigegeben | … |
 
-## Gewählte Variante
-…
+## Gewählte Richtung
+… (E-…)
+
+## Abgeleitete Gestaltungsregeln für Phase 9 und den Handoff
+- z. B. „Hauptaktion immer unten rechts erreichbar“, „Listen max. 2 Zeilen pro Eintrag“
 
 ## Gestaltungsprinzipien (vorläufig)
 - …

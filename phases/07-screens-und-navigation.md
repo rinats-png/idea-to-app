@@ -49,9 +49,9 @@ Aus den Flows ergeben sich die **Bildschirme** (Screens) der App. Die **Screen-M
 Typ: … | Hauptbereiche: …
 
 ## Screen-Liste
-| ID | Screen | Zweck | Sichtbar für | Erreichbar von | Wichtigste Elemente |
-|---|---|---|---|---|---|
-| S01 | Start / Übersicht | … | eingeloggte Nutzer | Tab 1 | … |
+| ID | Screen | Zweck | Sichtbar für | Erreichbar von | Wichtigste Elemente | Flows |
+|---|---|---|---|---|---|---|
+| S01 | Start / Übersicht | … | eingeloggte Nutzer | Tab 1 | … | FL-01, FL-02 |
 
 ## Screen-Map
 ```mermaid

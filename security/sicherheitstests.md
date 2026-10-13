@@ -8,24 +8,28 @@ Jeder Sicherheitstest prüft, dass etwas **nicht** passiert. Damit so ein Test a
 
 Tests laufen gegen eine **Test-Umgebung mit Testdaten**, niemals gegen die Produktion.
 
+**Zugriffs-Antwortstrategie:** Ob ein verweigerter Zugriff mit `404` oder `403` beantwortet wird, ist eine Projektentscheidung (`docs/sicherheit.md`, Ausgangswerte in `standardwerte.md`). Die Tests prüfen deshalb gegen eine konfigurierbare Liste erlaubter Statuscodes – und vor allem, dass **keine fremden Daten** in der Antwort stehen.
+
+**Rückverfolgung:** Jeder `T-SEC` nennt in Phase 19 die Bedrohung (`BD-…`) oder Regel, die er absichert.
+
 ## Testfall-Katalog
 
 | ID | Testfall | Erwartung | Stufe |
 |---|---|---|---|
-| T-SEC-01 | Nutzer A ruft Datensatz von B per ID ab | 404, keine Daten | 2 |
-| T-SEC-02 | Nutzer A ändert / löscht Datensatz von B | 404, Datensatz unverändert | 2 |
+| T-SEC-01 | Nutzer A ruft Datensatz von B per ID ab | verweigert gemäß Strategie, keine Daten | 2 |
+| T-SEC-02 | Nutzer A ändert / löscht Datensatz von B | verweigert gemäß Strategie, Datensatz unverändert | 2 |
 | T-SEC-03 | Nutzer schickt `role`, `is_admin`, `owner_id` beim Anlegen / Ändern | Felder ignoriert bzw. Anfrage abgelehnt | 2 |
 | T-SEC-04 | Listen- und Suchendpunkte | enthalten nur eigene bzw. erlaubte Datensätze | 2 |
 | T-SEC-05 | Viele falsche Logins in kurzer Zeit | ab Schwelle 429 bzw. Verzögerung | 2 |
 | T-SEC-06 | Passwort-Reset: Token zweimal verwenden / abgelaufenes Token | beim zweiten Mal bzw. nach Ablauf abgelehnt | 2 |
 | T-SEC-07 | Teurer Endpunkt über Tageslimit | 429 | 1 |
-| T-SEC-08 | Geschützte Endpunkte ohne Anmeldung | 401 bzw. 404 | 2 |
+| T-SEC-08 | Geschützte Endpunkte ohne Anmeldung | 401 (bzw. gemäß Strategie), keine Daten | 2 |
 | T-SEC-09 | Login/Reset mit existierender vs. nicht existierender E-Mail | identische Antwort (Status und Text) | 2 |
 | T-SEC-10 | Datei von B über Pfad / ID abrufen | kein Zugriff | 2 |
 | T-SEC-11 | Eingaben mit `<script>`, sehr langen Strings, SQL-Fragmenten | sauber abgelehnt oder escaped gespeichert und angezeigt | 1 |
 | T-SEC-12 | Security-Header auf der Startseite | vorhanden und korrekt | 1 |
 | T-SEC-13 | Frontend-Build enthält keine geheimen Schlüssel | Scan findet nichts | 1 |
-| T-SEC-14 | Admin-Endpunkt mit normalem Nutzer | 404 | 1 |
+| T-SEC-14 | Admin-Endpunkt mit normalem Nutzer | verweigert gemäß Strategie (oft 403), keine Daten | 1 |
 | T-SEC-15 | Konto löschen | danach keine Daten und Dateien des Nutzers mehr abrufbar | 2 |
 | T-SEC-16 | Zahlungs-Freischaltung über manipulierten Client-Parameter | keine Freischaltung | 1 |
 
@@ -34,6 +38,9 @@ Tests laufen gegen eine **Test-Umgebung mit Testdaten**, niemals gegen die Produ
 ```ts
 // tests/security/helpers.ts
 const BASE = process.env.TEST_BASE_URL ?? "http://localhost:3000";
+
+// Zugriffs-Antwortstrategie aus docs/sicherheit.md, z. B. [404] oder [403] oder [403, 404]
+export const DENIED_STATUS = [404];
 
 export async function loginAs(email: string, password: string): Promise<string> {
   const res = await fetch(`${BASE}/api/auth/login`, {
@@ -64,7 +71,7 @@ export function api(token?: string) {
 ```ts
 // tests/security/access-control.test.ts
 import { describe, it, expect, beforeAll } from "vitest";
-import { loginAs, api } from "./helpers";
+import { loginAs, api, DENIED_STATUS } from "./helpers";
 
 let asA: ReturnType<typeof api>;
 let asB: ReturnType<typeof api>;
@@ -83,7 +90,8 @@ beforeAll(async () => {
 describe("Zugriffskontrolle", () => {
   it("T-SEC-01: A kann den Eintrag von B nicht lesen", async () => {
     const res = await asA(`/api/entries/${entryOfB.id}`);
-    expect(res.status).toBe(404);
+    expect(DENIED_STATUS).toContain(res.status);
+    expect(await res.text()).not.toContain("Privat von B");
   });
 
   it("T-SEC-02: A kann den Eintrag von B nicht ändern oder löschen", async () => {
@@ -91,10 +99,10 @@ describe("Zugriffskontrolle", () => {
       method: "PATCH",
       body: JSON.stringify({ title: "gehackt" }),
     });
-    expect(upd.status).toBe(404);
+    expect(DENIED_STATUS).toContain(upd.status);
 
     const del = await asA(`/api/entries/${entryOfB.id}`, { method: "DELETE" });
-    expect(del.status).toBe(404);
+    expect(DENIED_STATUS).toContain(del.status);
 
     const check = await asB(`/api/entries/${entryOfB.id}`);
     expect((await check.json()).title).toBe("Privat von B");

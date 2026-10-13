@@ -1,3 +1,3 @@
 # Gemini CLI
 
-Alle Anweisungen für dieses Repository stehen in [`AGENTS.md`](AGENTS.md). Lies diese Datei vollständig und folge ihr. Starte mit `phases/00-start-und-modus.md`, sofern es in `projekte/` noch kein Projekt gibt.
+Alle Anweisungen für dieses Repository stehen in [`AGENTS.md`](AGENTS.md). Lies diese Datei vollständig und folge ihr. Starte mit `phases/00-start-und-modus.md`, sofern es in `projekte/` noch kein Projekt gibt. Bei einer bestehenden App geht es nach Phase 0 mit `modes/bestehende-app.md` weiter.

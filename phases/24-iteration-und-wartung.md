@@ -28,6 +28,7 @@ Eine App ist nie „fertig“. Nutzer finden Fehler und wünschen sich Funktione
 ## Was die KI selbst ergänzen soll
 
 - **Kreislauf**: Feedback sammeln → bewerten → neue Funktion durchläuft **verkürzt die relevanten Phasen** (mindestens 5, 6, 8, 11, 12, 14, 19, 21) → bauen → testen → veröffentlichen.
+- **Sobald es Code gibt**, laufen größere Änderungen am besten über den Modus **„Bestehende App“** (Ziel „Weiterentwickeln“): Dann wird der echte Code als Ist-Zustand eingelesen, und Abweichungen aus `docs/aenderungen.md` fließen in den Plan zurück.
 - **Wartungsroutine**:
   - wöchentlich: Feedback und Fehlermeldungen sichten, Alarme prüfen
   - monatlich: Abhängigkeiten aktualisieren (Sicherheitsupdates sofort), Kosten prüfen

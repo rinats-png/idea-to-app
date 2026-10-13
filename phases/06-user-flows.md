@@ -16,7 +16,7 @@ Ein **User-Flow** zeigt Schritt für Schritt, was ein Nutzer tut, um ein Ziel zu
 
 ## Ablauf für die KI
 
-1. Nimm die Muss-Funktionen aus Phase 5 und gruppiere sie zu **3–6 Haupt-Flows** (z. B. Onboarding, Eintrag anlegen, Übersicht ansehen, Teilen, Konto löschen).
+1. Nimm die Muss-Funktionen aus Phase 5 und gruppiere sie zu **3–6 Haupt-Flows** (z. B. Onboarding, Eintrag anlegen, Übersicht ansehen, Teilen, Konto löschen). Jeder Flow bekommt eine ID `FL-01 …` und nennt die Funktionen `F-…`, die er abdeckt.
 2. Schlage für den ersten Flow einen Entwurf vor (als Mermaid) und frage nach Korrekturen.
 3. Gehe die Flows einzeln durch – pro Flow eine kurze Frage-Runde.
 
@@ -47,7 +47,7 @@ Ein **User-Flow** zeigt Schritt für Schritt, was ein Nutzer tut, um ein Ziel zu
 
 Frage für jeden Flow ausdrücklich:
 - **Was, wenn jemand einen Schritt überspringt** (z. B. direkt die URL des letzten Schritts aufruft, ohne Bezahlung oder Bestätigung)?
-- **Was, wenn jemand die ID in der URL ändert** (`/eintrag/123` → `/eintrag/124`)? → Antwort muss sein: „Server prüft Besitz, sonst 404.“ Notieren für Phase 12/14.
+- **Was, wenn jemand die ID in der URL ändert** (`/eintrag/123` → `/eintrag/124`)? → Antwort muss sein: „Server prüft Besitz; ohne Berechtigung keine Daten (404/403 laut Phase 14).“ Notieren für Phase 12/14.
 - **Was, wenn jemand den Vorgang tausendfach automatisiert** (Registrierung, Login, Formular, Einladung)? → Rate Limiting in Phase 14.
 - Verrät eine Fehlermeldung zu viel (z. B. „Diese E-Mail ist bereits registriert“ → verrät, wer Nutzer ist)? → neutral formulieren.
 - Passwort-Reset- und Einladungs-Flows: Links nur einmal gültig und mit Ablaufzeit.
@@ -57,9 +57,10 @@ Frage für jeden Flow ausdrücklich:
 ````markdown
 # User-Flows
 
-## Flow 1: <Name>
+## FL-01: <Name>
 Ziel: …  
-Persona: …
+Persona: …  
+Deckt ab: F-01, F-02
 
 ```mermaid
 flowchart TD
@@ -82,11 +83,11 @@ flowchart TD
 ### Missbrauchsfälle
 | Fall | Gewünschtes Verhalten |
 |---|---|
-| ID in URL geändert | 404, keine fremden Daten |
+| ID in URL geändert | Zugriff verweigert (Strategie aus Phase 14), keine fremden Daten |
 ````
 
 ## Definition of Done
-- [ ] Jede Muss-Funktion ist in einem Flow enthalten
+- [ ] Jede Muss-Funktion `F-…` ist in mindestens einem Flow `FL-…` enthalten
 - [ ] Leer-, Fehler-, Offline-Zustände für die Hauptbildschirme definiert
 - [ ] Missbrauchsfälle pro Flow notiert
 - [ ] Fehlermeldungen verraten keine internen Infos

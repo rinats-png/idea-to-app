@@ -38,7 +38,7 @@ Hier verhindern wir einen der häufigsten Fehler in Apps: Jemand ändert in der 
   - **Prüfung serverseitig**, bei jeder Anfrage – nie nur im Frontend.
   - **Rolle kommt vom Server** (aus der Sitzung / Datenbank), nie aus einem Feld, das der Client schickt.
   - **Besitz wird beim Anlegen vom Server gesetzt** (`owner_id = angemeldeter Nutzer`), nie aus dem Formular übernommen.
-  - Kein Zugriff → Antwort **404** (statt 403), damit nicht verraten wird, dass es den Datensatz gibt.
+  - Kein Zugriff → **keine Daten** in der Antwort. Ob 404 („gibt es nicht“ – verrät nichts, Standard für private Daten) oder 403 („kein Zugriff“) zurückkommt, wird in Phase 14 als Zugriffs-Antwortstrategie festgelegt.
   - **Minimale Rechte**: Admins nur so viel wie nötig; Zugriff auf private Inhalte nur mit Begründung und Protokoll.
   - Admin-Aktionen werden **protokolliert** (Audit-Log).
 - Bei Teilen-Links: zufällige, lange, nicht ratbare Tokens; widerrufbar; optional mit Ablaufdatum.
@@ -80,11 +80,11 @@ Hier verhindern wir einen der häufigsten Fehler in Apps: Jemand ändert in der 
 …
 
 ## Pflicht-Testfälle (für Phase 19)
-- Nutzer A ruft Eintrag von Nutzer B per ID auf → 404
-- Nutzer A ändert/löscht Eintrag von B → 404, Daten unverändert
-- Nutzer schickt `role: "admin"` beim Profil-Update → wird ignoriert
-- Nutzer legt Eintrag mit fremder `owner_id` an → owner wird trotzdem er selbst
-- Liste/Suche liefert nie fremde Einträge
+- T-SEC-01: Nutzer A ruft Eintrag von Nutzer B per ID auf → verweigert, keine Daten
+- T-SEC-02: Nutzer A ändert/löscht Eintrag von B → verweigert, Daten unverändert
+- T-SEC-03: Nutzer schickt `role: "admin"` beim Profil-Update bzw. legt Eintrag mit fremder `owner_id` an → wird ignoriert, Besitzer ist er selbst
+- T-SEC-04: Liste/Suche liefert nie fremde Einträge
+- T-SEC-10: Dateien von B sind für A nicht abrufbar (falls Dateien)
 ```
 
 ## Definition of Done

@@ -32,7 +32,7 @@ Fast jede Idee gibt es in irgendeiner Form schon. Das ist kein Grund aufzuhören
 
 ## Was die KI selbst ergänzen soll
 
-- Hat dein Tool **Websuche**, recherchiere 3–6 Alternativen (App Stores, Web). Ohne Websuche: sag das offen und gib dem Nutzer eine Recherche-Checkliste mit Suchbegriffen.
+- Hat dein Tool **Websuche**, recherchiere 3–6 Alternativen (App Stores, Web) und trage jede Quelle in `QUELLEN.md` ein (`[Q-…]` in der Vergleichstabelle; Prüfdatum!). Ohne Websuche: sag das offen, markiere Angaben als Annahme und gib dem Nutzer eine Recherche-Checkliste mit Suchbegriffen.
 - **Vergleichstabelle** (Merkmale × Alternativen × deine App).
 - **Positionierungssatz**: „Für <Zielgruppe>, die <Problem>, ist <App> die <Kategorie>, die <Hauptnutzen> – anders als <Alternative>.“
 - **Namens-Check-Liste** für den Nutzer (die KI kann das nicht verbindlich prüfen):

@@ -28,6 +28,7 @@ Eine App baut man nicht in einem Rutsch. KI-Tools arbeiten am besten mit **klein
 
 Typische Meilenstein-Reihenfolge (anpassen):
 
+0. **M-S – Sofortmaßnahmen** (nur bestehende App): kritische und hohe Befunde aus B1 (`BF-…`), danach Charakterisierungstests für Bereiche, die umgebaut werden
 1. **M0 – Fundament**: Projekt anlegen, Git, Umgebungen, `.env.example`, Security-Header, CI mit Tests, Design-Tokens, Grundlayout
 2. **M1 – Sicherheit & Konten** (falls Konten): Login über Anbieter, Datenbankregeln (RLS), Besitzprüfung, Rate Limits, **Pflicht-Sicherheitstests** – *vor* den Fachfunktionen, damit alles darauf aufbaut
 3. **M2 – Kernfunktion**: die eine Sache aus Phase 5 Q2, Ende-zu-Ende nutzbar
@@ -36,15 +37,17 @@ Typische Meilenstein-Reihenfolge (anpassen):
 6. **M5 – Betrieb & Launch-Vorbereitung**: Monitoring, Backups + Wiederherstellungstest, Sicherheits-Checkliste, Beta-Test
 
 Jede Aufgabe enthält:
-- ID, Titel, Meilenstein
+- ID `TASK-001` …, Titel, Meilenstein
 - Ziel in einem Satz
-- Bezug (Funktion F…, Screen S…, Flow, Sicherheitsabschnitt)
-- Akzeptanzkriterien (aus Phase 19)
+- Bezug mit IDs: Funktion `F-…`, Kriterien `AK-…`, Tests `TEST-…`/`T-SEC-…`, Screen `S…`, Befund `BF-…`
+- Akzeptanzkriterien (aus Phase 19, per ID)
 - Sicherheitsregeln, die hier besonders gelten
 - Abhängigkeiten
 - Größe: S (< 1 Std. KI-Arbeit), M, L – **L-Aufgaben weiter aufteilen**
 
 Ehrlich prüfen: Passt der Umfang zum Zeitbudget aus Phase 5? Wenn nicht: sagen, was verschoben werden sollte.
+
+Zum Schluss die **Rückverfolgungsmatrix** aus `19-tests.md` um die Spalte „Aufgaben“ ergänzen: Jede Muss-Funktion braucht mindestens eine `TASK`, jeder Pflicht-`T-SEC` ist einer Aufgabe zugeordnet, jeder zu behebende Befund `BF` ebenfalls.
 
 ## Missbrauchs- und Sicherheitscheck
 
@@ -75,13 +78,15 @@ gantt
 ## Aufgaben
 | ID | Meilenstein | Titel | Bezug | Akzeptanzkriterien | Sicherheit | Abhängig von | Größe | Status |
 |---|---|---|---|---|---|---|---|---|
-| T-001 | M0 | Projekt mit Vite + TS anlegen | – | Startseite lädt, Lint & Tests laufen in CI | .env in .gitignore | – | S | offen |
+| TASK-001 | M0 | Projekt mit Vite + TS anlegen | – | Startseite lädt, Lint & Tests laufen in CI | Regel 1.3 (.env in .gitignore) | – | S | offen |
+| TASK-005 | M1 | Besitzprüfung + RLS für Einträge | F-01, T-SEC-01, T-SEC-02 | AK-F01-1 | Regeln 2.1–2.6 | TASK-004 | M | offen |
 ````
 
 ## Definition of Done
 - [ ] Meilensteine mit Kernfunktion früh
 - [ ] Sicherheitsgrundlagen vor Fachfunktionen
-- [ ] Jede Aufgabe ≤ M, mit Akzeptanzkriterien
+- [ ] Jede Aufgabe ≤ M, mit IDs und Akzeptanzkriterien
+- [ ] Jede Muss-Funktion, jeder Pflicht-`T-SEC` und jeder zu behebende `BF` hat eine `TASK`
 - [ ] Umfang zum Zeitbudget geprüft
 
 → **Standard-Gate**

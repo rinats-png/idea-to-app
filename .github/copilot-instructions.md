@@ -3,8 +3,9 @@
 Alle verbindlichen Anweisungen für dieses Repository stehen in `AGENTS.md`. Lies sie vollständig und folge ihr.
 
 Kurzfassung:
-- Eine Frage pro Nachricht, mit Antwortoptionen und markierter Empfehlung.
+- Einstieg: neue Idee oder bestehende App (`modes/bestehende-app.md`). Arbeitsweise: geführt oder adaptiv (`modes/adaptiv.md`).
+- Geführt: eine Frage pro Nachricht, mit Antwortoptionen und markierter Empfehlung; Gate nach jeder Phase.
 - Phasen aus `phases/` der Reihe nach; vor jeder Phase die Datei lesen.
-- Ergebnisse in `projekte/<slug>/`, Stand in `PROJECT_STATE.md`.
-- Am Ende jeder Phase das Gate zeigen und auf Freigabe warten.
-- Kein Produktivcode vor Phase 22. Sicherheitsregeln aus `security/regeln-fuer-ki.md` gelten immer.
+- Ergebnisse in `projekte/<slug>/`, Stand in `PROJECT_STATE.md`, IDs nach `AGENTS.md` Abschnitt 11, Quellen in `QUELLEN.md`.
+- Kein Produktivcode vor Phase 22. Sicherheitsregeln aus `security/regeln-fuer-ki.md`, Werte aus `security/standardwerte.md`.
+- Vor dem Handoff: `node scripts/pruefe-projekt.mjs projekte/<slug> --handoff`.
