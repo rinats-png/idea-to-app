@@ -1,0 +1,18 @@
+# Geheimnisse – niemals einchecken
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Systemdateien
+.DS_Store
+Thumbs.db
+
+# Abhängigkeiten / Builds (falls Beispiele lokal ausprobiert werden)
+node_modules/
+dist/
+build/
+
+# Eigene Projekte privat halten? Dann die nächste Zeile aktivieren (# entfernen):
+# projekte/*/

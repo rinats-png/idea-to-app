@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S01 – Übersicht · Wireframe</title>
+<!--
+  ANLEITUNG FÜR DIE KI
+  ====================
+  - Diese Datei ist die Vorlage für Lo-fi-Wireframes (Phase 8). Kopiere sie nach
+    projekte/<slug>/mockups/<SID>-<name>.html und ersetze NUR den Inhalt von <main class="screen-body">,
+    die App-Leiste und die Tab-Leiste.
+  - Keine externen Ressourcen (keine CDNs, Fonts, Bilder aus dem Netz). Alles bleibt in dieser Datei.
+  - Nur Graustufen. Farben kommen erst in Phase 9.
+  - Realistische deutsche Platzhaltertexte statt "Lorem ipsum".
+  - Bausteine (Klassen): .card, .list, .list-item, .btn, .btn.primary, .btn.danger, .field, .input,
+    .hint, .error-text, .img, .avatar, .chip, .empty, .banner, .skeleton, .row, .stack, .muted, .fab
+  - Rahmen: <body class="frame-phone"> (Standard) oder <body class="frame-desktop">.
+  - Klickbarer Prototyp: Verlinke andere Wireframes per <a href="S02-detail.html">.
+  - Zustandsumschalter unten (Daten / Leer / Laden / Fehler) per data-state – zeige mindestens
+    bei einem Screen alle Zustände.
+-->
+<style>
+  :root {
+    --bg: #f2f2f2; --surface: #ffffff; --line: #c9c9c9; --text: #222; --muted: #777;
+    --fill: #e4e4e4; --fill-strong: #bdbdbd; --radius: 10px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); min-height: 100vh;
+         display: flex; flex-direction: column; align-items: center; padding: 24px 16px; gap: 16px; }
+  .meta { font-size: 13px; color: var(--muted); text-align: center; max-width: 520px; }
+  .meta strong { color: var(--text); }
+
+  /* Rahmen */
+  .device { background: var(--surface); border: 2px solid #999; overflow: hidden; display: flex; flex-direction: column; }
+  .frame-phone .device { width: 375px; max-width: 100%; height: 760px; border-radius: 36px; }
+  .frame-desktop .device { width: 1100px; max-width: 100%; min-height: 680px; border-radius: 8px; }
+  .statusbar { height: 28px; font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; padding: 0 22px; }
+  .frame-desktop .statusbar { display: none; }
+
+  /* App-Leiste & Tab-Leiste */
+  .appbar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .appbar h1 { font-size: 18px; margin: 0; flex: 1; }
+  .icon { width: 24px; height: 24px; border: 2px solid var(--fill-strong); border-radius: 6px; flex: none; }
+  .tabbar { display: flex; border-top: 1px solid var(--line); margin-top: auto; }
+  .tabbar a { flex: 1; text-align: center; padding: 10px 4px 14px; font-size: 11px; color: var(--muted); text-decoration: none; }
+  .tabbar a::before { content: ""; display: block; width: 22px; height: 22px; margin: 0 auto 4px; border: 2px solid var(--fill-strong); border-radius: 6px; }
+  .tabbar a.active { color: var(--text); font-weight: 600; }
+  .tabbar a.active::before { background: var(--fill-strong); }
+
+  /* Inhalt */
+  .screen-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; position: relative; }
+  .stack { display: flex; flex-direction: column; gap: 8px; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .muted { color: var(--muted); font-size: 13px; }
+  h2 { font-size: 16px; margin: 8px 0 0; }
+  .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .list { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .list-item { display: flex; gap: 12px; align-items: center; padding: 12px; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+  .list-item:last-child { border-bottom: 0; }
+  .list-item .grow { flex: 1; min-width: 0; }
+  .img { background: var(--fill); border-radius: 8px; display: grid; place-items: center; color: var(--muted); font-size: 12px; aspect-ratio: 16/9; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--fill); flex: none; }
+  .chip { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+  .btn { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 0 16px; border-radius: var(--radius);
+         border: 2px solid var(--fill-strong); background: var(--surface); font: inherit; font-weight: 600; color: var(--text); text-decoration: none; cursor: pointer; }
+  .btn.primary { background: #555; border-color: #555; color: #fff; }
+  .btn.danger { border-style: dashed; }
+  .btn.block { width: 100%; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 13px; font-weight: 600; }
+  .input { min-height: 44px; border: 1px solid var(--fill-strong); border-radius: 8px; padding: 10px 12px; font: inherit; color: var(--muted); background: var(--surface); }
+  .hint { font-size: 12px; color: var(--muted); }
+  .error-text { font-size: 12px; font-weight: 600; }
+  .error-text::before { content: "⚠ "; }
+  .banner { border: 1px dashed var(--fill-strong); border-radius: 8px; padding: 10px 12px; font-size: 13px; background: var(--fill); }
+  .empty { text-align: center; padding: 40px 16px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .empty .img { width: 120px; aspect-ratio: 1; border-radius: 50%; }
+  .skeleton { background: linear-gradient(90deg, var(--fill) 25%, #efefef 50%, var(--fill) 75%); background-size: 200% 100%;
+              animation: shimmer 1.4s infinite; border-radius: 6px; height: 14px; }
+  @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .fab { position: sticky; bottom: 8px; align-self: flex-end; width: 56px; height: 56px; border-radius: 50%; background: #555; color: #fff;
+         display: grid; place-items: center; font-size: 28px; text-decoration: none; }
+  .note { font-size: 11px; color: var(--muted); border-left: 3px solid var(--fill-strong); padding-left: 8px; }
+
+  /* Zustände */
+  [data-state-view] { display: none; }
+  body[data-state="daten"] [data-state-view="daten"],
+  body[data-state="leer"] [data-state-view="leer"],
+  body[data-state="laden"] [data-state-view="laden"],
+  body[data-state="fehler"] [data-state-view="fehler"] { display: flex; flex-direction: column; gap: 12px; }
+  .state-switch { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .state-switch button { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+  .state-switch button[aria-pressed="true"] { background: #555; color: #fff; border-color: #555; }
+</style>
+</head>
+<body class="frame-phone" data-state="daten">
+
+<p class="meta"><strong>S01 – Übersicht</strong> · Lo-fi-Wireframe · Struktur, keine Gestaltung<br>
+Zweck: Alle eigenen Einträge auf einen Blick, schneller Zugang zu „Neu“.</p>
+
+<div class="device" role="region" aria-label="Wireframe-Vorschau">
+  <div class="statusbar"><span>9:41</span><span>●●● ▮</span></div>
+
+  <header class="appbar">
+    <div class="icon" aria-hidden="true"></div>
+    <h1>Meine Einträge</h1>
+    <a class="icon" href="S05-einstellungen.html" aria-label="Einstellungen"></a>
+  </header>
+
+  <main class="screen-body">
+
+    <!-- Zustand: Daten vorhanden -->
+    <section data-state-view="daten">
+      <div class="banner">Du bist offline. Neue Einträge werden gesendet, sobald du wieder online bist.</div>
+      <div class="row"><span class="chip">Alle</span><span class="chip">Diese Woche</span><span class="chip">Favoriten</span></div>
+      <div class="list">
+        <a class="list-item" href="S02-detail.html">
+          <div class="avatar" aria-hidden="true"></div>
+          <div class="grow"><strong>Training Dienstag</strong><div class="muted">Heute, 18:30 · 45 Min.</div></div>
+          <span aria-hidden="true">›</span>
+        </a>
+        <a class="list-item" href="S02-detail.html">
+          <div class="avatar" aria-hidden="true"></div>
+          <div class="grow"><strong>Notiz nach Nachtschicht</strong><div class="muted">Gestern · 3 Absätze</div></div>
+          <span aria-hidden="true">›</span>
+        </a>
+        <a class="list-item" href="S02-detail.html">
+          <div class="avatar" aria-hidden="true"></div>
+          <div class="grow"><strong>Wochenplan</strong><div class="muted">Mo, 12.10.</div></div>
+          <span aria-hidden="true">›</span>
+        </a>
+      </div>
+      <p class="note">Liste zeigt nur eigene Einträge (serverseitig gefiltert).</p>
+    </section>
+
+    <!-- Zustand: Leer -->
+    <section data-state-view="leer" class="empty">
+      <div class="img" aria-hidden="true">Illustration</div>
+      <h2>Noch keine Einträge</h2>
+      <p class="muted">Leg deinen ersten Eintrag an – das dauert keine Minute.</p>
+      <a class="btn primary" href="S03-neu.html">Ersten Eintrag anlegen</a>
+    </section>
+
+    <!-- Zustand: Laden -->
+    <section data-state-view="laden">
+      <div class="card"><div class="skeleton" style="width:60%"></div><div class="skeleton" style="width:40%"></div></div>
+      <div class="card"><div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:30%"></div></div>
+      <div class="card"><div class="skeleton" style="width:50%"></div><div class="skeleton" style="width:45%"></div></div>
+    </section>
+
+    <!-- Zustand: Fehler -->
+    <section data-state-view="fehler" class="empty">
+      <div class="img" aria-hidden="true">!</div>
+      <h2>Das hat nicht geklappt</h2>
+      <p class="muted">Deine Einträge konnten gerade nicht geladen werden. Deine Daten sind nicht verloren.</p>
+      <button class="btn" type="button">Erneut versuchen</button>
+    </section>
+
+    <a class="fab" href="S03-neu.html" aria-label="Neuer Eintrag">+</a>
+  </main>
+
+  <nav class="tabbar" aria-label="Hauptnavigation">
+    <a class="active" href="S01-uebersicht.html">Übersicht</a>
+    <a href="S04-statistik.html">Statistik</a>
+    <a href="S05-einstellungen.html">Profil</a>
+  </nav>
+</div>
+
+<div class="state-switch" role="group" aria-label="Zustand anzeigen">
+  <button type="button" data-set="daten" aria-pressed="true">Daten</button>
+  <button type="button" data-set="leer" aria-pressed="false">Leer</button>
+  <button type="button" data-set="laden" aria-pressed="false">Laden</button>
+  <button type="button" data-set="fehler" aria-pressed="false">Fehler</button>
+  <button type="button" data-frame aria-pressed="false">Desktop-Ansicht</button>
+</div>
+
+<script>
+  document.querySelectorAll("[data-set]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.body.dataset.state = btn.dataset.set;
+      document.querySelectorAll("[data-set]").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+    });
+  });
+  var frameBtn = document.querySelector("[data-frame]");
+  frameBtn.addEventListener("click", function () {
+    var desktop = document.body.classList.toggle("frame-desktop");
+    document.body.classList.toggle("frame-phone", !desktop);
+    frameBtn.setAttribute("aria-pressed", String(desktop));
+  });
+</script>
+</body>
+</html>

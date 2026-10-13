@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style-Tile · &lt;App-Name&gt;</title>
+<!--
+  ANLEITUNG FÜR DIE KI (Phase 9)
+  - Kopieren nach projekte/<slug>/mockups/style-tile.html.
+  - Nur die Werte in :root (hell) und im Dunkel-Block ändern. Die Namen der Tokens bleiben gleich,
+    damit sie 1:1 in docs/design.md und später in den Code übernommen werden können.
+  - Kontrastwerte in der Tabelle unten eintragen (Text auf Hintergrund mind. 4.5:1).
+  - Keine externen Schriften laden; Systemschrift oder lokal eingebundene Schrift.
+-->
+<style>
+  :root {
+    --color-primary: #2f5d8a;
+    --color-on-primary: #ffffff;
+    --color-accent: #e07a2f;
+    --color-bg: #f7f8fa;
+    --color-surface: #ffffff;
+    --color-text: #1c2430;
+    --color-text-muted: #556070;
+    --color-border: #d5dae1;
+    --color-success: #2e7d4f;
+    --color-warning: #8a5a00;
+    --color-error: #b3261e;
+    --radius: 12px;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-primary: #8db8e6;
+      --color-on-primary: #0d1b2a;
+      --color-accent: #f2a160;
+      --color-bg: #11161d;
+      --color-surface: #1a2029;
+      --color-text: #e8ecf1;
+      --color-text-muted: #a3adba;
+      --color-border: #2e3744;
+      --color-success: #6fcf97;
+      --color-warning: #f2c94c;
+      --color-error: #f28b82;
+    }
+  }
+  :root[data-theme="dark"] {
+    --color-primary: #8db8e6; --color-on-primary: #0d1b2a; --color-accent: #f2a160;
+    --color-bg: #11161d; --color-surface: #1a2029; --color-text: #e8ecf1; --color-text-muted: #a3adba;
+    --color-border: #2e3744; --color-success: #6fcf97; --color-warning: #f2c94c; --color-error: #f28b82;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); background: var(--color-bg); color: var(--color-text); padding: var(--space-6) var(--space-4); }
+  .wrap { max-width: 960px; margin: 0 auto; display: grid; gap: var(--space-6); }
+  header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 28px; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); margin: 0 0 var(--space-3); }
+  section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: var(--space-4); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: var(--space-3); }
+  .swatch { border: 1px solid var(--color-border); border-radius: 10px; overflow: hidden; font-size: 12px; }
+  .swatch div:first-child { height: 64px; }
+  .swatch div:last-child { padding: var(--space-2); }
+  .type p { margin: var(--space-2) 0; }
+  .btn { min-height: 44px; padding: 0 18px; border-radius: var(--radius); font: inherit; font-weight: 600; cursor: pointer; border: 2px solid transparent; }
+  .btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
+  .btn-secondary { background: transparent; color: var(--color-primary); border-color: var(--color-primary); }
+  .btn-danger { background: transparent; color: var(--color-error); border-color: var(--color-error); }
+  .btn:focus-visible, input:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+  .row { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+  .field { display: grid; gap: var(--space-1); max-width: 360px; }
+  label { font-weight: 600; font-size: 14px; }
+  input { min-height: 44px; border-radius: 8px; border: 1px solid var(--color-border); padding: 0 var(--space-3); font: inherit; background: var(--color-bg); color: var(--color-text); }
+  .err { color: var(--color-error); font-size: 13px; font-weight: 600; }
+  .alert { border-radius: 8px; padding: var(--space-3); font-size: 14px; border-left: 4px solid; }
+  .alert.ok { border-color: var(--color-success); }
+  .alert.warn { border-color: var(--color-warning); }
+  .alert.bad { border-color: var(--color-error); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: var(--space-2); border-bottom: 1px solid var(--color-border); }
+  .toggle { background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border); border-radius: 999px; padding: 6px 14px; font: inherit; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>&lt;App-Name&gt;</h1>
+      <div style="color:var(--color-text-muted)">Style-Tile · Stimmung: ruhig, klar, motivierend</div>
+    </div>
+    <button class="toggle" type="button" id="theme">Hell / Dunkel umschalten</button>
+  </header>
+
+  <section>
+    <h2>Farben</h2>
+    <div class="swatches">
+      <div class="swatch"><div style="background:var(--color-primary)"></div><div>primary</div></div>
+      <div class="swatch"><div style="background:var(--color-accent)"></div><div>accent</div></div>
+      <div class="swatch"><div style="background:var(--color-bg)"></div><div>bg</div></div>
+      <div class="swatch"><div style="background:var(--color-surface)"></div><div>surface</div></div>
+      <div class="swatch"><div style="background:var(--color-text)"></div><div>text</div></div>
+      <div class="swatch"><div style="background:var(--color-text-muted)"></div><div>text-muted</div></div>
+      <div class="swatch"><div style="background:var(--color-success)"></div><div>success</div></div>
+      <div class="swatch"><div style="background:var(--color-warning)"></div><div>warning</div></div>
+      <div class="swatch"><div style="background:var(--color-error)"></div><div>error</div></div>
+    </div>
+  </section>
+
+  <section class="type">
+    <h2>Typografie</h2>
+    <p style="font-size:28px;font-weight:700">Überschrift 1 – 28 px</p>
+    <p style="font-size:20px;font-weight:700">Überschrift 2 – 20 px</p>
+    <p style="font-size:16px">Fließtext 16 px – Dein Eintrag wurde gespeichert. Du kannst ihn jederzeit bearbeiten.</p>
+    <p style="font-size:13px;color:var(--color-text-muted)">Hinweistext 13 px – Zuletzt geändert vor 5 Minuten</p>
+  </section>
+
+  <section>
+    <h2>Bausteine</h2>
+    <div class="row">
+      <button class="btn btn-primary" type="button">Speichern</button>
+      <button class="btn btn-secondary" type="button">Abbrechen</button>
+      <button class="btn btn-danger" type="button">Konto löschen</button>
+    </div>
+    <div style="height:var(--space-4)"></div>
+    <div class="field">
+      <label for="t">Titel</label>
+      <input id="t" value="Training Dienstag">
+      <span class="err" role="alert">⚠ Bitte gib einen Titel mit höchstens 200 Zeichen ein.</span>
+    </div>
+    <div style="height:var(--space-4)"></div>
+    <div class="row" style="flex-direction:column;align-items:stretch">
+      <div class="alert ok">✓ Gespeichert.</div>
+      <div class="alert warn">! Du bist offline. Wir senden deine Änderungen später.</div>
+      <div class="alert bad">✕ Das hat nicht geklappt. Bitte versuch es erneut.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kontrastprüfung (WCAG AA: Text ≥ 4,5:1, große Schrift/Bedienelemente ≥ 3:1)</h2>
+    <table>
+      <thead><tr><th>Kombination</th><th>Hell</th><th>Dunkel</th><th>OK?</th></tr></thead>
+      <tbody>
+        <tr><td>text auf bg</td><td>…</td><td>…</td><td>…</td></tr>
+        <tr><td>text-muted auf surface</td><td>…</td><td>…</td><td>…</td></tr>
+        <tr><td>on-primary auf primary</td><td>…</td><td>…</td><td>…</td></tr>
+        <tr><td>error auf surface</td><td>…</td><td>…</td><td>…</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Tonalität</h2>
+    <p>Ansprache: <strong>du, freundlich, klar</strong></p>
+    <ul>
+      <li>Erfolg: „Geschafft! Dein Eintrag ist gespeichert.“</li>
+      <li>Leerzustand: „Noch nichts hier – leg deinen ersten Eintrag an.“</li>
+      <li>Fehler: „Das hat nicht geklappt. Deine Daten sind sicher – versuch es gleich noch mal.“</li>
+    </ul>
+  </section>
+</div>
+<script>
+  document.getElementById("theme").addEventListener("click", function () {
+    var root = document.documentElement;
+    var dark = root.dataset.theme === "dark" ||
+      (!root.dataset.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    root.dataset.theme = dark ? "light" : "dark";
+  });
+</script>
+</body>
+</html>
