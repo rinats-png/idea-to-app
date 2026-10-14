@@ -36,6 +36,12 @@ Jede App speichert Daten: Nutzer, Einträge, Fotos, Einstellungen. Das **Datenmo
 
 **Q6 – Gibt es Inhalte, die du (als Betreiber) bereitstellst?** (Texte, Übungen, Rezepte, Kataloge) – Wer pflegt sie, wie oft ändern sie sich?
 
+**Q7 – Hängen Daten an Uhrzeiten oder Terminen?** (Dienstpläne, Erinnerungen, Fristen, Buchungen, Abrechnung)
+- a) Nein
+- b) Ja, es geht um Zeitpunkte, die wirklich passiert sind (z. B. „erstellt am“)
+- c) Ja, es geht um geplante Uhrzeiten an einem Ort (z. B. „Schicht 22:00“, „jeden Morgen 7:00“)
+- d) Beides
+
 ## Was die KI selbst ergänzen soll
 
 - **Datenklassifizierung** für jedes Feld:
@@ -54,6 +60,7 @@ Jede App speichert Daten: Nutzer, Einträge, Fotos, Einstellungen. Das **Datenmo
 - Zeitstempel (`created_at`, `updated_at`) und ggf. Soft-Delete vs. echtes Löschen begründen. Hinweis: DSGVO-Löschung heißt **wirklich löschen** (inkl. Dateien), nicht nur verstecken.
 - Datenfluss-Liste: Welche Daten gehen an **welche externen Dienste** (Hosting, E-Mail-Versand, Analytics, KI-API)? → Grundlage für Phase 16.
 - Bei Offline: Welche Daten liegen auf dem Gerät, und sind sie dort geschützt? → Phase 14.
+- **Zeitfelder:** Ordne jedes Feld mit Zeitbezug einer der drei Arten zu (Zeitpunkt in UTC, Wandzeit mit Zeitzone, Kalendertag ohne Uhrzeit) – Einzelheiten in [`guides/zeit-und-formate.md`](../guides/zeit-und-formate.md). Speichere die Zeitzone des Nutzers als Feld, wenn Wandzeiten vorkommen. Fristen und Ablaufzeiten rechnet immer der Server.
 
 ## Missbrauchs- und Sicherheitscheck
 
@@ -96,6 +103,10 @@ erDiagram
 ## Offline
 …
 
+## Zeitfelder
+| Feld | Art (Zeitpunkt UTC / Wandzeit + Zeitzone / Kalendertag) | Regel |
+|---|---|---|
+
 ## Datenflüsse zu externen Diensten
 | Daten | Dienst | Zweck | Ort (EU/USA) |
 |---|---|---|---|
@@ -111,5 +122,6 @@ Bestätigt / geändert auf … weil …
 - [ ] Aufbewahrung und Löschung geklärt
 - [ ] Risikostufe überprüft
 - [ ] ER-Diagramm erstellt
+- [ ] Zeitfelder (falls vorhanden) der richtigen Art zugeordnet
 
 → **Standard-Gate**

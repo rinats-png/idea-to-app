@@ -83,6 +83,9 @@ Der Client (Browser, App) ist **nicht vertrauenswürdig**. Alles, was von dort k
 - 9.2 Bekannte Schwachstellen (z. B. `npm audit` hoch/kritisch) MÜSSEN vor einem Release behoben oder dokumentiert werden.
 - 9.3 Nutzer sehen allgemeine Fehlermeldungen; technische Details nur im Server-Log.
 - 9.4 Sicherheitsereignisse (Logins, Fehlversuche, verweigerte Zugriffe, Admin-Aktionen, Rate-Limit-Treffer) werden protokolliert.
+- 9.5 Vor dem Installieren einer neuen Abhängigkeit prüfen, dass das Paket wirklich existiert und das gemeinte ist (genauer Name, Herausgeber, Pflegestand). Sprachmodelle erfinden Paketnamen, und Angreifer registrieren solche Namen. Im Zweifel nachfragen.
+- 9.6 CI-Workflows, Aktionen und Skripte von Dritten nur aus vertrauenswürdigen Quellen, mit festgelegter Version und minimalen Rechten. Geheimnisse erscheinen nie in Build- oder Testprotokollen.
+- 9.7 Änderungen am Datenbankschema nur über versionierte Migrationen, nie von Hand in Produktion, und vor jeder Migration ein Backup.
 
 ## 10. Arbeitsweise
 

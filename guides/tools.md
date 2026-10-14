@@ -95,7 +95,13 @@ node scripts/pruefe-projekt.mjs projekte/<slug> --handoff  # vor der Übergabe
 node scripts/pruefe-projekt.mjs projekte/<slug> --launch   # vor dem Launch
 ```
 
-In Chat-Tools geht die KI dieselben Punkte manuell durch.
+In Chat-Tools geht die KI dieselben Punkte manuell durch und sagt dir das offen.
+
+**So liest du das Ergebnis:**
+- **FEHLER** müssen behoben (oder bewusst als Risiko `E-…` akzeptiert) werden.
+- **NICHT GEPRÜFT** heißt: Das Skript konnte etwas nicht auswerten, meist weil IDs in Listen statt in den Tabellen der Vorlagen stehen. Das ist **kein Grün**.
+- Die Prüfung ersetzt keine inhaltliche Kontrolle: Sie sieht, ob etwas eingetragen und verknüpft ist, nicht, ob es stimmt.
+- Hilfe bei Meldungen: [`fehlersuche.md`](fehlersuche.md).
 
 ---
 

@@ -28,7 +28,7 @@ Der Launch ist der Moment, ab dem fremde Menschen deiner App ihre Daten anvertra
 - b) Formular in der App
 - c) Community (Discord, Forum …)
 
-**Q3 – Wie sollen die ersten Nutzer von der App erfahren?** (Bekannte, Vereine, Social Media, Fachgruppen, Kollegen …)
+**Q3 – Wie sollen die ersten Nutzer von der App erfahren?** (Bekannte, Vereine, Social Media, Fachgruppen, Kollegen …) Ideen und ehrliche Erwartungen: [`guides/launch-und-auffindbarkeit.md`](../guides/launch-und-auffindbarkeit.md).
 
 **Q4 (beim Freigabeschritt) – Für jeden offenen Pflichtpunkt: nachholen, als Risiko akzeptieren (`E-…`) oder Launch verschieben?**
 
@@ -39,8 +39,10 @@ Der Launch ist der Moment, ab dem fremde Menschen deiner App ihre Daten anvertra
 - **Betrieb, Recht, Qualität, Stores, Web, Kommunikation:** die Punkte unten, soweit zutreffend.
 
 **2. Beim Freigabeschritt:**
-- Nachweise einsammeln bzw. vom Nutzer erfragen. Gültige Nachweise: Testname + Datum des grünen Laufs, Link zum CI-Lauf, Konfigurationsdatei/-zeile, Screenshot-Datei, Datum + Ergebnis eines manuellen Tests, Datum des Wiederherstellungstests, Dokument/Link.
-- Ungültig: „erledigt“, „geprüft“, „ok“, „ja“, „laut KI“.
+- Nachweise einsammeln bzw. vom Nutzer erfragen. **Ein Nachweis ist nur gültig, wenn man ihn nachprüfen könnte:** Er enthält ein Datum, einen Link, einen Dateipfad, eine ID (Test, Aufgabe, Entscheidung) oder eine Commit-/Lauf-Nummer. Beispiele: Testname + Datum des grünen Laufs, Link zum CI-Lauf, Konfigurationsdatei/-zeile, Screenshot-Datei, Datum + Ergebnis eines manuellen Tests, Datum des Wiederherstellungstests, Dokument/Link.
+- Ungültig: „erledigt“, „geprüft“, „ok“, „ja“, „laut KI“, „habe ich gemacht“, „siehe oben“ – und alles andere ohne Datum, Link, Pfad, ID oder Commit. Das Prüfskript lehnt solche Haken ab.
+- **Risikostufe 3:** Eine externe Fachprüfung (Bericht unter `pruefungen/externe-pruefung-….md` oder Nachweis in der Launch-Liste) **oder** ein vom Nutzer bewusst akzeptiertes Risiko (`E-…` in `ENTSCHEIDUNGEN.md`, Stichwort „extern“) ist Voraussetzung für „freigabefähig“. Eine zweite KI ersetzt das nicht. Sage das dem Nutzer, auch wenn er drängt.
+- **Regelwerk-Version prüfen:** Steht in `PROJECT_STATE.md` eine ältere Version als im Repository, lies `CHANGELOG.md` und prüfe, ob sich etwas geändert hat, das die Freigabe betrifft.
 - Prüfskript ausführen: `node scripts/pruefe-projekt.mjs projekte/<slug> --launch` (ohne Befehlsausführung: manuell nach denselben Regeln).
 - **Freigabestatus** bestimmen:
   - **Freigabefähig:** alle Pflichtpunkte ☑ mit Nachweis oder `n/a` mit Begründung.
@@ -54,7 +56,14 @@ Der Launch ist der Moment, ab dem fremde Menschen deiner App ihre Daten anvertra
 | ☐ | Backup-Wiederherstellung getestet | 2 | |
 | ☐ | Monitoring, Uptime- und Kosten-Alarme aktiv | 1 | |
 | ☐ | 2FA auf allen Betreiber-Zugängen | 1 | |
-| ☐ | Notfallplan liegt bereit | 2 | |
+| ☐ | Incident-Plan liegt bereit, Datenpannen-Meldeweg geklärt (Fristen in `guides/recht-eu-ueberblick.md` neu prüfen) | 2 | |
+| ☐ | Release-Checkliste (`templates/release-checkliste.md`) für den ersten Release durchgegangen | 1 | |
+| ☐ | Verarbeitungsverzeichnis und Löschkonzept liegen vor und passen zur echten Verarbeitung | 2 | |
+| ☐ | Auftragsverarbeiter-Liste vollständig, Drittland-Übermittlungen geprüft | 2 | |
+| ☐ | Datenschutz-Folgenabschätzung durchgeführt oder Schwellwertprüfung dokumentiert (`templates/dsfa-vorlage.md`) | 3 | |
+| ☐ | KI-Funktionen: Fristen und Pflichten der EU-KI-Verordnung zum Launch-Zeitpunkt neu geprüft (Stand ändert sich) | 1 | |
+| ☐ | Nutzerinhalte: Melde- und Entfernungsverfahren erreichbar und getestet (falls Nutzer Inhalte veröffentlichen) | 2 | |
+| ☐ | Zeit und Formate: Pflicht-Testfälle aus `guides/zeit-und-formate.md` bestanden (falls Zeitbezug) | 1 | |
 | ☐ | Impressum, Datenschutzerklärung (und ggf. AGB) erreichbar | 2 | |
 | ☐ | Einwilligungen funktionieren („Ablehnen“ wirkt wirklich) | 2 | |
 | ☐ | Datenexport und Konto-Löschung funktionieren | 2 | |
@@ -67,14 +76,19 @@ Der Launch ist der Moment, ab dem fremde Menschen deiner App ihre Daten anvertra
 | ☐ | App Stores: Konto-Löschung in der App (Apple verlangt das, wenn Konten in der App angelegt werden; Google zusätzlich einen Lösch-Weg außerhalb der App) – aktuelle Richtlinien prüfen | 2 | |
 | ☐ | App Stores: Screenshots, Beschreibung, Altersfreigabe, Support- und Datenschutz-URL, Test-Zugang für Prüfer | 1 | |
 | ☐ | Web: eigene Domain mit HTTPS, Weiterleitung http → https, Fehlerseiten 404/500 | 1 | |
+| ☐ | Web: Seitentitel, Beschreibung und Link-Vorschau gesetzt, Sitemap und `robots.txt` bewusst gewählt (`guides/launch-und-auffindbarkeit.md`) | 1 | |
+| ☐ | Browser-Erweiterung: angeforderte Berechtigungen minimal und im Store-Eintrag begründet (`guides/plattformen.md`) | 1 | |
+| ☐ | Desktop-App: Installationspaket signiert, Update-Weg getestet (`guides/plattformen.md`) | 2 | |
+| ☐ | Spiel: Altersfreigabe, In-App-Käufe und Zufallsmechaniken gemäß Store-Vorgaben geprüft (`guides/appstore-veroeffentlichung.md`) | 2 | |
 | ☐ | Testkonten und Testdaten aus der Produktion entfernt, Debug-Modus aus | 1 | |
 | ☐ | Feedback-Kanal eingerichtet | 1 | |
 
-Store-Punkte nur bei Store-Apps; Web-Punkte nur bei Web-Apps (sonst `n/a – keine Store-App` usw.).
+Store-Punkte nur bei Store-Apps (Einzelheiten: [`guides/appstore-veroeffentlichung.md`](../guides/appstore-veroeffentlichung.md)); Web-Punkte nur bei Web-Apps; Erweiterungs-, Desktop- und Spiel-Punkte nur bei dieser App-Art (sonst `n/a – keine Store-App` usw.). Plattformabhängige Besonderheiten: [`guides/plattformen.md`](../guides/plattformen.md).
 
 ## Missbrauchs- und Sicherheitscheck
 
 - Nach dem Launch steigt die Angriffsfläche schlagartig (Bots finden neue Seiten schnell) → Alarme in den ersten Tagen besonders beobachten.
+- Das Prüfskript prüft Nachweise auf **Nachprüfbarkeit**, nicht auf **Wahrheit**. Ein Datum im Nachweis beweist nicht, dass der Test lief. Stichproben sind deshalb Pflicht: Frage bei Sicherheitspunkten nach dem Testprotokoll und öffne mindestens einen verlinkten Lauf.
 - Ein „Nicht freigabefähig“ wird nicht weichgezeichnet. Akzeptiert der Nutzer Risiken, dokumentierst du sie mit Datum in `ENTSCHEIDUNGEN.md`.
 
 ## Ergebnis-Dokument `23-launch.md`
@@ -110,7 +124,9 @@ Prüfskript: pruefungen/launch-JJJJ-MM-TT.txt
 ## Definition of Done
 - [ ] Checkliste mit Nachweis-Spalte angelegt (Planung)
 - [ ] Beim Freigabeschritt: jeder Pflichtpunkt ☑ mit Nachweis, `n/a` mit Begründung oder als `E-…` akzeptiert
-- [ ] Prüfskript `--launch` ausgeführt (oder manuell geprüft)
+- [ ] Prüfskript `--launch` ausgeführt (oder manuell geprüft); „NICHT GEPRÜFT“-Meldungen behoben oder offen benannt
+- [ ] Bei Risikostufe 3: externe Fachprüfung belegt oder Risiko bewusst akzeptiert (`E-…`)
+- [ ] Stichprobe: mindestens ein Nachweis inhaltlich nachgeprüft (Protokoll geöffnet, nicht nur Datum gelesen)
 - [ ] Freigabestatus und Entscheidung dokumentiert
 
 → **Gate**

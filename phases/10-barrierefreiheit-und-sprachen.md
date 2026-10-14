@@ -36,7 +36,21 @@
 
 **Q4 – Gibt es in deiner Zielgruppe Menschen mit besonderen Bedürfnissen** (aus Phase 3 übernehmen und bestätigen)?
 
+**Q5 – In welchen Regionen und Zeitzonen werden die Nutzer sein?**
+- a) Nur eine Region mit einer Zeitzone (z. B. Deutschland) **(häufigster Fall)**
+- b) Mehrere Länder, aber ähnliche Zeitzonen (z. B. D-A-CH)
+- c) Weltweit
+- d) Weiß ich nicht – schlag du etwas vor
+
+**Q6 – Welcher Tag soll in der App der Wochenanfang sein?**
+- a) Montag **(üblich in Deutschland)**
+- b) Sonntag
+- c) Einstellbar durch den Nutzer
+- d) Weiß ich nicht – schlag du etwas vor
+
 ## Was die KI selbst ergänzen soll
+
+- **Formate und Zeit:** Lies [`guides/zeit-und-formate.md`](../guides/zeit-und-formate.md). Lege fest, wie Datum, Uhrzeit, Zahlen, Währung und Einheiten je Sprache und Region angezeigt werden und dass Formate nie von Hand zusammengesetzt werden. Hat die App Zeitbezug (Termine, Schichten, Erinnerungen, Fristen), benenne die Fallen (Zeitumstellung, Schichten über Mitternacht, Reisen) und halte die Regeln als Entscheidungen `E-…` fest. [ANNAHME A-…] für alles, was der Nutzer nicht gesagt hat.
 
 Eine **Basis-Checkliste** (orientiert an WCAG 2.2 Stufe AA), die immer gilt:
 - [ ] Kontraste geprüft (Phase 9)
@@ -80,11 +94,18 @@ WCAG 2.2 AA (Basis)
 - Start: …
 - Später: …
 - i18n von Anfang an: ja
+
+## Formate und Zeit
+- Regionen / Zeitzonen: …
+- Wochenanfang: …
+- Datum, Zahl, Währung, Einheiten: …
+- Zeitbezogene Regeln (Zeitumstellung, Mitternacht, Reisen): … (E-…)
 ```
 
 ## Definition of Done
 - [ ] BFSG-Relevanz grob eingeordnet
 - [ ] Basis-Checkliste übernommen
 - [ ] Sprachkonzept festgelegt
+- [ ] Formate, Zeitzonen und Wochenanfang festgelegt; bei Zeitbezug die Regeln für Zeitumstellung und Mitternacht als Entscheidung notiert
 
 → **Standard-Gate**

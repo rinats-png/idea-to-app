@@ -45,6 +45,12 @@
 - Formuliere für jede Muss-Funktion eine **User Story**: „Als <Persona> möchte ich <Aktion>, damit <Nutzen>.“
 - Vergib jeder Funktion eine feste ID `F-01`, `F-02` … (`AGENTS.md` Abschnitt 11). IDs werden nie neu vergeben; gestrichene Funktionen bleiben mit Priorität `gestrichen` stehen.
 - Behauptungen über Wettbewerber oder Nutzerverhalten mit Beleg `[Q-…]` oder als Annahme.
+- **Machbarkeits-Vorabcheck** (grob, kein Stundenaufwand): Bewerte jede Muss- und Sollte-Funktion mit einer Ampel und einem Halbsatz Begründung.
+  - 🟢 **gängig:** Standardbaustein, viele Beispiele (z. B. Liste mit Einträgen, Login über Anbieter)
+  - 🟡 **braucht Zusatz:** externer Dienst, Spezialwissen oder Genehmigung (z. B. Zahlung, Push, Karten, Kamera, Kalender-Anbindung)
+  - 🔴 **unklar oder riskant:** technisch schwierig, plattformseitig eingeschränkt, rechtlich heikel oder teuer im Betrieb (z. B. dauerhafter Standort im Hintergrund, Echtzeit-Abgleich vieler Geräte, eigene KI-Modelle, Zugriff auf Daten fremder Apps)
+  - Externe Einschränkungen (Store-Regeln, Schnittstellen-Grenzen) nur mit Beleg `[Q-…]` oder als `[ANNAHME A-…]`.
+  - Sage dem Nutzer offen: **Wünsche aus Phase 5 und Mockups aus Phase 8 sind noch keine Zusagen.** Die technische Machbarkeit wird endgültig in Phase 13 entschieden; 🔴-Funktionen werden dort zuerst behandelt und können den Umfang ändern.
 
 ## Missbrauchs- und Sicherheitscheck
 
@@ -61,9 +67,9 @@
 …
 
 ## Funktionen
-| ID | Funktion | Priorität | User Story | Aufwand (S/M/L) | 🔒 Risiko-Markierung |
-|---|---|---|---|---|---|
-| F-01 | … | Muss | Als … möchte ich …, damit … | M | teilt Daten |
+| ID | Funktion | Priorität | User Story | Aufwand (S/M/L) | 🔒 Risiko-Markierung | Machbarkeit (grob) |
+|---|---|---|---|---|---|---|
+| F-01 | … | Muss | Als … möchte ich …, damit … | M | teilt Daten | 🟢 Standardbaustein |
 
 ## Bewusst NICHT in Version 1
 - …
@@ -99,5 +105,7 @@ quadrantChart
 - [ ] Muss-Liste realistisch zum Zeitbudget
 - [ ] Konto-Löschung und Datenexport berücksichtigt (falls Konten)
 - [ ] Riskante Funktionen markiert
+- [ ] Machbarkeit (🟢/🟡/🔴) für alle Muss- und Sollte-Funktionen grob eingeschätzt; dem Nutzer ist klar, dass das Zusagen erst in Phase 13 werden
+- [ ] Funktionen und IDs stehen in der Tabelle (nicht nur in einer Liste) – sonst kann das Prüfskript sie nicht auswerten
 
 → **Standard-Gate**

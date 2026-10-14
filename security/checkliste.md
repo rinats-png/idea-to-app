@@ -70,7 +70,9 @@
 | ☐ | Backups verschlüsselt, Wiederherstellung getestet | 2 | |
 | ☐ | 2FA auf allen Betreiber-Zugängen (GitHub, Hosting, DB, Domain, E-Mail, Stores) | 1 | |
 | ☐ | Fehler-Tracking ohne sensible Daten; Alarme für Sicherheitsereignisse | 2 | |
-| ☐ | Notfallplan vorhanden | 2 | |
+| ☐ | Notfall-/Incident-Plan ausgefüllt (`templates/incident-plan.md`), Kontaktliste aktuell, Übung durchgeführt | 2 | |
+| ☐ | Rollback eines Releases einmal geübt (Vorgehen in `docs/betrieb.md`) | 2 | |
+| ☐ | Support-Kanal und Störungs-Kommunikation festgelegt (`templates/support-playbook.md`) | 2 | |
 
 ## Abhängigkeiten
 | ✓ | Prüfpunkt | Stufe | Nachweis |
@@ -78,6 +80,10 @@
 | ☐ | Lockfile eingecheckt | 1 | |
 | ☐ | Keine bekannten hohen/kritischen Schwachstellen (`npm audit` o. ä.) | 1 | |
 | ☐ | Automatische Update-Hinweise aktiv (Dependabot / Renovate) | 2 | |
+| ☐ | Neue Abhängigkeiten geprüft: Paket existiert, Herausgeber und Pflegestand plausibel (Regel 9.5) | 1 | |
+| ☐ | CI-Workflows: Aktionen mit festgelegter Version, minimale Rechte, keine Geheimnisse in Protokollen (Regel 9.6) | 2 | |
+| ☐ | Schema-Änderungen nur über versionierte Migrationen, Backup vor Migration (Regel 9.7) | 2 | |
+| ☐ | Lizenzliste bzw. Software-Stückliste (SBOM) der Abhängigkeiten erzeugt (`guides/lieferkette.md`) | 3 | |
 
 ## Zahlung, Webhooks, Mobile, KI (falls zutreffend)
 | ✓ | Prüfpunkt | Stufe | Nachweis |
@@ -85,10 +91,11 @@
 | ☐ | Preis und Freischaltung nur serverseitig; Webhook-Signatur geprüft | 1 | |
 | ☐ | Mobile: keine Geheimnisse im Paket; Tokens im Keychain/Keystore | 2 | |
 | ☐ | KI: Ausgaben nicht ungeprüft ausgeführt; nur erlaubte Daten im Kontext; Limits | 1 | |
+| ☐ | KI: Einordnung nach EU-KI-Verordnung dokumentiert, Transparenzhinweise für Nutzer vorhanden (`guides/recht-eu-ueberblick.md`) | 1 | |
 
 ## Abschluss
 | ✓ | Prüfpunkt | Stufe | Nachweis |
 |---|---|---|---|
 | ☐ | Abgleich mit OWASP ASVS Level 1 | 2 | |
 | ☐ | Abgleich mit OWASP ASVS Level 2 | 3 | |
-| ☐ | Externe Prüfung (Pentest / Code-Review) durchgeführt oder bewusst verschoben | 3 | |
+| ☐ | Externe Fachprüfung (Pentest / Code-Review) durchgeführt, Bericht in `pruefungen/externe-pruefung-….md` – oder Risiko bewusst akzeptiert (`E-…`, Stichwort „extern“) | 3 | |

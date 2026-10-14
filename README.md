@@ -35,6 +35,7 @@ Nach jeder Phase siehst du so einen Block:
 ✅ Phase 6 – User-Flows: Entwurf fertig
 📄 Ergebnis: projekte/meine-app/06-flows.md
 🖼️ Visual: 4 Flussdiagramme
+🧭 Das hast du festgelegt: E-012 Offline nur lesend · E-013 Fehlerfall „Konto gesperrt“ mit Hilfetext
 💡 Meine Annahmen: A-007 Offline nur lesend
 ❓ Noch offen: nichts
 📊 Fortschritt: ▓▓▓▓▓░░░░░ 6 von 11 Phasen
@@ -72,30 +73,30 @@ Ausführlich: [`guides/tools.md`](guides/tools.md) · Ganz ohne Vorwissen: [`gui
 
 | # | Phase | Was passiert | Visual | Lite |
 |---|---|---|---|---|
-| 0 | [Start & Einstellungen](phases/00-start-und-modus.md) | Einstieg, Arbeitsweise, Umfang, Plattform, **Risikostufe** | – | ✅ |
+| 0 | [Start & Einstellungen](phases/00-start-und-modus.md) | Einstieg, Arbeitsweise, Umfang, App-Art (Web, nativ, Desktop, Erweiterung, Spiel, Wearable, Bot, API), **Risikostufe** | – | ✅ |
 | 1 | [Idee & Problem](phases/01-idee-und-problem.md) | Problem vs. Lösung, Ein-Satz-Pitch, ehrliche Schwachstelle | – | ✅ |
-| 2 | [Idee validieren](phases/02-idee-validieren.md) | Riskanteste Annahme, günstiger Test, Abbruchkriterium | Annahmen-Tabelle | |
+| 2 | [Idee validieren](phases/02-idee-validieren.md) | Riskanteste Annahme, günstiger Test, Abbruchkriterium und **Ausstiegspfad** | Annahmen-Tabelle | |
 | 3 | [Zielgruppe](phases/03-zielgruppe.md) | Personas, Nutzungssituation, Rollen | Persona-Karten | ✅ |
 | 4 | [Markt & Wettbewerb](phases/04-markt-und-wettbewerb.md) | Alternativen mit Quellen, Differenzierung, Namens-/Markencheck | Vergleichstabelle | |
-| 5 | [MVP-Umfang](phases/05-mvp-scope.md) | Funktionen mit IDs, Muss/Sollte/Später/Nie, User Stories | Nutzen-Aufwand-Matrix | ✅ |
+| 5 | [MVP-Umfang](phases/05-mvp-scope.md) | Funktionen mit IDs, Muss/Sollte/Später/Nie, User Stories, grobe **Machbarkeits-Ampel** | Nutzen-Aufwand-Matrix | ✅ |
 | 6 | [User-Flows](phases/06-user-flows.md) | Abläufe inkl. Leer-, Fehler-, Offline- und Missbrauchsfällen | Flussdiagramme | ✅ |
 | 7 | [Screens & Navigation](phases/07-screens-und-navigation.md) | Screen-Liste, Navigation, Sichtbarkeit | Screen-Map | |
 | 8 | [Mockups](phases/08-mockups.md) | Klickbare Wireframes, 2–3 echte Gestaltungsrichtungen zur Wahl | HTML-Wireframes | ✅ |
 | 9 | [Design-System](phases/09-design-system.md) | Farben, Schrift, Komponenten, Kontrastprüfung | Style-Tile | |
-| 10 | [Barrierefreiheit & Sprachen](phases/10-barrierefreiheit-und-sprachen.md) | WCAG-Basis, BFSG-Einordnung, Mehrsprachigkeit | Checkliste | |
+| 10 | [Barrierefreiheit & Sprachen](phases/10-barrierefreiheit-und-sprachen.md) | WCAG-Basis, BFSG-Einordnung, Mehrsprachigkeit, Zeitzonen und Formate | Checkliste | |
 | 11 | [Daten & Inhalte](phases/11-daten-und-inhalte.md) | Datenmodell, **Datenklassifizierung**, Löschfristen | ER-Diagramm | ✅ |
 | 12 | [Rollen & Berechtigungen](phases/12-rollen-und-berechtigungen.md) | **Wer darf was** – Grundlage gegen „ID in der URL ändern“ | Berechtigungsmatrix | vor Launch |
-| 13 | [Tech-Stack & Architektur](phases/13-tech-stack-und-architektur.md) | 2–3 Optionen in einer Bewertungsmatrix, Umgebungen, Vertrauensgrenzen | Architektur-Diagramm | ✅ |
+| 13 | [Tech-Stack & Architektur](phases/13-tech-stack-und-architektur.md) | 2–3 Optionen in einer Bewertungsmatrix, Machbarkeit der 🔴-Funktionen, plattformabhängige Fragen, Umgebungen, Vertrauensgrenzen | Architektur-Diagramm | ✅ |
 | 14 | [Sicherheitsarchitektur](phases/14-sicherheitsarchitektur.md) | Bedrohungsmodell, Passwörter, Sitzungen, Zugriffskontrolle, Secrets, Rate Limiting … | Bedrohungsmodell | ✅ |
 | 15 | [Login, Zahlung, Integrationen](phases/15-auth-zahlung-integrationen.md) | Anbieterwahl, Datenflüsse, sichere Zahlungsfreischaltung | Sequenzdiagramme | |
-| 16 | [Recht & Datenschutz](phases/16-recht-und-datenschutz.md) | DSGVO, Impressum, Einwilligungen, Export/Löschung, AVV | Verarbeitungsverzeichnis | vor Launch |
-| 17 | [Monetarisierung & Kosten](phases/17-monetarisierung-und-kosten.md) | Preismodell, belegte Betriebskosten, **harte Kostenlimits** | Kostenszenarien | |
-| 18 | [Performance, Offline, Benachrichtigungen](phases/18-nicht-funktionale-anforderungen.md) | Messbare Qualitätsziele | Zielwerte | |
+| 16 | [Recht & Datenschutz](phases/16-recht-und-datenschutz.md) | DSGVO, Impressum, Einwilligungen, Export/Löschung, AVV, KI-Verordnung, Nutzerinhalte, Datenpannen | Verarbeitungsverzeichnis | vor Launch |
+| 17 | [Monetarisierung & Kosten](phases/17-monetarisierung-und-kosten.md) | Preismodell, belegte Betriebskosten, Store-Gebühren, **harte Kostenlimits** | Kostenszenarien | |
+| 18 | [Performance, Offline, Benachrichtigungen](phases/18-nicht-funktionale-anforderungen.md) | Messbare Qualitätsziele, Zeitzonen, Lastplanung | Zielwerte | |
 | 19 | [Qualität & Tests](phases/19-qualitaet-und-tests.md) | Akzeptanzkriterien, Tests, **Rückverfolgungsmatrix**, Sicherheitstests | Matrix | vor Launch |
-| 20 | [Betrieb](phases/20-betrieb.md) | Deployment, Monitoring, Backups, Notfallplan | Deployment-Ablauf | vor Launch |
+| 20 | [Betrieb](phases/20-betrieb.md) | Umgebungen, Auslieferung, Rollback, Monitoring, Backups, **Incident-Plan**, Support, Lieferkette | Deployment-Ablauf | vor Launch |
 | 21 | [Roadmap & Aufgaben](phases/21-roadmap-und-tasks.md) | Meilensteine, kleine prüfbare Aufgaben mit IDs | Roadmap | ✅ |
 | 22 | [Build-Handoff](phases/22-build-handoff.md) | Übergabepaket, **Prüfskript + Zweitprüfung**, Rückweg vom Code in den Plan | – | ✅ |
-| 23 | [Launch & Freigabe](phases/23-launch.md) | Checkliste **mit Nachweisen**, Freigabestatus | Freigabebericht | vor Launch |
+| 23 | [Launch & Freigabe](phases/23-launch.md) | Checkliste **mit nachprüfbaren Nachweisen**, Stufe-3-Schranke, Freigabestatus | Freigabebericht | vor Launch |
 | 24 | [Iteration & Wartung](phases/24-iteration-und-wartung.md) | Feedback-Kreislauf, Wartungsroutine | Kreislauf | |
 
 **Lite-Modus:** Bevor die App für andere Menschen veröffentlicht wird, kommen die mit „vor Launch“ markierten Phasen dazu.
@@ -114,7 +115,9 @@ node scripts/pruefe-projekt.mjs projekte/<slug> --handoff    # vor der Übergabe
 node scripts/pruefe-projekt.mjs projekte/<slug> --launch     # Freigabeprüfung (Phase 23)
 ```
 
-Es prüft u. a.: fertige Phasen haben Dokumente · keine offenen „⚠️ prüfen“ · jede Annahme steht im Status · zitierte Quellen existieren · keine Vorlagen-Platzhalter · Muss-Funktion → Kriterium → Test → Aufgabe · jede Bedrohung hat Test oder akzeptiertes Risiko · kritische Befunde bestehender Apps sind eingeplant · Zweitprüfung bei Stufe 3 · Handoff enthält **alle** Sicherheitsregeln, offenen Annahmen und Muss-Funktionen und **keine Schlüssel** · Launch-Haken haben überprüfbare Nachweise → Freigabestatus.
+Es prüft u. a.: Regelwerk-Version des Projekts · fertige Phasen haben Dokumente · keine offenen „⚠️ prüfen“ · jede Annahme steht im Status · zitierte Quellen existieren · keine Vorlagen-Platzhalter · Muss-Funktion → Kriterium → Test → Aufgabe · jede Bedrohung hat Test oder akzeptiertes Risiko · kritische Befunde bestehender Apps sind eingeplant · Zweitprüfung bei Stufe 3 · Handoff enthält **alle** Sicherheitsregeln, offenen Annahmen und Muss-Funktionen und **keine Schlüssel** · Launch-Haken haben **nachprüfbare** Nachweise (Datum, Link, Pfad, ID oder Commit) → Freigabestatus · bei Risikostufe 3 externe Fachprüfung oder bewusst akzeptiertes Risiko.
+
+Wichtig: IDs werden nur in den **Tabellen** der Vorlagen ausgewertet. Findet das Skript sie nur in Listen, meldet es **„NICHT GEPRÜFT“** – und das ist ausdrücklich kein Grün. Außerdem steht in jeder Ausgabe: *Die Prüfung ersetzt keine inhaltliche Kontrolle.*
 
 **3. Unabhängige Zweitprüfung** mit frischem Kontext (separater Agent oder neue Unterhaltung) für Sicherheitskonzept, Handoff und Ist-Analyse – bei Risikostufe 3 Pflicht. Vorlage: [`templates/pruefauftrag-zweitpruefung.md`](templates/pruefauftrag-zweitpruefung.md).
 
@@ -135,7 +138,7 @@ Abgedeckt sind u. a.:
 - **Automatischer Schutz gegen zu viele Anfragen und Login-Versuche** – Rate Limiting pro Konto und IP, steigende Wartezeiten statt dauerhafter Sperre, CAPTCHA, Kostenlimits gegen „Denial of Wallet“
 - Mass Assignment, Nutzer-Enumeration, sichere Passwort-Resets, Sitzungen, CSRF, XSS, SQL-Injection, sichere Uploads, Security-Header/CSP, CORS, Webhook-Signaturen, KI-Funktionen (Prompt-Injection), Abhängigkeiten, Logging, Backups, Notfallplan
 
-> **Ehrlicher Hinweis:** Ein guter Plan macht eine App nicht automatisch sicher. Er sorgt dafür, dass die richtigen Regeln gelten und nachweisbar geprüft werden. Für Apps mit sensiblen Daten ist eine Prüfung durch Fachleute vor dem Start dringend empfohlen.
+> **Ehrlicher Hinweis:** Ein guter Plan macht eine App nicht automatisch sicher. Er sorgt dafür, dass die richtigen Regeln gelten und nachweisbar geprüft werden. Bei Risikostufe 3 (z. B. Gesundheitsdaten, Kinderdaten, genaue Standortdaten) gilt vor dem Start für andere: **externe Fachprüfung – oder eine bewusst begründete, dokumentierte Entscheidung dagegen.** Eine zweite KI ersetzt sie nicht; das Prüfskript meldet sonst „Nicht freigabefähig“.
 
 ## Was am Ende herauskommt
 
@@ -164,23 +167,26 @@ projekte/meine-app/
 | [`phases/`](phases/) | Die 25 Phasen |
 | [`modes/`](modes/) | Bestehende App (B0–B2), adaptiver Modus |
 | [`security/`](security/) | Regeln, Standardwerte, Bedrohungsmodell, Checkliste, Tests, Stack-Hinweise |
-| [`templates/`](templates/) | Status, Entscheidungen, Quellen, Ist-Analyse, Prüfauftrag, Wireframe, Style-Tile, Handoff, Änderungen, Start-Prompt |
+| [`templates/`](templates/) | Status, Entscheidungen, Quellen, Ist-Analyse, Prüfauftrag, Wireframe, Style-Tile, Handoff, Änderungen, Start-Prompt, Datenschutz-Vorlagen (Erklärung, Verzeichnis, Löschkonzept, Folgenabschätzung, Auftragsverarbeiter), Betriebs-Vorlagen (Incident-Plan, Release-Checkliste, Support-Playbook) |
 | [`scripts/`](scripts/) | Prüfskript und Tests |
-| [`guides/`](guides/) | Einsteiger-Guide, Tool-Guide, Glossar |
-| [`examples/`](examples/) | Beispiel-Dialog |
+| [`guides/`](guides/) | Einsteiger-Guide, Tool-Guide, Glossar, [Zeit & Kosten](guides/zeit-und-kosten.md), [nach der Übergabe](guides/nach-der-uebergabe.md), [Fehlersuche](guides/fehlersuche.md), [Plattformen](guides/plattformen.md), [Store-Veröffentlichung](guides/appstore-veroeffentlichung.md), [Start & Auffindbarkeit](guides/launch-und-auffindbarkeit.md), [Recht im EU-Überblick](guides/recht-eu-ueberblick.md), [Auslieferung](guides/auslieferung.md), [Lieferkette](guides/lieferkette.md), [Zeit & Formate](guides/zeit-und-formate.md) |
+| [`examples/`](examples/) | Beispiel-Dialog und ein vollständig ausgefülltes [Beispielprojekt](examples/schichtfit/) |
 | [`START.md`](START.md) | Start-Text für Chat-KIs |
-| `CLAUDE.md`, `GEMINI.md`, `.claude/`, `.cursor/`, `.github/` | Anbindung an die jeweiligen Tools, CI |
+| `CLAUDE.md`, `GEMINI.md`, `.claude/`, `.cursor/`, `.github/` | Anbindung an die jeweiligen Tools, CI, Issue- und PR-Vorlagen |
+| [`SECURITY.md`](SECURITY.md), [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md), [`CONTRIBUTING.md`](CONTRIBUTING.md) | Sicherheitsprobleme melden, Umgangsregeln, Mitmachen |
 
 ## Befehle während des Durchlaufs
 
-`weiter` · `erklär das` · `entscheide du` · `parkplatz: …` · `status` · `zusammenfassung` · `prüfen` · `zweitprüfung` · `adaptiv` / `geführt` · `zurück zu Phase N` · `überspringen` · `pause`
+Einsteiger starten mit vier Befehlen: `weiter` · `erklär das` · `status` · `pause`. Mit `hilfe` kommen alle weiteren dazu: `entscheide du` · `parkplatz: …` · `zusammenfassung` · `prüfen` · `zweitprüfung` · `adaptiv` / `geführt` · `zurück zu Phase N` · `überspringen`.
 
 ## Grenzen
 
 - **Keine Rechtsberatung.** Phase 16 zeigt übliche Pflichten (Deutschland/EU) und bereitet Entwürfe vor – bei Geschäftsideen oder sensiblen Daten Fachberatung einholen.
 - **Keine Sicherheitsgarantie.** Siehe oben.
 - **Preise, Anbieterbedingungen und Store-Richtlinien ändern sich.** Die KI belegt sie in `QUELLEN.md` mit Prüfdatum oder kennzeichnet sie als Annahme.
-- **Das Prüfskript prüft Struktur und Vollständigkeit, nicht inhaltliche Qualität.** Ob ein Bedrohungsmodell gut ist, beurteilt die Zweitprüfung bzw. ein Mensch.
+- **Das Prüfskript prüft Struktur und Vollständigkeit, nicht inhaltliche Qualität.** Es sieht, dass ein Test eingetragen ist, nicht, ob er etwas Sinnvolles prüft. Ob ein Bedrohungsmodell gut ist, beurteilt die Zweitprüfung bzw. ein Mensch. Was es nicht auswerten kann, meldet es als „NICHT GEPRÜFT“.
+- **Eine zweite KI ist keine unabhängige Fachprüfung.** Deshalb gibt es bei Risikostufe 3 die Schranke vor dem Launch (siehe oben).
+- **Rechtliche Themen ändern sich schnell** (z. B. KI-Verordnung, Store-Regeln). Die Guides nennen ihre Quellen mit Prüfdatum; vor dem Launch werden sie neu geprüft.
 - Die Qualität hängt vom genutzten KI-Modell ab. Ein echter Testdurchlauf mit eigener Idee ist der beste Weg, Schwächen des Regelwerks zu finden – Rückmeldungen gern als Issue.
 
 ## Inspiration

@@ -20,23 +20,35 @@ Hast du schon eine App, liest die KI zuerst deinen Code (ohne etwas zu veränder
 
 - Eine Idee (darf noch vage sein)
 - Ein KI-Tool – zum Start reicht ein Chat wie Claude.ai oder ChatGPT (siehe [`tools.md`](tools.md))
-- Zeit: Im **Lite-Modus** 1–2 Sitzungen, im **Voll-Modus** mehrere Sitzungen. Du kannst jederzeit pausieren.
+- Zeit: Im **Lite-Modus** 1–2 Sitzungen, im **Voll-Modus** mehrere Sitzungen. Du kannst jederzeit pausieren. Eine ehrliche Einschätzung zu Zeit und Kosten der KI-Nutzung findest du in [`zeit-und-kosten.md`](zeit-und-kosten.md).
 
 Du brauchst **kein** Programmierwissen, **kein** Git und **keine** Fachbegriffe. Wenn ein Begriff fällt, den du nicht kennst, schreib einfach **„erklär das“** – oder schau ins [Glossar](glossar.md).
 
-## Die wichtigsten Befehle
+## Die vier Befehle, die du am Anfang brauchst
 
 | Du schreibst | Die KI … |
 |---|---|
 | `weiter` | geht zum nächsten Schritt |
 | `erklär das` | erklärt die letzte Frage einfacher |
+| `status` | zeigt, wo du gerade stehst |
+| `pause` | speichert und hört auf |
+
+Mit `hilfe` zeigt dir die KI alle weiteren Befehle, zum Beispiel:
+
+| Du schreibst | Die KI … |
+|---|---|
 | `entscheide du` | trifft eine begründete Wahl für dich |
 | `parkplatz: …` | merkt sich eine Idee für später |
-| `status` | zeigt, wo du gerade stehst |
 | `zurück zu Phase 5` | springt zu einem früheren Schritt |
+| `überspringen` | lässt die aktuelle Frage oder Phase aus und nennt die Folgen |
+| `zusammenfassung` | fasst dein Projekt auf einer Seite zusammen |
 | `prüfen` | prüft, ob im Projekt etwas fehlt oder nicht zusammenpasst |
+| `zweitprüfung` | lässt das Ergebnis von einer zweiten, unabhängigen KI prüfen |
 | `adaptiv` / `geführt` | schneller (weniger Fragen) bzw. wieder Schritt für Schritt |
-| `pause` | speichert und hört auf |
+
+## Wie du dich nicht blind durchklickst
+
+Nach jeder Phase steht im Gate die Zeile **🧭 „Das hast du festgelegt“**. Lies sie, bevor du „weiter“ schreibst: Sie nennt die wichtigsten Entscheidungen der Phase. Stimmt eine nicht, sag es jetzt – später wird jede Änderung teurer. Und wenn die KI etwas tut, das sich falsch anfühlt (mehrere Fragen auf einmal, Weitermachen ohne dein „weiter“, erfundene Zahlen), hilft [`fehlersuche.md`](fehlersuche.md).
 
 ## Was ist mit Sicherheit?
 
@@ -49,5 +61,7 @@ Das ist der Teil, den viele unterschätzen – und genau der, bei dem KI-Tools b
 Die KI weist dich auf die üblichen Pflichten hin (Impressum, Datenschutzerklärung, Einwilligungen …) und bereitet Entwürfe vor. Sie ist aber **kein Anwalt**. Bei Geschäftsideen oder sensiblen Daten lohnt sich eine kurze Rechtsberatung.
 
 ## Los geht's
+
+Wenn der Bauplan fertig ist, erklärt [`nach-der-uebergabe.md`](nach-der-uebergabe.md), wie es mit dem Coding-Tool weitergeht.
 
 → Wähle dein Tool in [`tools.md`](tools.md) und starte mit dem Text aus [`START.md`](../START.md) – oder in Claude Code einfach mit „Ich habe eine App-Idee“.

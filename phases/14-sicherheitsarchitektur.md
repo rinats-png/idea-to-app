@@ -26,6 +26,7 @@ Die meisten Sicherheitsprobleme in Apps sind keine raffinierten Hacks, sondern *
 4. Gehe die Abschnitte A–K durch. **Übernimm die Werte aus `security/standardwerte.md`** in `14-sicherheit.md` und passe sie nur mit Begründung an. Stelle nur die markierten Fragen; erkläre jeden Standard in einem Satz („Warum?“). **Schreibe keine Zahlen aus `standardwerte.md` in diese Phasen-Datei oder andere Dokumente außer `14-sicherheit.md`.**
 5. Schreibe das Sicherheitskonzept und die Testfälle (`T-SEC-…`, je mit Bezug zu `BD-…`).
 6. **Zweitprüfung** nach `AGENTS.md` Abschnitt 14 (Stufe 3 Pflicht). Befunde einarbeiten, dann Gate.
+7. **Nur Stufe 3:** Sage dem Nutzer jetzt offen, dass eine zweite KI keine unabhängige Fachprüfung ersetzt und dass für den Launch eine **externe Fachprüfung oder ein bewusst akzeptiertes Risiko** (`E-…`) nötig ist (Abschnitt K). Frage nach Budget, Zeitpunkt und möglichen Prüfern, damit das kein Überraschungsfund kurz vor dem Start wird.
 
 | Abschnitt | Stufe 1 | Stufe 2 | Stufe 3 |
 |---|---|---|---|
@@ -164,10 +165,15 @@ Umsetzung: Eingebaute Limits des Login-Anbieters prüfen und dokumentieren; zus�
   - Der KI nur Daten geben, die der aktuelle Nutzer sehen darf.
   - Kosten- und Anfragelimits pro Nutzer (E).
   - Nutzer informieren, welche Daten an welchen KI-Anbieter gehen (Phase 16).
+  - Rechtliche Einordnung der KI-Funktion (EU-KI-Verordnung, Kennzeichnung KI-erzeugter Inhalte) in Phase 16 klären; Überblick in [`guides/recht-eu-ueberblick.md`](../guides/recht-eu-ueberblick.md).
 
 ## J. Lieferkette, Logging, Fehlerbehandlung
 
 - Lockfile einchecken; automatische Prüfung (Dependabot, `npm audit`); nur verbreitete, gepflegte Pakete.
+- **Paketnamen prüfen** (Regel 9.5): Sprachmodelle erfinden Paketnamen, Angreifer registrieren sie. Neue Pakete nur mit Prüfung von Name, Herausgeber und Pflegestand.
+- **CI-Absicherung** (Regel 9.6): Aktionen mit festgelegter Version, minimale Rechte, keine Geheimnisse in Protokollen.
+- **Migrationen** (Regel 9.7): Datenbankänderungen nur versioniert und mit Backup; nie von Hand in Produktion.
+- Lizenzen der Abhängigkeiten prüfen; bei Stufe 3 eine Software-Stückliste (SBOM) erzeugen. Alles Weitere in [`guides/lieferkette.md`](../guides/lieferkette.md) und [`guides/auslieferung.md`](../guides/auslieferung.md).
 - Sicherheitsereignisse protokollieren und Aufbewahrung festlegen (`standardwerte.md` §9) – **ohne** Passwörter, Tokens oder sensible Inhalte.
 - Alarm bei Auffälligkeiten (Stufe 3 Pflicht, Stufe 2 empfohlen).
 - Fehlermeldungen für Nutzer allgemein; Details nur im Server-Log.
@@ -178,7 +184,7 @@ Umsetzung: Eingebaute Limits des Login-Anbieters prüfen und dokumentieren; zus�
 - Stufe 2: Orientierung an **OWASP ASVS Level 1**; Stufe 3: **Level 2**.
 - Automatisierte Sicherheitstests (Phase 19, Vorlagen in `security/sicherheitstests.md`).
 - Zweitprüfung (siehe Kopf dieser Phase).
-- Stufe 3: **externe Prüfung** (Penetrationstest oder Code-Review durch Fachperson) vor dem Launch dringend empfohlen.
+- **Stufe 3: externe Fachprüfung (Penetrationstest oder Code-Review durch eine Fachperson) vor dem Launch für andere Nutzer – oder ein vom Nutzer bewusst akzeptiertes, begründetes Risiko (`E-…`, Stichwort „extern“).** Eine zweite KI ist keine unabhängige Prüfung im vollen Sinn: Sie teilt typische blinde Flecken mit der ersten. Das Prüfskript (`--launch`) meldet Stufe-3-Projekte ohne eines von beidem als „Nicht freigabefähig“.
 - Ehrlicher Hinweis: **Dieses Konzept macht die App nicht automatisch sicher.** Es sorgt dafür, dass die richtigen Regeln gelten und geprüft werden.
 
 ---
@@ -234,6 +240,10 @@ Risikostufe: … | Zielstandard: Checkliste / ASVS L1 / ASVS L2
 
 ## Zweitprüfung
 Bericht: pruefungen/zweitpruefung-14-JJJJ-MM-TT.md · Status der Befunde: …
+
+## Externe Fachprüfung (nur Stufe 3)
+Geplant: Prüfer / Zeitpunkt / Umfang … · Bericht: pruefungen/externe-pruefung-JJJJ-MM-TT.md
+Oder bewusst akzeptiert: E-… (Begründung, Datum)
 ```
 
 ## Definition of Done
@@ -245,5 +255,6 @@ Bericht: pruefungen/zweitpruefung-14-JJJJ-MM-TT.md · Status der Befunde: …
 - [ ] Rate-Limits pro sensiblem Endpunkt
 - [ ] Akzeptierte Risiken dokumentiert (inkl. abgelehnter Empfehlungen)
 - [ ] Zweitprüfung durchgeführt und Befunde bearbeitet (wenn Pflicht/empfohlen)
+- [ ] Stufe 3: Nutzer weiß, dass für den Launch externe Fachprüfung oder akzeptiertes Risiko nötig ist; Plan dafür steht im Ergebnis-Dokument
 
 → **Gate**

@@ -15,6 +15,7 @@
 | Plattform | … |
 | Risikostufe | 1 / 2 / 3 – Grund: … |
 | Sprache | Deutsch |
+| Regelwerk-Version | <x.y.z aus package.json von idea-to-app> |
 
 ## Aktueller Stand
 - **Aktuelle Phase:** 0 – Start & Einstellungen
@@ -23,7 +24,7 @@
 
 ## Fortschritt
 
-Status: `offen` · `in Arbeit` · `fertig` · `übersprungen (<Grund>)` · `⚠️ prüfen`
+Status: `offen` · `in Arbeit` · `fertig` · `übersprungen (<Grund>)` · `⚠️ prüfen` · `pausiert (<Bedingung>)` · `gestoppt (<Grund>)`
 
 <!-- Bei neuer Idee: die drei B-Zeilen löschen. Bei bestehender App: Phasen, die laut B2 nicht laufen, als „übersprungen (B2)“ markieren. -->
 

@@ -16,15 +16,15 @@ Bevor es um deine Idee oder App geht, klären wir ein paar Rahmenbedingungen. Da
 
 ## Ablauf für die KI
 
-1. Begrüße in 2–3 Sätzen: was jetzt passiert, dass alles gespeichert wird und man jederzeit pausieren kann.
+1. Begrüße in 2–3 Sätzen: was jetzt passiert, dass alles gespeichert wird und man jederzeit pausieren kann. Nenne den Zeitrahmen in einem Satz (Lite: 1–2 Sitzungen, Voll: mehrere Sitzungen) und dass die KI-Nutzung je nach Tool Kosten verursachen kann – Einzelheiten in [`guides/zeit-und-kosten.md`](../guides/zeit-und-kosten.md).
 2. Stelle **Q1 einzeln** (Einstieg), weil sie den weiteren Ablauf bestimmt.
 3. Stelle danach die zutreffenden Fragen **Q2–Q6 gebündelt** als Auswahlfragen (max. 5).
    - Bei **bestehender App** entfallen Q4–Q6: Umfang, Plattform und Datenarten ergeben sich aus der Bestandsaufnahme.
 4. Frage Q7 (Name) einzeln.
 5. **Neue Idee:** Leite die vorläufige Risikostufe ab (Tabelle in `AGENTS.md` Abschnitt 5), nenne sie mit Begründung und frage, ob das passt.
    **Bestehende App:** Die Risikostufe wird in B1 aus dem Code abgeleitet; trage vorläufig „wird in B1 bestimmt“ ein.
-6. Lege den Projektordner an: `projekte/<slug>/` mit Kopien von `templates/PROJECT_STATE.md`, `templates/ENTSCHEIDUNGEN.md` und `templates/QUELLEN.md`. Entferne in `PROJECT_STATE.md` die Zeilen, die nicht zutreffen (B-Zeilen bei neuer Idee; nicht gewählte Phasen im Lite-Modus als `übersprungen (Lite)`).
-7. Erkläre kurz die Befehle aus `AGENTS.md` Abschnitt 8 (kompakte Liste).
+6. Lege den Projektordner an: `projekte/<slug>/` mit Kopien von `templates/PROJECT_STATE.md`, `templates/ENTSCHEIDUNGEN.md` und `templates/QUELLEN.md`. Trage in `PROJECT_STATE.md` bei `Regelwerk-Version` die aktuelle Version aus `package.json` ein. Entferne in `PROJECT_STATE.md` die Zeilen, die nicht zutreffen (B-Zeilen bei neuer Idee; nicht gewählte Phasen im Lite-Modus als `übersprungen (Lite)`).
+7. Erkläre die Befehle aus `AGENTS.md` Abschnitt 8: **Einsteiger** bekommen nur `weiter`, `erklär das`, `status` und `pause` erklärt, dazu den Hinweis „mit `hilfe` zeige ich dir alle weiteren Befehle“. **Entwickler** bekommen die vollständige Liste. Alle Befehle funktionieren in jedem Fall.
 8. Schreibe `00-start.md` und zeige das Gate.
    **Bestehende App:** Weiter geht es danach mit `modes/bestehende-app.md` (B0), nicht mit Phase 1.
 
@@ -55,7 +55,13 @@ Bevor es um deine Idee oder App geht, klären wir ein paar Rahmenbedingungen. Da
 - a) Im Browser (Web-App / PWA – funktioniert auf Handy und PC, kein App-Store nötig) **(Empfehlung für den Einstieg)**
 - b) Als App im App Store / Google Play
 - c) Beides
-- d) Weiß ich nicht – erklär mir den Unterschied
+- d) Als Programm für den Computer (Windows, Mac, Linux)
+- e) Als Browser-Erweiterung
+- f) Als Spiel
+- g) Als Smartwatch-App, als Bot / Chat-Integration oder als reiner Dienst ohne Oberfläche (Schnittstelle)
+- h) Weiß ich nicht – erklär mir den Unterschied
+
+> Bei d–g liest die KI [`guides/plattformen.md`](../guides/plattformen.md): Dort steht, was sich bei Tech-Stack, Sicherheit, Veröffentlichung und Recht für diese App-Art ändert. Die gewählte Art kommt als `Plattform` in `PROJECT_STATE.md`.
 
 **Q6 (nur neue Idee) – Welche Daten wird die App verarbeiten?** (Mehrfachauswahl)
 - a) Keine persönlichen Daten, keine Anmeldung

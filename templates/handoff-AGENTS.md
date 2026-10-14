@@ -1,6 +1,8 @@
 # <App-Name> – Anweisungen für das Coding-Tool
 
 > Diese Datei wurde mit **idea-to-app** erstellt. Sie ist verbindlich für jede Aufgabe in diesem Repository.
+>
+> **Regelwerk-Version:** <x.y.z aus package.json von idea-to-app> · **Erstellt:** <JJJJ-MM-TT>
 
 ## 1. Worum geht es?
 
@@ -88,5 +90,7 @@ Jeder Eintrag in `docs/aenderungen.md` nennt die betroffenen IDs (`F-…`, `AK-�
 
 ## 8. Vor einer Veröffentlichung zusätzlich nötig
 
-<!-- Im Lite-Modus: fehlende Phasen 12, 16, 19, 20, 23 als Hinweis. Sonst: Verweis auf die Launch-Checkliste mit Nachweis-Pflicht. -->
+<!-- Im Lite-Modus: fehlende Phasen 12, 16, 19, 20, 23 als Hinweis. Sonst: Verweis auf die Launch-Checkliste mit Nachweis-Pflicht. Bei Risikostufe 3: externe Fachprüfung bzw. akzeptiertes Risiko ausdrücklich nennen. -->
+- Jeder Haken in der Launch-Liste braucht einen **nachprüfbaren Nachweis** (Datum, Link, Dateipfad, ID oder Commit-Nummer).
+- Bei Risikostufe 3: **externe Fachprüfung** vor der Veröffentlichung für andere – oder eine bewusst akzeptierte, dokumentierte Entscheidung dagegen. Eine zweite KI ersetzt sie nicht.
 - …

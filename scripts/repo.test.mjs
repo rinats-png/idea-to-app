@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { pruefeProjekt } from "./pruefe-projekt.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const lies = (rel) => fs.readFileSync(path.join(REPO, rel), "utf8");
@@ -71,4 +72,11 @@ test("alle relativen Markdown-Links zeigen auf existierende Dateien", () => {
     }
   }
   assert.deepEqual(kaputt, []);
+});
+
+test("Beispielprojekt schichtfit besteht die Handoff-Prüfung ohne FEHLER und ohne NICHT GEPRÜFT", () => {
+  const { befunde, nichtGeprueft } = pruefeProjekt(path.join(REPO, "examples", "schichtfit"), { handoff: true });
+  assert.deepEqual(befunde.filter((b) => b.stufe === "FEHLER"), []);
+  assert.deepEqual(befunde.filter((b) => b.stufe === "WARNUNG"), []);
+  assert.deepEqual(nichtGeprueft, []);
 });

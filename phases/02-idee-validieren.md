@@ -47,6 +47,22 @@ Typische Annahmen:
 - Für den gewählten Test: konkreter Plan (bei Gesprächen: 5–7 Interviewfragen, die nach **echtem Verhalten in der Vergangenheit** fragen, nicht „Würdest du …?“).
 - Ehrlicher Hinweis, wenn Q3 = e: „Das ist möglich, aber du baust auf einer ungeprüften Annahme. Ich notiere das als Risiko.“
 
+### Wenn das Abbruchkriterium zutrifft: der Ausstiegspfad
+
+Aufhören ist eine legitime, gute Entscheidung – besser nach einer Woche Test als nach drei Monaten Bau. Wenn das Ergebnis des Tests das Kriterium aus Q4 erfüllt, geht die KI so vor und schreibt das Ergebnis in `02-validierung.md`:
+
+1. **Ehrlich benennen**, was der Test gezeigt hat – ohne Schönfärberei und ohne Schuldzuweisung an den Nutzer.
+2. **Drei Wege anbieten**, jeder mit einem Satz Begründung:
+   - **Ändern (Pivot):** Welche Annahme war falsch, und welche kleinere oder andere Idee folgt daraus? Weiter mit `zurück zu Phase 1`.
+   - **Pausieren:** Die Idee wartet auf eine Bedingung (z. B. ein Kontakt, ein Budget, ein Datensatz). Bedingung und Prüftermin notieren.
+   - **Stoppen:** Das Projekt wird sauber abgeschlossen.
+3. **Beim Stoppen** (oder Pausieren) mitnehmen, was bleibt:
+   - Ein Abschnitt „Was wir gelernt haben“ (3–5 Sätze) in `02-validierung.md`
+   - Ideen für andere Projekte im Parkplatz von `PROJECT_STATE.md`
+   - Status der Phasen: `gestoppt (Validierung: <Grund>)` bzw. `pausiert (<Bedingung>)`; Eintrag in `ENTSCHEIDUNGEN.md` mit Datum
+   - Persönliche Daten aus Interviews und Umfragen löschen, sobald sie nicht mehr gebraucht werden
+4. **Keine Hintertür:** Wer trotz erfülltem Abbruchkriterium weitermachen will, darf das – als bewusst akzeptiertes Risiko (`E-…`) mit Begründung, nicht stillschweigend.
+
 Beispiel für gute vs. schlechte Interviewfragen:
 | Schlecht (Meinung) | Gut (Verhalten) |
 |---|---|
@@ -82,11 +98,18 @@ Beispiel für gute vs. schlechte Interviewfragen:
 
 ## Ergebnis (nach dem Test ausfüllen)
 …
+
+## Entscheidung nach dem Test
+Weiter / Ändern (Pivot) / Pausieren / Stoppen – Begründung, Datum, `E-…`
+
+## Was wir gelernt haben (besonders bei Stopp oder Pause)
+…
 ```
 
 ## Definition of Done
 - [ ] Riskanteste Annahme benannt
 - [ ] Konkreter Testplan oder bewusste Entscheidung „ohne Test“ mit dokumentiertem Risiko
 - [ ] Abbruchkriterium festgelegt
+- [ ] Ausstiegspfad (Ändern / Pausieren / Stoppen) ist dem Nutzer erklärt; Aufhören ist ausdrücklich als legitime Option genannt
 
 → **Standard-Gate** (zusätzlicher Hinweis: Der Nutzer kann den Test durchführen und danach mit `zurück zu Phase 2` das Ergebnis eintragen.)

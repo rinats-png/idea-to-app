@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.2.0 – 2026-10-14
+
+Lücken geschlossen, Prüfskript gehärtet, vollständiges Beispielprojekt. Nichts wurde gekürzt.
+
+**Neu**
+- **Beispielprojekt** `examples/schichtfit/` (Lite, Stufe 2, Stand Phase 22); wird per Test durch das Prüfskript geprüft
+- **Guides:** Zeit und Zeitzonen (`zeit-und-formate.md`), nach der Übergabe, Fehlersuche, Zeit und Kosten der KI-Nutzung, EU-Recht-Überblick, Auslieferung, Lieferkette, Plattformen, App-Store-Veröffentlichung, Launch und Auffindbarkeit
+- **Vorlagen:** Datenschutzerklärung-Gerüst, Verarbeitungsverzeichnis, Löschkonzept, DSFA, Auftragsverarbeiter-Liste, Incident-Plan, Release-Checkliste, Support-Playbook
+- **Sicherheitsregeln 9.5–9.7** (Paketnamen prüfen, CI-Aktionen festlegen und Rechte minimieren, versionierte Migrationen mit Backup) samt Checklisten-Zeilen
+- **Regelwerk-Version** in `PROJECT_STATE.md` und im Handoff; Abgleich beim Sitzungsstart und im Prüfskript
+- **Ausstiegspfad** in Phase 2, **Machbarkeits-Ampel** in Phase 5, „Mockups sind Wünsche“ in Phase 8, Zeit- und Formatfragen in Phasen 10 und 11
+- Gate-Zeile `🧭 Das hast du festgelegt`, gestufte Befehle für Einsteiger, `hilfe`
+- Repository-Pflege: SECURITY.md, CODE_OF_CONDUCT.md, Issue- und PR-Vorlagen
+
+**Geändert**
+- **Prüfskript:** neuer Zustand „NICHT GEPRÜFT“ (kein Grün); IDs zählen nur in Tabellenzeilen; Nachweise werden positiv geprüft (Datum, Link, Dateipfad, ID, Commit) statt über eine Wortliste; fehlendes MVP-Dokument ist im Handoff ein FEHLER; Hinweis „ersetzt keine inhaltliche Kontrolle“ in jeder Ausgabe
+- **Stufe 3:** externe Fachprüfung oder bewusst akzeptiertes Risiko ist Voraussetzung für die Freigabe; sonst „Nicht freigabefähig“
+- Phasen 14, 16, 17, 18, 19, 20, 22, 23, 24 ergänzt; Glossar um 21 Begriffe erweitert
+
+**Was bestehende Projekte prüfen sollten**
+- Feld `Regelwerk-Version` in `PROJECT_STATE.md` ergänzen
+- IDs (F, AK, TEST, TASK, BD) müssen in den Tabellen der Vorlagen stehen, sonst meldet das Prüfskript „NICHT GEPRÜFT“
+- Handoff neu erzeugen, damit die Regeln 9.5–9.7 in der `AGENTS.md` stehen
+- Launch-Haken brauchen einen nachprüfbaren Nachweis
+
 ## 1.1.0 – 2026-10-13
 
 Überarbeitung nach externer Analyse.

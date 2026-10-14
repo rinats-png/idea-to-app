@@ -33,10 +33,10 @@ Im Lite-Modus oder bei bestehender App enthält ein Block nur die gewählten Pha
 
 | Block | Kritische Entscheidungen |
 |---|---|
-| A | Kernproblem und Zielgruppe · Muss-Funktionen des MVP (Liste bestätigen lassen) · Geld verdienen ja/nein |
+| A | Kernproblem und Zielgruppe · Muss-Funktionen des MVP (Liste bestätigen lassen) · App-Art / Plattform · Geld verdienen ja/nein |
 | B | Gewählte Gestaltungsrichtung (Phase 8) · Navigationstyp |
-| C | Risikostufe nach Datenklassifizierung · Teilen/Sichtbarkeit von Daten · Rollen mit Zugriff auf fremde Daten (Admin, Trainer …) · Tech-Stack · Login-Methode und 2FA · **jedes akzeptierte Sicherheitsrisiko** |
-| D | Betreiber (privat/geschäftlich/dienstlich) · Tracking/Analytics · Daten außerhalb der EU · Preis und monatliche Kostenobergrenze · Reaktionszeit und akzeptabler Datenverlust (Phase 20) |
+| C | Risikostufe nach Datenklassifizierung · Teilen/Sichtbarkeit von Daten · Rollen mit Zugriff auf fremde Daten (Admin, Trainer …) · Tech-Stack · Login-Methode und 2FA · Stufe 3: wie die externe Fachprüfung stattfinden soll oder ob das Risiko bewusst akzeptiert wird · **jedes akzeptierte Sicherheitsrisiko** |
+| D | Betreiber (privat/geschäftlich/dienstlich) · Tracking/Analytics · Daten außerhalb der EU · KI-Funktionen und Nutzerinhalte (rechtliche Einordnung) · Preis und monatliche Kostenobergrenze · Reaktionszeit und akzeptabler Datenverlust (Phase 20) · Support-Kanal und Störungs-Kommunikation |
 | E | Reihenfolge der Meilensteine · Launch-Strategie · jede Launch-Freigabe ohne vollständige Nachweise |
 
 Alles, was Geld kostet, rechtliche Folgen hat, Daten anderer Menschen betrifft oder schwer rückgängig zu machen ist, gilt als kritisch – auch wenn es nicht in der Tabelle steht.

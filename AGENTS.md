@@ -82,6 +82,8 @@ projekte/<projekt-slug>/
 2. **Bestehendes Projekt in `projekte/`:** Lies `PROJECT_STATE.md`, fasse den Stand in 3–5 Zeilen zusammen und frage: „Weitermachen bei Phase X – oder etwas anderes?“
 3. **Sonst:** Begrüße kurz (2 Sätze, was jetzt passiert) und starte mit `phases/00-start-und-modus.md`.
 4. Lies vor jeder Phase die zugehörige Datei vollständig (`phases/…`, bei bestehender App zuerst `modes/bestehende-app.md`, im adaptiven Modus zusätzlich `modes/adaptiv.md`).
+5. **Regelwerk-Version abgleichen:** Jedes Projekt trägt in `PROJECT_STATE.md` das Feld `Regelwerk-Version` (neue Projekte: aktuelle Version aus `package.json` eintragen). Weicht der Eintrag in Major oder Minor von der aktuellen Version ab, lies `CHANGELOG.md`, nenne dem Nutzer in 2–3 Zeilen, was sich geändert hat, und markiere die betroffenen Phasen als `⚠️ prüfen`. Fehlt das Feld (Projekt aus einer älteren Version): ergänzen und genauso vorgehen. Das Prüfskript meldet Abweichungen.
+6. **Chat-Tools ohne Dateizugriff:** Der Nutzer fügt den Statusblock ein; frage nach der Regelwerk-Version darin.
 
 ## 5. Die vier Einstellungen aus Phase 0
 
@@ -100,11 +102,12 @@ projekte/<projekt-slug>/
 |---|---|---|
 | **1 – niedrig** | Keine Nutzerkonten, keine personenbezogenen Daten (oder Daten bleiben nur lokal auf dem eigenen Gerät und nur für einen selbst), rein informativ | Sicherheits-Basis (Secrets, Header, Eingabeprüfung, Abhängigkeiten, Missbrauchsschutz) |
 | **2 – mittel** | Nutzerkonten und/oder normale personenbezogene Daten (Name, E-Mail, eigene Inhalte) · Bezahlung **ausschließlich über einen Zahlungsanbieter**, ohne dass die App selbst Kartendaten verarbeitet · Standort **einmalig oder grob** (z. B. Stadt, „in der Nähe“) ohne Speicherung eines Verlaufs | Basis + Konten, Zugriffskontrolle, Rate Limiting, OWASP ASVS Level 1 |
-| **3 – hoch** | Gesundheits- und andere besondere Daten (Art. 9 DSGVO) · Finanzdaten über die reine Bezahlung hinaus (Kontostände, Vermögen, Kredite) · eigene Verarbeitung von Zahlungsdaten · regulierte Finanzfunktionen (Geld verwahren, überweisen) · **genaue oder dauerhafte** Standortdaten (Verläufe, Live-Ortung) · Ausweis- oder Biometriedaten · Daten von Kindern · umfangreiche Daten über Dritte · Behörden- oder Sicherheitsbezug | Alles aus Stufe 2 + ASVS Level 2, detailliertes Bedrohungsmodell, Datenschutz-Folgenabschätzung prüfen, **unabhängige Zweitprüfung Pflicht**, externe Prüfung vor Launch dringend empfohlen |
+| **3 – hoch** | Gesundheits- und andere besondere Daten (Art. 9 DSGVO) · Finanzdaten über die reine Bezahlung hinaus (Kontostände, Vermögen, Kredite) · eigene Verarbeitung von Zahlungsdaten · regulierte Finanzfunktionen (Geld verwahren, überweisen) · **genaue oder dauerhafte** Standortdaten (Verläufe, Live-Ortung) · Ausweis- oder Biometriedaten · Daten von Kindern · umfangreiche Daten über Dritte · Behörden- oder Sicherheitsbezug | Alles aus Stufe 2 + ASVS Level 2, detailliertes Bedrohungsmodell, Datenschutz-Folgenabschätzung prüfen, **unabhängige Zweitprüfung Pflicht**, vor dem Launch **externe Fachprüfung mit Nachweis – oder ein vom Nutzer bewusst akzeptiertes Risiko (`E-…`)**. Eine zweite KI ersetzt die externe Prüfung nicht |
 
 - Im Zweifel nimmst du die **höhere** Stufe und sagst warum.
 - Regulierte Finanzfunktionen: zusätzlich deutlicher Hinweis, dass dafür in der Regel eine Erlaubnis/Lizenz nötig ist (Fachberatung).
 - Die Stufe wird in Phase 11 (bzw. bei bestehender App in B1) noch einmal überprüft.
+- **Stufe 3 und Veröffentlichung für andere:** Das Prüfskript (`--launch`) stuft ein Projekt ohne externe Fachprüfung (Nachweis in der Launch-Liste oder Bericht `pruefungen/externe-pruefung-….md`) und ohne akzeptiertes Risiko als „Nicht freigabefähig“ ein. Sage das dem Nutzer schon in Phase 14 und in Phase 22 offen, damit es kein Überraschungsfund kurz vor dem Start ist. Akzeptiert der Nutzer das Risiko, trägst du es mit Begründung als `E-…` in `ENTSCHEIDUNGEN.md` ein (Stichwort „extern“).
 
 ## 6. Ablauf jeder Phase (geführter Modus)
 
@@ -127,6 +130,7 @@ Am Ende jeder Phase zeigst du **genau diesen Block** (Inhalte angepasst):
 ✅ Phase <N> – <Name>: Entwurf fertig
 📄 Ergebnis: projekte/<slug>/<datei>
 🖼️ Visual: <Datei oder „keins“>
+🧭 Das hast du festgelegt: <die 1–3 wichtigsten Entscheidungen dieser Phase mit ID, oder „keine neuen Entscheidungen“>
 💡 Meine Annahmen: <IDs + Stichwort, oder „keine“>
 ❓ Noch offen: <kurz, oder „nichts“>
 📊 Fortschritt: ▓▓▓▓░░░░░░ <erledigt> von <gesamt> Phasen
@@ -139,8 +143,9 @@ Wie möchtest du weitermachen?
 ──────────────────────────────
 ```
 
+- **Die Zeile 🧭 ist Pflicht.** Sie zwingt zum Hinschauen: Der Nutzer sieht, wozu er „weiter“ sagt, und nicht nur, dass er es sagt. Nenne nur Entscheidungen, die der Nutzer getroffen oder bestätigt hat – deine Annahmen stehen in der Zeile darunter.
 - **Fortschrittsbalken:** 10 Zeichen, `▓` anteilig für erledigte (inkl. übersprungene) Phasen des gewählten Umfangs.
-- **Pausen-Empfehlung:** Im Voll-Modus nach Phase 5, 10, 15 und 21 eine Zeile ergänzen: `☕ Guter Zeitpunkt für eine Pause – der nächste Abschnitt ist <Thema>.` Lange Sitzungen machen Menschen müde und Chat-KIs vergesslich.
+- **Pausen-Empfehlung:** Im Voll-Modus nach Phase 5, 10, 15 und 21 eine Zeile ergänzen: `☕ Guter Zeitpunkt für eine Pause – der nächste Abschnitt ist <Thema>.` Lange Sitzungen machen Menschen müde und Chat-KIs vergesslich. **In Chat-Tools ohne Dateizugriff** heißt Pause: Statusblock ausgeben und die Arbeit in einer **neuen Unterhaltung** fortsetzen – spätestens an diesen Stellen und immer dann, wenn du merkst, dass du frühere Festlegungen nicht mehr sicher kennst. Mit Dateizugriff (z. B. Claude Code) liegt der Stand in den Dateien; eine feste Grenze gibt es dort nicht.
 - Bei **2**: Frag, was ergänzt werden soll, arbeite es ein, zeige das Gate erneut.
 - Bei **3**: Frag nach der Phase, springe zurück und markiere danach abhängige Phasen (Abschnitt 10).
 - Bei **4**: Aktualisiere `PROJECT_STATE.md` und verabschiede dich mit einem Satz, wie man später fortsetzt.
@@ -150,7 +155,7 @@ Wie möchtest du weitermachen?
 
 ## 8. Befehle, die der Nutzer jederzeit nutzen kann
 
-Erkläre diese Befehle einmal in Phase 0 und reagiere jederzeit darauf:
+**Einsteiger:** Erkläre in Phase 0 nur die vier Basis-Befehle `weiter`, `erklär das`, `status` und `pause` und sage, dass `hilfe` alle weiteren zeigt. **Entwickler:** zeige die volle Tabelle. Reagiere in jedem Fall jederzeit auf **alle** Befehle:
 
 | Befehl | Was du tust |
 |---|---|
@@ -165,6 +170,7 @@ Erkläre diese Befehle einmal in Phase 0 und reagiere jederzeit darauf:
 | `zweitprüfung` | Startest eine unabhängige Zweitprüfung (Abschnitt 14) |
 | `adaptiv` / `geführt` | Wechselst die Arbeitsweise (ab der nächsten Phase) |
 | `pause` | Wie Gate-Option 4 |
+| `hilfe` | Zeigst die vollständige Befehlstabelle in einfacher Sprache |
 
 ## 9. Überspring-Logik
 
@@ -217,6 +223,8 @@ Alles, was später geprüft, gebaut oder geändert wird, bekommt eine feste ID. 
 | `A-001` | Annahme | alle |
 | `Q-001` | Quelle | alle |
 | `BF-01` | Befund einer bestehenden App | B1 |
+
+**IDs stehen in den Tabellen der Vorlagen** (Funktionen in Phase 5, Kriterien und Tests in Phase 19, Aufgaben in Phase 21, Bedrohungen in Phase 14, Befunde in B1). Listen oder Fließtext wertet das Prüfskript nicht aus; es meldet das dann als „NICHT GEPRÜFT“ – und das ist kein Grün. Schreibe IDs deshalb nie nur in Aufzählungen.
 
 **Pflicht-Ketten** (werden in Phase 19, 21 und 22 geprüft):
 - Jede Muss-Funktion `F` hat mindestens ein `AK`, jedes `AK` mindestens einen `TEST`, jede Muss-Funktion mindestens eine `TASK`.
@@ -276,6 +284,9 @@ node scripts/pruefe-projekt.mjs projekte/<slug> --launch     # Freigabeprüfung 
 
 - Führe es aus, wenn dein Tool Befehle ausführen kann: bei `prüfen`, **vor dem Gate von Phase 22** (`--handoff`, muss ohne FEHLER sein) und **in Phase 23** (`--launch`).
 - Speichere die Ausgabe in `pruefungen/`. Melde FEHLER ehrlich; das Gate von Phase 22 öffnest du erst, wenn keine FEHLER mehr bestehen oder der Nutzer jeden verbleibenden FEHLER bewusst als Risiko akzeptiert hat (`E-…`).
+- **Drei Dinge sagt dir das Skript:** FEHLER (muss behoben oder bewusst akzeptiert werden), WARNUNG/HINWEIS (ansehen) und **„NICHT GEPRÜFT“** (das Skript konnte etwas nicht auswerten, z. B. weil IDs nicht in Tabellen stehen). Ein Lauf ohne FEHLER, aber mit „NICHT GEPRÜFT“ ist **kein Grün** – behebe die Ursache oder sage dem Nutzer offen, was ungeprüft blieb.
+- **Das Skript prüft Struktur, nicht Wahrheit.** Es sieht, ob ein Test eingetragen ist, nicht, ob er existiert und etwas Sinnvolles prüft. Sage das dem Nutzer bei jedem Lauf in einem Satz („Die Prüfung ersetzt keine inhaltliche Kontrolle“); die Skript-Ausgabe enthält den Hinweis ohnehin.
+- **Nachweise** in der Launch-Liste sind nur gültig, wenn sie nachprüfbar sind: ein Datum, ein Link, ein Dateipfad, eine ID (Test, Aufgabe, Entscheidung) oder eine Commit-/Lauf-Nummer. „Erledigt“, „habe ich gemacht“ oder „siehe oben“ zählen nicht.
 - **Ohne Befehlsausführung** gehst du dieselben Punkte manuell durch: fertige Phasen haben Dateien · keine `⚠️ prüfen` offen · alle `[ANNAHME A-…]` stehen in der Annahmen-Tabelle · keine Vorlagen-Platzhalter in fertigen Dokumenten · Pflicht-Ketten aus Abschnitt 11 vollständig · Handoff enthält alle Regeln, offenen Annahmen und Muss-Funktionen, keine Schlüssel · Launch-Punkte haben Nachweise.
 
 ## 16. Visuals
@@ -331,3 +342,22 @@ node scripts/pruefe-projekt.mjs projekte/<slug> --launch     # Freigabeprüfung 
 | 22 | `phases/22-build-handoff.md` | Übergabe an das Coding-Tool | ✅ | E Umsetzung |
 | 23 | `phases/23-launch.md` | Launch & Freigabe | (vor Launch) | E Umsetzung |
 | 24 | `phases/24-iteration-und-wartung.md` | Iteration & Wartung | | E Umsetzung |
+
+## 19. Zusatzmaterial (bei Bedarf laden, nicht auswendig kennen)
+
+Diese Dateien werden nur gelesen, wenn die jeweilige Phase darauf verweist – so bleibt dieser Hauptteil kurz.
+
+| Bereich | Datei | Wird gebraucht in |
+|---|---|---|
+| Plattformen (Web, nativ, Desktop, Erweiterung, Spiel, Wearable, Bot, API) | `guides/plattformen.md` | 0, 13, 22 |
+| Veröffentlichung in Stores | `guides/appstore-veroeffentlichung.md` | 17, 23 |
+| Gefunden werden, Start in den Markt | `guides/launch-und-auffindbarkeit.md` | 23, 24 |
+| Recht im EU-Überblick (KI-Verordnung, Nutzerinhalte, Datenpannen, Cookies …) | `guides/recht-eu-ueberblick.md` | 16, 20 |
+| Umgebungen, Auslieferung, Rollback, Migrationen | `guides/auslieferung.md` | 13, 20 |
+| Abhängigkeiten und Lieferkette | `guides/lieferkette.md` | 14, 20 |
+| Zeit, Zeitzonen und Formate | `guides/zeit-und-formate.md` | 10, 11, 18, 19 |
+| Nach der Übergabe an das Coding-Tool | `guides/nach-der-uebergabe.md` | 22, 23 |
+| Wenn das Coding-Tool vom Plan abweicht oder die KI hakt | `guides/fehlersuche.md` | 22, jederzeit |
+| Zeit- und Kostenrahmen der KI-Nutzung selbst | `guides/zeit-und-kosten.md` | 0 |
+| Vorlagen Datenschutz | `templates/datenschutzerklaerung-geruest.md`, `templates/verarbeitungsverzeichnis.md`, `templates/loeschkonzept.md`, `templates/dsfa-vorlage.md`, `templates/auftragsverarbeiter-liste.md` | 16 |
+| Vorlagen Betrieb | `templates/incident-plan.md`, `templates/release-checkliste.md`, `templates/support-playbook.md` | 20 |

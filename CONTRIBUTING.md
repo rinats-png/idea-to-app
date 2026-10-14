@@ -18,4 +18,7 @@ Verbesserungen sind willkommen – besonders aus echten Durchläufen.
 - **Konkrete Zahlen** (Hash-Parameter, Längen, Laufzeiten, Limits) nur in `security/standardwerte.md`, nie in `regeln-fuer-ki.md` oder den Phasen. Regelnummern in `regeln-fuer-ki.md` nicht umnummerieren (das Prüfskript kontrolliert sie im Handoff).
 - Neue Vorlagen-Formate (Tabellen mit IDs) mit `scripts/pruefe-projekt.mjs` abstimmen und einen Test in `scripts/pruefe-projekt.test.mjs` ergänzen.
 - Vor dem Pull Request: `npm test` (prüft u. a. Pflichtabschnitte aller Phasen und alle relativen Links).
+- **IDs nur in Tabellen:** Neue Vorlagen, in denen IDs ausgewertet werden, nutzen Tabellen. Das Prüfskript wertet Listen nicht aus (und meldet „NICHT GEPRÜFT“).
+- **Quellen mit Prüfdatum:** Guides und Phasen mit rechtlichen, preislichen oder anbieterbezogenen Aussagen enden mit einer Quellentabelle (Aussage, URL, Art, Prüfdatum, neu prüfen bis). Nicht belegbar = `[PRÜFEN]`.
+- **Regelwerk-Version:** Ändert sich eine Regel, eine Pflichtabschnitt-Struktur oder ein vom Prüfskript ausgewertetes Format, erhöhe die Version in `package.json` (Minor) und beschreibe im `CHANGELOG.md`, was bestehende Projekte prüfen müssen.
 - Änderungen im `CHANGELOG.md` eintragen.

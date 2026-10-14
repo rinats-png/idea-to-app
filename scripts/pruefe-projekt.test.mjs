@@ -7,7 +7,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { pruefeProjekt } from "./pruefe-projekt.mjs";
+import { pruefeProjekt, formatiere, nachweisPruefbar } from "./pruefe-projekt.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REGELN = fs.readFileSync(path.join(REPO, "security", "regeln-fuer-ki.md"), "utf8");
@@ -217,4 +217,133 @@ test("Platzhalter in fertigem Dokument werden gemeldet", () => {
   const dir = beispielProjekt({ "00-start.md": "# Start: <Name>\n\n| Datum | JJJJ-MM-TT |\n" });
   const erg = pruefeProjekt(dir, { repoRoot: REPO });
   assert.ok(hat(erg, "WARNUNG", "Vorlagen-Platzhalter"));
+});
+
+// ---------------------------------------------------------------------------
+// Version 1.2: Härtung gegen stilles „grün“
+// ---------------------------------------------------------------------------
+
+const STATE_MIT_VERSION = (version, risiko = "2 – Konten mit eigenen Notizen") =>
+  `# Projektstatus: Testapp
+
+| Feld | Wert |
+|---|---|
+| Einstieg | Neue Idee |
+| Umfang | Lite |
+| Risikostufe | ${risiko} |
+| Regelwerk-Version | ${version} |
+
+| Nr | Phase | Status | Datei |
+|---|---|---|---|
+| 0 | Start | fertig | 00-start.md |
+| 5 | MVP-Umfang | fertig | 05-mvp.md |
+| 14 | Sicherheit | fertig | 14-sicherheit.md |
+| 19 | Tests | fertig | 19-tests.md |
+| 21 | Roadmap | fertig | 21-roadmap.md |
+| 22 | Build-Handoff | fertig | handoff/AGENTS.md |
+| 23 | Launch | in Arbeit | 23-launch.md |
+
+## Annahmen
+| ID | Annahme | Phase | Bestätigt |
+|---|---|---|---|
+| A-001 | Nutzer sind volljährig | 3 | nein |
+`;
+
+test("Funktionen als Liste statt Tabelle: im Handoff FEHLER, sonst WARNUNG – und ausdrücklich „nicht geprüft“", () => {
+  const dir = beispielProjekt({ "05-mvp.md": "# MVP\n\n- F-01 Eintrag anlegen (Muss)\n- F-02 Export (Muss)\n" });
+  const lax = pruefeProjekt(dir, { repoRoot: REPO });
+  assert.ok(hat(lax, "WARNUNG", "Liste oder Text statt in der Tabelle"));
+  assert.ok(lax.nichtGeprueft.length > 0);
+  const streng = pruefeProjekt(dir, { handoff: true, repoRoot: REPO });
+  assert.ok(hat(streng, "FEHLER", "NICHT geprüft"));
+  const text = formatiere(streng, { projektOrdner: dir, modus: "handoff" });
+  assert.ok(text.includes("NICHT GEPRÜFT"));
+  assert.ok(text.includes("ersetzt keine inhaltliche Kontrolle"));
+});
+
+test("ohne FEHLER, aber mit nicht prüfbaren Teilen steht „KEIN Grün“ im Bericht", () => {
+  const dir = beispielProjekt({ "05-mvp.md": "# MVP\n\n- F-01 Eintrag anlegen (Muss)\n" });
+  const erg = pruefeProjekt(dir, { repoRoot: REPO }); // allgemeiner Modus: nur WARNUNG
+  assert.deepEqual(fehler(erg), []);
+  assert.ok(formatiere(erg, { projektOrdner: dir, modus: "allgemein" }).includes("KEIN Grün"));
+});
+
+test("fehlendes MVP-Dokument ist im Handoff ein FEHLER", () => {
+  const dir = beispielProjekt({ "05-mvp.md": null });
+  const erg = pruefeProjekt(dir, { handoff: true, repoRoot: REPO });
+  assert.ok(hat(erg, "FEHLER", "MVP-Dokument fehlt"));
+});
+
+test("Akzeptanzkriterien nur außerhalb einer Tabelle zählen nicht", () => {
+  const dir = beispielProjekt({ "19-tests.md": "# Tests\n\n- AK-F01-1 / TEST-F01-1\n- AK-F02-1 / TEST-F02-1\n" });
+  const erg = pruefeProjekt(dir, { handoff: true, repoRoot: REPO });
+  assert.ok(hat(erg, "FEHLER", "F-01 hat kein Akzeptanzkriterium"));
+  assert.ok(hat(erg, "FEHLER", "steht nur außerhalb einer Tabelle"));
+});
+
+test("Aufgaben und Bedrohungen als Liste werden als nicht prüfbar gemeldet", () => {
+  const dir = beispielProjekt({
+    "21-roadmap.md": "# Roadmap\n\n- TASK-001 F-01 F-02\n",
+    "14-sicherheit.md": "# Sicherheit\n\n- BD-01 Fremde Daten, Test T-SEC-01\n",
+  });
+  const erg = pruefeProjekt(dir, { handoff: true, repoRoot: REPO });
+  assert.ok(hat(erg, "FEHLER", "Aufgaben TASK-… stehen als Liste"));
+  assert.ok(hat(erg, "FEHLER", "Bedrohungen BD-… stehen als Liste"));
+  assert.ok(erg.nichtGeprueft.length >= 2);
+});
+
+test("Nachweise: Positivtest statt Wortliste", () => {
+  for (const schlecht of ["habe ich gemacht", "siehe oben", "implementiert", "erstellt", "CI/CD läuft", "alles in Ordnung", "ok", ""]) {
+    assert.equal(nachweisPruefbar(schlecht), false, schlecht);
+  }
+  for (const gut of ["2026-11-02", "02.11.2026", "https://example.org/run/1", "docs/sicherheit.md", "T-SEC-01..04 grün", "Commit a1b2c3d4", "CI-Lauf #12", "E-004"]) {
+    assert.equal(nachweisPruefbar(gut), true, gut);
+  }
+});
+
+test("Launch: Haken mit schwammigem Nachweis („habe ich gemacht“) zählt nicht", () => {
+  const dir = beispielProjekt({
+    "23-launch.md": "| ✓ | Prüfpunkt | Stufe | Nachweis |\n|---|---|---|---|\n| ☑ | Backup-Wiederherstellung getestet | 2 | habe ich gemacht, funktioniert |\n",
+  });
+  const erg = pruefeProjekt(dir, { launch: true, repoRoot: REPO });
+  assert.ok(hat(erg, "FEHLER", "Abgehakt ohne überprüfbaren Nachweis"));
+  assert.equal(erg.freigabe.status, "Nicht freigabefähig");
+});
+
+test("Regelwerk-Version: fehlend = HINWEIS, abweichend = WARNUNG, passend = nichts", () => {
+  const aktuell = JSON.parse(fs.readFileSync(path.join(REPO, "package.json"), "utf8")).version;
+  const ohne = pruefeProjekt(beispielProjekt(), { repoRoot: REPO });
+  assert.ok(hat(ohne, "HINWEIS", "Regelwerk-Version“ fehlt"));
+  const alt = pruefeProjekt(beispielProjekt({ "PROJECT_STATE.md": STATE_MIT_VERSION("0.9.0") }), { repoRoot: REPO });
+  assert.ok(hat(alt, "WARNUNG", "Projekt wurde mit Regelwerk 0.9.0 begonnen"));
+  const passt = pruefeProjekt(beispielProjekt({ "PROJECT_STATE.md": STATE_MIT_VERSION(aktuell) }), { repoRoot: REPO });
+  assert.ok(!passt.befunde.some((b) => b.bereich === "Version" && b.datei === "PROJECT_STATE.md"));
+});
+
+test("Handoff ohne Regelwerk-Version in handoff/AGENTS.md wird gewarnt", () => {
+  const erg = pruefeProjekt(beispielProjekt(), { handoff: true, repoRoot: REPO });
+  assert.ok(erg.befunde.some((b) => b.bereich === "Version" && b.datei === "handoff/AGENTS.md"));
+});
+
+test("Stufe 3: ohne externe Prüfung nicht freigabefähig; mit akzeptiertem Risiko oder Bericht schon", () => {
+  const stufe3 = (extra = {}) => beispielProjekt({ "PROJECT_STATE.md": STATE_MIT_VERSION(JSON.parse(fs.readFileSync(path.join(REPO, "package.json"), "utf8")).version, "3 – Gesundheitsdaten"), ...extra });
+  const ohne = pruefeProjekt(stufe3(), { launch: true, repoRoot: REPO });
+  assert.ok(hat(ohne, "FEHLER", "externe Fachprüfung"));
+  assert.equal(ohne.freigabe.status, "Nicht freigabefähig");
+
+  const akzeptiert = pruefeProjekt(
+    stufe3({ "ENTSCHEIDUNGEN.md": "# E\n\n| ID | Datum | Phase | Entscheidung |\n|---|---|---|---|\n| E-009 | 2026-11-03 | 23 | Externe Prüfung bewusst nicht beauftragt – Risiko akzeptiert (nur Freundeskreis) |\n" }),
+    { launch: true, repoRoot: REPO }
+  );
+  assert.ok(!hat(akzeptiert, "FEHLER", "externe Fachprüfung"));
+  assert.equal(akzeptiert.freigabe.status, "Freigabefähig mit akzeptierten Risiken");
+
+  const bericht = pruefeProjekt(stufe3({ "pruefungen/externe-pruefung-2026-11-05.md": "# Bericht Fachperson\n" }), { launch: true, repoRoot: REPO });
+  assert.ok(!hat(bericht, "FEHLER", "externe Fachprüfung"));
+  assert.equal(bericht.freigabe.status, "Freigabefähig");
+});
+
+test("Stufe 2 braucht keine externe Prüfung", () => {
+  const erg = pruefeProjekt(beispielProjekt(), { launch: true, repoRoot: REPO });
+  assert.ok(!hat(erg, "FEHLER", "externe Fachprüfung"));
 });

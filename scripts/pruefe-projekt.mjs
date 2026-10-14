@@ -83,6 +83,52 @@ function relativ(projekt, datei) {
 
 const SCHWACHE_NACHWEISE = new Set(["", "ok", "ja", "erledigt", "geprüft", "gemacht", "fertig", "done", "x", "✓", "✔", "laut ki", "-", "–", "…"]);
 
+/**
+ * Positivtest für Nachweise: Statt Schummel-Wörter zu sperren, verlangen wir etwas Überprüfbares –
+ * ein Datum, einen Link, einen Dateipfad, eine ID (Test, Aufgabe, Entscheidung …) oder eine Commit-/Lauf-Nummer.
+ * Das Skript kann nicht prüfen, ob der Nachweis stimmt – nur, ob man ihn überhaupt nachprüfen könnte.
+ */
+const NACHWEIS_MUSTER = [
+  /\b\d{4}-\d{2}-\d{2}\b/, // 2026-11-02
+  /\b\d{1,2}\.\s?\d{1,2}\.\s?(?:\d{4}|\d{2})\b/, // 02.11.2026
+  /https?:\/\/\S+/, // Link
+  /[\w./-]+\.(?:md|mjs|js|ts|tsx|jsx|json|ya?ml|sql|txt|png|jpe?g|pdf|html|toml|lock)\b/i, // Datei
+  /\b(?:TEST-F\d+-\d+|T-SEC-\d+|TASK-\d+|AK-F\d+-\d+|BD-\d+|BF-\d+|E-\d+|Q-\d+|A-\d+)\b/, // IDs
+  /\b(?=[0-9a-f]*\d)[0-9a-f]{7,40}\b/, // Commit
+  /#\d+/, // Pull Request / Lauf
+];
+export function nachweisPruefbar(text) {
+  const t = (text ?? "").trim();
+  if (SCHWACHE_NACHWEISE.has(t.toLowerCase()) || t.length < 4) return false;
+  return NACHWEIS_MUSTER.some((re) => re.test(t));
+}
+
+/** IDs, die in Tabellenzeilen stehen (nur dort zählt das Skript sie). */
+function idsInTabellen(text, regex) {
+  const treffer = new Set();
+  for (const r of tabellenzeilen(text)) for (const m of r.zellen.join(" | ").matchAll(regex)) treffer.add(m[0]);
+  return treffer;
+}
+
+/** IDs, die ausschließlich außerhalb von Tabellen stehen (Liste/Fließtext). */
+function idsAusserhalbTabellen(text, regex) {
+  if (!text) return new Set();
+  const treffer = new Set();
+  for (const z of zeilenOhneCode(text)) {
+    if (/^\s*\|/.test(z.text)) continue;
+    for (const m of z.text.matchAll(regex)) treffer.add(m[0]);
+  }
+  return treffer;
+}
+
+function leseVersion(repoRoot) {
+  try {
+    return JSON.parse(lies(path.join(repoRoot, "package.json"))).version ?? null;
+  } catch {
+    return null;
+  }
+}
+
 const SECRET_MUSTER = [
   { name: "Stripe Secret Key", re: /sk_(live|test)_[0-9a-zA-Z]{10,}/ },
   { name: "Supabase Secret Key", re: /sb_secret_[0-9a-zA-Z_-]{10,}/ },
@@ -103,13 +149,14 @@ export function pruefeProjekt(projektOrdner, optionen = {}) {
   const { handoff = false, launch = false, repoRoot = REPO_ROOT } = optionen;
   const projekt = path.resolve(projektOrdner);
   const befunde = [];
+  const nichtGeprueft = []; // Dinge, die das Skript nicht auswerten konnte – ausdrücklich KEIN „grün“
   const melde = (stufe, bereich, datei, text) => befunde.push({ stufe, bereich, datei, text });
   // Im Handoff-/Launch-Modus werden Lücken in der Rückverfolgung zu FEHLERN.
   const streng = handoff || launch ? "FEHLER" : "WARNUNG";
 
   if (!existiert(projekt)) {
     melde("FEHLER", "Struktur", projektOrdner, "Projektordner existiert nicht.");
-    return { befunde, freigabe: null };
+    return { befunde, freigabe: null, nichtGeprueft };
   }
 
   // --- Struktur -------------------------------------------------------------
@@ -133,6 +180,18 @@ export function pruefeProjekt(projektOrdner, optionen = {}) {
   const bestehend = /^bestehende/i.test(feld("Einstieg").trim());
   if (state && risiko === null) {
     melde(handoff || launch ? "FEHLER" : "HINWEIS", "Struktur", "PROJECT_STATE.md", "Risikostufe ist noch nicht festgelegt.");
+  }
+
+  // Regelwerk-Version: Wurde das Projekt mit einer anderen Version des Regelwerks begonnen?
+  const repoVersion = leseVersion(repoRoot);
+  const projektVersion = (feld("Regelwerk-Version").match(/\d+\.\d+(?:\.\d+)?/) || [])[0] ?? null;
+  if (state && !projektVersion) {
+    melde(handoff || launch ? "WARNUNG" : "HINWEIS", "Version", "PROJECT_STATE.md", "Feld „Regelwerk-Version“ fehlt – nicht erkennbar, mit welcher Regelwerk-Version das Projekt begonnen wurde.");
+  } else if (projektVersion && repoVersion) {
+    const mm = (v) => v.split(".").slice(0, 2).join(".");
+    if (mm(projektVersion) !== mm(repoVersion)) {
+      melde("WARNUNG", "Version", "PROJECT_STATE.md", `Projekt wurde mit Regelwerk ${projektVersion} begonnen, aktuell ist ${repoVersion}. CHANGELOG.md lesen und betroffene Phasen kurz prüfen.`);
+    }
   }
 
   // Fortschritt
@@ -226,16 +285,30 @@ export function pruefeProjekt(projektOrdner, optionen = {}) {
     if (r.zellen.some((c) => /^muss$/i.test(c))) mussFunktionen.push(normF(m[1]));
   }
 
-  if (mvp && mussFunktionen.length === 0 && fertig(5)) {
-    melde("WARNUNG", "Rückverfolgung", "05-mvp.md", "Keine Muss-Funktion mit ID F-… gefunden.");
+  if (!mvp && !bestehend && (handoff || launch)) {
+    melde("FEHLER", "Rückverfolgung", "05-mvp.md", "MVP-Dokument fehlt – ohne Funktionsliste ist die Pflicht-Kette nicht prüfbar.");
+    nichtGeprueft.push("Pflicht-Kette Funktion → Kriterium → Test → Aufgabe (05-mvp.md fehlt)");
+  }
+  if (mvp && mussFunktionen.length === 0 && (fertig(5) || handoff || launch)) {
+    const imText = idsAusserhalbTabellen(mvp, /\bF-?\d+\b/g).size > 0;
+    const grund = imText
+      ? "Funktionen stehen als Liste oder Text statt in der Tabelle der Vorlage – das Skript kann sie nicht auswerten"
+      : "Keine Muss-Funktion mit ID F-… in einer Tabelle gefunden";
+    melde(streng, "Rückverfolgung", "05-mvp.md", `${grund}. Die Pflicht-Kette Funktion → Kriterium → Test → Aufgabe ist NICHT geprüft.`);
+    nichtGeprueft.push("Pflicht-Kette Funktion → Kriterium → Test → Aufgabe (keine auswertbaren Muss-Funktionen)");
   }
 
   if (tests && mussFunktionen.length) {
-    const akF = new Set([...tests.matchAll(/AK-F(\d+)-\d+/g)].map((m) => normF(m[1])));
-    const testF = new Set([...tests.matchAll(/TEST-F(\d+)-\d+/g)].map((m) => normF(m[1])));
+    const akRe = /AK-F(\d+)-\d+/g;
+    const testRe = /TEST-F(\d+)-\d+/g;
+    const akF = new Set([...idsInTabellen(tests, akRe)].map((id) => normF(id.match(/AK-F(\d+)/)[1])));
+    const testF = new Set([...idsInTabellen(tests, testRe)].map((id) => normF(id.match(/TEST-F(\d+)/)[1])));
+    const akRaus = new Set([...idsAusserhalbTabellen(tests, akRe)].map((id) => normF(id.match(/AK-F(\d+)/)[1])));
+    const testRaus = new Set([...idsAusserhalbTabellen(tests, testRe)].map((id) => normF(id.match(/TEST-F(\d+)/)[1])));
+    const nurText = (menge, f) => (menge.has(f) ? " (steht nur außerhalb einer Tabelle und zählt nicht – IDs gehören in die Tabellen der Vorlage)" : "");
     for (const f of mussFunktionen) {
-      if (!akF.has(f)) melde(streng, "Rückverfolgung", "19-tests.md", `Muss-Funktion ${f} hat kein Akzeptanzkriterium (AK-${f.replace("-", "")}-…).`);
-      if (!testF.has(f)) melde(streng, "Rückverfolgung", "19-tests.md", `Muss-Funktion ${f} hat keinen Test (TEST-${f.replace("-", "")}-…).`);
+      if (!akF.has(f)) melde(streng, "Rückverfolgung", "19-tests.md", `Muss-Funktion ${f} hat kein Akzeptanzkriterium (AK-${f.replace("-", "")}-…)${nurText(akRaus, f)}.`);
+      if (!testF.has(f)) melde(streng, "Rückverfolgung", "19-tests.md", `Muss-Funktion ${f} hat keinen Test (TEST-${f.replace("-", "")}-…)${nurText(testRaus, f)}.`);
     }
   } else if (handoff && mussFunktionen.length && !tests) {
     melde("WARNUNG", "Rückverfolgung", "19-tests.md", "Kein Testdokument – Akzeptanzkriterien und Tests fehlen (Lite-Modus: vor Veröffentlichung Pflicht).");
@@ -248,13 +321,22 @@ export function pruefeProjekt(projektOrdner, optionen = {}) {
     for (const f of mussFunktionen) {
       if (!fInTasks.has(f)) melde(streng, "Rückverfolgung", "21-roadmap.md", `Muss-Funktion ${f} ist keiner Aufgabe (TASK-…) zugeordnet.`);
     }
-    if (taskZeilen.length === 0 && fertig(21)) melde(streng, "Rückverfolgung", "21-roadmap.md", "Keine Aufgaben mit ID TASK-… gefunden.");
+    if (taskZeilen.length === 0 && (fertig(21) || handoff || launch)) {
+      const imText = idsAusserhalbTabellen(roadmap, /TASK-\d+/g).size > 0;
+      melde(streng, "Rückverfolgung", "21-roadmap.md", `${imText ? "Aufgaben TASK-… stehen als Liste/Text statt in der Tabelle" : "Keine Aufgaben mit ID TASK-… in einer Tabelle gefunden"} – Zuordnung Funktion → Aufgabe ist NICHT geprüft.`);
+      nichtGeprueft.push("Zuordnung Funktion → Aufgabe (keine auswertbaren TASK-Zeilen)");
+    }
   }
 
   // Bedrohungen
   if (sicherheit) {
-    for (const r of tabellenzeilen(sicherheit)) {
-      if (!/^BD-\d+$/.test(r.zellen[0])) continue;
+    const bdZeilen = tabellenzeilen(sicherheit).filter((r) => /^BD-\d+$/.test(r.zellen[0]));
+    if (bdZeilen.length === 0 && (fertig(14) || handoff || launch)) {
+      const imText = idsAusserhalbTabellen(sicherheit, /BD-\d+/g).size > 0;
+      melde(streng, "Sicherheit", "14-sicherheit.md", `${imText ? "Bedrohungen BD-… stehen als Liste/Text statt in der Tabelle" : "Keine Bedrohungen BD-… in einer Tabelle gefunden"} – Zuordnung Bedrohung → Test ist NICHT geprüft.`);
+      nichtGeprueft.push("Zuordnung Bedrohung → Sicherheitstest (keine auswertbaren BD-Zeilen)");
+    }
+    for (const r of bdZeilen) {
       const zeile = r.zellen.join(" ");
       if (!/T-SEC-\d+/.test(zeile) && !/\bE-\d+/.test(zeile)) {
         melde(streng, "Sicherheit", `14-sicherheit.md:${r.nr}`, `${r.zellen[0]} hat weder Sicherheitstest (T-SEC-…) noch akzeptiertes Risiko (E-…).`);
@@ -296,16 +378,16 @@ export function pruefeProjekt(projektOrdner, optionen = {}) {
   }
 
   // --- Handoff --------------------------------------------------------------
-  if (handoff) pruefeHandoff({ projekt, repoRoot, melde, offeneAnnahmen, mussFunktionen, phase, fertig, risiko });
+  if (handoff) pruefeHandoff({ projekt, repoRoot, melde, offeneAnnahmen, mussFunktionen, phase, fertig, risiko, repoVersion });
 
   // --- Launch ---------------------------------------------------------------
   let freigabe = null;
-  if (launch) freigabe = pruefeLaunch({ projekt, repoRoot, melde, risiko });
+  if (launch) freigabe = pruefeLaunch({ projekt, repoRoot, melde, risiko, entscheidungen, pruefDateien });
 
-  return { befunde, freigabe };
+  return { befunde, freigabe, nichtGeprueft };
 }
 
-function pruefeHandoff({ projekt, repoRoot, melde, offeneAnnahmen, mussFunktionen, fertig, risiko }) {
+function pruefeHandoff({ projekt, repoRoot, melde, offeneAnnahmen, mussFunktionen, fertig, risiko, repoVersion }) {
   const ho = path.join(projekt, "handoff");
   if (!existiert(ho)) {
     melde("FEHLER", "Handoff", "handoff/", "Handoff-Ordner fehlt.");
@@ -336,6 +418,9 @@ function pruefeHandoff({ projekt, repoRoot, melde, offeneAnnahmen, mussFunktione
     melde("FEHLER", "Handoff", "handoff/AGENTS.md", `Sicherheitsregeln fehlen: ${fehlendeRegeln.join(", ")}.`);
   }
   if (/<!--/.test(agents)) melde("WARNUNG", "Handoff", "handoff/AGENTS.md", "Enthält noch Vorlagen-Kommentare (<!-- … -->).");
+  if (agents && !/Regelwerk-Version/i.test(agents)) {
+    melde("WARNUNG", "Version", "handoff/AGENTS.md", `Keine Angabe „Regelwerk-Version“ – das Coding-Tool und spätere Sitzungen können nicht erkennen, mit welchem Regelwerk${repoVersion ? ` (aktuell ${repoVersion})` : ""} der Plan erstellt wurde.`);
+  }
 
   // Offene Annahmen
   for (const id of offeneAnnahmen) {
@@ -369,7 +454,7 @@ function pruefeHandoff({ projekt, repoRoot, melde, offeneAnnahmen, mussFunktione
   }
 }
 
-function pruefeLaunch({ projekt, repoRoot, melde, risiko }) {
+function pruefeLaunch({ projekt, repoRoot, melde, risiko, entscheidungen = "", pruefDateien = [] }) {
   const datei = path.join(projekt, "23-launch.md");
   const text = lies(datei);
   if (!text) {
@@ -379,6 +464,8 @@ function pruefeLaunch({ projekt, repoRoot, melde, risiko }) {
   const stufeRisiko = risiko ?? 3;
   const zaehler = { pflicht: 0, nachweis: 0, na: 0, offen: 0, akzeptiert: 0 };
   const offenListe = [];
+  let externGeprueft = false;
+  let externZeile = false;
 
   for (const r of tabellenzeilen(text)) {
     const [box, punkt, stufe, nachweisRoh = ""] = r.zellen;
@@ -386,11 +473,13 @@ function pruefeLaunch({ projekt, repoRoot, melde, risiko }) {
     const pflicht = /^alle$/i.test(stufe) || (/^\d$/.test(stufe) && parseInt(stufe, 10) <= stufeRisiko);
     const haken = /^(☑|✅|\[x\])$/i.test(box);
     const nachweis = nachweisRoh.trim();
-    const schwach = SCHWACHE_NACHWEISE.has(nachweis.toLowerCase()) || nachweis.length < 4;
     const na = /^n\/a\b/i.test(nachweis);
+    const schwach = !nachweisPruefbar(nachweis);
+    if (haken && !schwach && /extern/i.test(punkt)) externGeprueft = true;
+    if (/extern/i.test(punkt) && /^3$/.test(stufe)) externZeile = true;
 
     if (haken && schwach && !na) {
-      melde("FEHLER", "Launch", `23-launch.md:${r.nr}`, `Abgehakt ohne überprüfbaren Nachweis: „${punkt}“.`);
+      melde("FEHLER", "Launch", `23-launch.md:${r.nr}`, `Abgehakt ohne überprüfbaren Nachweis: „${punkt}“. Ein Nachweis braucht ein Datum, einen Link, einen Dateipfad, eine ID (Test/Aufgabe/Entscheidung) oder eine Commit-/Lauf-Nummer.`);
       if (pflicht) {
         zaehler.pflicht++;
         zaehler.offen++;
@@ -410,6 +499,27 @@ function pruefeLaunch({ projekt, repoRoot, melde, risiko }) {
     } else {
       zaehler.offen++;
       offenListe.push(punkt);
+    }
+  }
+
+  // Stufe 3: Eine zweite KI ersetzt keine unabhängige Fachprüfung. Entweder externe Prüfung mit Nachweis – oder bewusst akzeptiertes Risiko.
+  if (risiko === 3) {
+    const bericht = pruefDateien.some((f) => /^externe-pruefung/i.test(f));
+    const akzeptiertE = tabellenzeilen(entscheidungen).some((r) => {
+      const z = r.zellen.join(" ");
+      return /^E-\d+$/.test(r.zellen[0]) && /extern/i.test(z) && /akzeptiert|Risiko/i.test(z);
+    });
+    if (!bericht && !externGeprueft && !akzeptiertE) {
+      melde("FEHLER", "Launch", "23-launch.md", "Risikostufe 3: Es fehlt eine externe Fachprüfung (Nachweis in der Launch-Liste, Bericht pruefungen/externe-pruefung-….md) oder ein bewusst akzeptiertes Risiko (E-… in ENTSCHEIDUNGEN.md, Stichwort „extern“). Eine zweite KI ersetzt das nicht.");
+      if (!externZeile) {
+        zaehler.pflicht++;
+        zaehler.offen++;
+        offenListe.push("Externe Fachprüfung (Stufe 3)");
+      }
+    } else if (!externZeile) {
+      zaehler.pflicht++;
+      if (akzeptiertE && !bericht && !externGeprueft) zaehler.akzeptiert++;
+      else zaehler.nachweis++;
     }
   }
 
@@ -461,6 +571,16 @@ export function formatiere(ergebnis, { projektOrdner, modus }) {
     zeilen.push(`Freigabestatus: ${f.status}`);
   }
   if (anzahl("FEHLER") > 0 && modus.includes("handoff")) zeilen.push("→ Gate von Phase 22 erst öffnen, wenn alle FEHLER behoben oder als Risiko (E-…) akzeptiert sind.");
+  const nicht = ergebnis.nichtGeprueft ?? [];
+  for (const n of nicht) zeilen.push(`⚠ NICHT GEPRÜFT: ${n}`);
+  const ergebnisZeile =
+    anzahl("FEHLER") > 0
+      ? "Ergebnis: ✖ Es gibt FEHLER."
+      : nicht.length > 0
+        ? "Ergebnis: ▲ Kein FEHLER gefunden, aber Teile konnten nicht geprüft werden – das ist KEIN Grün."
+        : "Ergebnis: ✔ Formal in Ordnung (Teile vorhanden und verknüpft).";
+  zeilen.push(ergebnisZeile);
+  zeilen.push("Hinweis: Diese Prüfung ersetzt keine inhaltliche Kontrolle. Sie prüft, ob Teile vorhanden und verknüpft sind – nicht, ob sie stimmen (siehe Zweitprüfung, AGENTS.md Abschnitt 14).");
   return zeilen.join("\n");
 }
 

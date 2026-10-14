@@ -35,6 +35,11 @@ Damit nichts vergessen wird, bekommt alles eine Nummer: Jede Funktion (`F-01`) h
 - **Teststrategie** passend zum Stack aus Phase 13 (z. B. Vitest/Jest, Playwright, GitHub Actions) – Tests laufen automatisch bei jedem Push.
 - **Pflicht-Sicherheitstests** aus Phase 12 und 14 übernehmen (`T-SEC-…`, jeweils mit Bezug `BD-…` oder Regel) und mit `security/sicherheitstests.md` ergänzen. Erwartungen bei verweigertem Zugriff gemäß **Zugriffs-Antwortstrategie** aus Phase 14 – und immer: keine fremden Daten in der Antwort.
 - **Rückverfolgungsmatrix** (siehe Vorlage). Lücken offen benennen.
+- **IDs nur in Tabellen:** `AK-…`, `TEST-…` und `T-SEC-…` stehen in den Tabellen der Vorlage unten – nicht nur in Listen oder Fließtext. Sonst kann das Prüfskript sie nicht auswerten und meldet „NICHT GEPRÜFT“.
+- **Tests, die scheitern können:** Ein Test, der nie rot wird, beweist nichts. Plane für jeden Pflicht-Sicherheitstest (`T-SEC-…`) einen einmaligen **Gegenprobe-Lauf** ein: die Schutzmaßnahme lokal absichtlich abschalten und prüfen, dass der Test rot wird. Das Ergebnis (Datum, Testname) gehört in die Spalte „Nachweis“ des Launch-Dokuments.
+- **Zeitbezug:** Hat die App Zeitfelder (Phase 11), übernimm die Pflicht-Testfälle aus [`guides/zeit-und-formate.md`](../guides/zeit-und-formate.md) (Zeitumstellung, Mitternacht, Zeitzonenwechsel) als `TEST-…`.
+- **App-Art:** Bei Desktop-Programm, Browser-Erweiterung, Spiel, Wearable oder Bot ergänzt [`guides/plattformen.md`](../guides/plattformen.md) die Testarten (z. B. Update-Weg, Berechtigungen, Server-Autorität bei Spielen).
+- **Lieferkette in der CI:** Schwachstellen-Scan und Secret-Scan laufen bei jedem Push (siehe [`guides/lieferkette.md`](../guides/lieferkette.md)).
 - **Manuelle Checkliste** für den Nutzer (Klick-Test vor jedem Release) in einfacher Sprache.
 - Barrierefreiheit: automatischer Check (z. B. axe / Lighthouse) + kurzer Tastatur-Test.
 - **Definition of Done für jede Aufgabe** (geht in den Handoff).
@@ -82,6 +87,8 @@ Damit nichts vergessen wird, bekommt alles eine Nummer: Jede Funktion (`F-01`) h
 ## Definition of Done
 - [ ] Jede Muss-Funktion hat mindestens ein `AK`, jedes `AK` mindestens einen `TEST`
 - [ ] Jede Bedrohung aus Phase 14 hat einen `T-SEC` oder ein akzeptiertes Risiko
+- [ ] Alle `AK-`, `TEST-` und `T-SEC-` stehen in Tabellen
+- [ ] Gegenprobe-Lauf für Pflicht-Sicherheitstests eingeplant
 - [ ] Teststrategie mit Werkzeugen
 - [ ] Manuelle Checkliste für den Nutzer
 

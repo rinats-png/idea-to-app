@@ -14,8 +14,11 @@
 
 Ein **Wireframe** ist eine einfache, graue Skizze eines Bildschirms – ohne Farben und Bilder. Es geht nur um **Was steht wo?** Farben und Stil kommen in Phase 9. Du kannst die Dateien im Browser öffnen (Doppelklick) und dir vorstellen, wie die App sich anfühlt. Änderungen sind jetzt noch billig – später im Code werden sie teuer.
 
+**Wichtig:** Mockups sind Wünsche, keine Zusagen. Ob alles so gebaut werden kann – und zu welchem Preis –, wird erst in Phase 13 (Tech-Stack) und 14 (Sicherheit) geprüft. Verlieb dich deshalb nicht in einen Bildschirm, bevor die Ampel aus Phase 5 (🟢/🟡/🔴) dazu gesagt hat, wie machbar die Funktion dahinter ist.
+
 ## Ablauf für die KI
 
+0. **Vorab:** Nenne dem Nutzer in einem Satz, dass Mockups Wünsche sind und die Machbarkeit in Phase 13 entschieden wird. Zeige keine Mockups für Funktionen, die in Phase 5 als 🔴 markiert sind, ohne diesen Hinweis; markiere solche Elemente im Mockup sichtbar (z. B. gestrichelter Rand und „Machbarkeit offen“).
 1. Wähle die **3–6 wichtigsten Screens** (Start/Übersicht, Kernfunktion, Detail, Formular, Einstellungen).
 2. Kopiere `templates/wireframe.html` und baue pro Screen eine Datei `mockups/<SID>-<name>.html`. Lies vorher die Kommentare im Template.
 3. Zeige den **ersten** Screen und frage nach Feedback. Ist der Nutzer unsicher, baue **2–3 echte Gestaltungsrichtungen** desselben Screens (`mockups/S01-uebersicht-a.html`, `-b`, `-c`). Die Varianten müssen sich im **Aufbau** unterscheiden, nicht nur in Details – z. B.:
@@ -81,5 +84,6 @@ Wenn dein Tool HTML direkt anzeigen kann (Artifact, Canvas, Vorschau), zeige die
 - [ ] Wireframes für alle Haupt-Screens
 - [ ] Mindestens ein Leer- und ein Fehlerzustand gezeigt
 - [ ] Feedback eingearbeitet und vom Nutzer freigegeben
+- [ ] Nutzer weiß: Mockups sind Wünsche, keine Zusagen; 🔴-Elemente sind als „Machbarkeit offen“ markiert
 
 → **Standard-Gate**

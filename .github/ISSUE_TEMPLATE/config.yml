@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Sicherheitsproblem melden
+    url: https://github.com/rinats-png/idea-to-app/security
+    about: Bitte nicht öffentlich beschreiben – siehe SECURITY.md im Repository.

@@ -26,7 +26,7 @@ Bisher haben wir geplant. Jetzt packen wir alles in ein **Übergabepaket**: eine
 
 ## Ablauf für die KI
 
-1. **Vorprüfung:** Gibt es Phasen mit `⚠️ prüfen`, offene kritische Fragen oder unbearbeitete Befunde einer Zweitprüfung? Erst klären.
+1. **Vorprüfung:** Gibt es Phasen mit `⚠️ prüfen`, offene kritische Fragen oder unbearbeitete Befunde einer Zweitprüfung? Erst klären. Stimmt das Feld `Regelwerk-Version` in `PROJECT_STATE.md` noch mit der aktuellen Version überein (AGENTS.md Abschnitt 4)? Wenn nicht: `CHANGELOG.md` lesen und betroffene Phasen prüfen, bevor du übergibst.
 2. **Lite-Modus:** Deutlich sagen, welche Phasen vor einer Veröffentlichung noch fehlen (12, 16, 19, 20, 23), und sie als Aufgaben in die Roadmap aufnehmen.
 3. **Paket erzeugen:**
 
@@ -51,12 +51,13 @@ handoff/
     └── mockups/              ← freigegebene Mockups
 ```
 
-4. In `AGENTS.md` des Handoffs übernimmst du **wörtlich** den Inhalt von `security/regeln-fuer-ki.md` ab „## Grundsatz“ (Regelnummern unverändert).
+4. Trage in `handoff/AGENTS.md` die **Regelwerk-Version** ein (Zeile unter der Überschrift). Sie sagt dem Coding-Tool und späteren Sitzungen, mit welchem Stand von idea-to-app der Plan erstellt wurde. In `AGENTS.md` des Handoffs übernimmst du **wörtlich** den Inhalt von `security/regeln-fuer-ki.md` ab „## Grundsatz“ (Regelnummern unverändert).
 5. `docs/sicherheit.md` enthält **alle konkreten Werte**, auf die die Regeln verweisen. Fehlt ein Wert, ist der Handoff unvollständig.
 6. Alle Annahmen mit Status „nein“ (unbestätigt) listest du in `AGENTS.md` unter „Offene Annahmen“ mit ID auf, damit das Coding-Tool nachfragt statt rät.
-7. **Prüfskript** ausführen: `node scripts/pruefe-projekt.mjs projekte/<slug> --handoff`. Ausgabe in `pruefungen/` speichern. FEHLER beheben (oder als Risiko `E-…` akzeptieren lassen). Ohne Befehlsausführung: Prüfliste aus `AGENTS.md` Abschnitt 15 manuell.
+7. **Prüfskript** ausführen: `node scripts/pruefe-projekt.mjs projekte/<slug> --handoff`. Ausgabe in `pruefungen/` speichern. FEHLER beheben (oder als Risiko `E-…` akzeptieren lassen). Steht in der Ausgabe **„NICHT GEPRÜFT“**, ist das kein Grün: Meist stehen IDs in Listen statt in den Tabellen der Vorlagen – korrigieren und erneut laufen lassen. Sage dem Nutzer in einem Satz, dass die Prüfung Vorhandensein und Verknüpfung prüft, nicht Richtigkeit. Ohne Befehlsausführung: Prüfliste aus `AGENTS.md` Abschnitt 15 manuell, und sage das offen.
 8. **Zweitprüfung** (Stufe 3 Pflicht, Stufe 2 empfohlen) mit dem Prüfauftrag „Handoff Phase 22“.
-9. Erkläre dem Nutzer in 5 einfachen Schritten, wie es weitergeht (Repository anlegen bzw. öffnen, Ordnerinhalt hineinkopieren, Coding-Tool öffnen, Start-Prompt einfügen, nach jedem Meilenstein selbst testen).
+9. **Risikostufe 3:** Sage dem Nutzer jetzt offen, dass vor der Veröffentlichung für andere eine **externe Fachprüfung** (oder ein bewusst akzeptiertes Risiko `E-…`) nötig ist und dass das Prüfskript sonst „Nicht freigabefähig“ meldet. Eine zweite KI ersetzt sie nicht. Nimm die Aufgabe „externe Prüfung organisieren“ in die Roadmap auf.
+10. Erkläre dem Nutzer in 5 einfachen Schritten, wie es weitergeht (Repository anlegen bzw. öffnen, Ordnerinhalt hineinkopieren, Coding-Tool öffnen, Start-Prompt einfügen, nach jedem Meilenstein selbst testen) und verweise auf [`guides/nach-der-uebergabe.md`](../guides/nach-der-uebergabe.md) und [`guides/fehlersuche.md`](../guides/fehlersuche.md).
 
 ### Bei bestehender App
 
@@ -81,8 +82,10 @@ Beim Bauen stellt sich oft heraus, dass etwas anders gemacht werden muss. Das Pa
 ## Definition of Done
 - [ ] Handoff-Ordner vollständig, `docs/sicherheit.md` mit allen Werten
 - [ ] Sicherheitsregeln wörtlich übernommen (alle Regelnummern vorhanden)
+- [ ] Regelwerk-Version in `PROJECT_STATE.md` und `handoff/AGENTS.md` eingetragen
 - [ ] Offene Annahmen mit IDs gelistet
-- [ ] Prüfskript `--handoff` ohne FEHLER (oder verbleibende als `E-…` akzeptiert)
+- [ ] Prüfskript `--handoff` ohne FEHLER (oder verbleibende als `E-…` akzeptiert) und ohne ungeklärtes „NICHT GEPRÜFT“
+- [ ] Bei Stufe 3: Nutzer weiß, dass externe Fachprüfung oder akzeptiertes Risiko für den Launch nötig ist
 - [ ] Zweitprüfung durchgeführt (wenn Pflicht/empfohlen), Befunde bearbeitet
 - [ ] Start-Prompt fertig; Nutzer weiß, wie es weitergeht
 
